@@ -1,0 +1,15 @@
+G:\Visual Studio repos\repos\Warehouse\Main\bin\Debug\Main.exe.config
+G:\Visual Studio repos\repos\Warehouse\Main\bin\Debug\Main.exe
+G:\Visual Studio repos\repos\Warehouse\Main\bin\Debug\Main.pdb
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.csproj.AssemblyReference.cache
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\MainWindow.g.cs
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\App.g.cs
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main_MarkupCompile.cache
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main_MarkupCompile.lref
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\MainWindow.baml
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.g.resources
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.Properties.Resources.resources
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.csproj.GenerateResource.cache
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.csproj.CoreCompileInputs.cache
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.exe
+G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.pdb
