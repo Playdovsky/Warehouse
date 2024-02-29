@@ -9,3 +9,6 @@
 * **Programista** - Dawid Kunicki (@DawKun)
 * **Programista** - Piotr Smyczek (@PioSm)
 * **Tester** - Karol Fontański
+
+## Excel Ogólny - Grupa III
+https://uniwersytetlodzki.sharepoint.com/:x:/s/0600-Testowanieoprogramowania24_Laboratorium_gr2186/EZyIaHwu9MxHnXDoN82oQmEBa7UEg4ZCgLT1gH_3mBM6gQ?e=xeXv88
