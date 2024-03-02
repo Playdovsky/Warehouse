@@ -1,17 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\dawku\\Documents\\GitHub\\Warehouse\\",
+  "WorkspaceRootPath": "C:\\Users\\karol\\OneDrive\\Dokumente\\GitHub\\Warehouse\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{142637F2-D300-4285-B327-4EE26925029C}|Main\\Main.csproj|c:\\users\\dawku\\documents\\github\\warehouse\\main\\mainwindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "AbsoluteMoniker": "D:0:0:{142637F2-D300-4285-B327-4EE26925029C}|Main\\Main.csproj|c:\\users\\karol\\onedrive\\dokumente\\github\\warehouse\\main\\mainwindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
       "RelativeMoniker": "D:0:0:{142637F2-D300-4285-B327-4EE26925029C}|Main\\Main.csproj|solutionrelative:main\\mainwindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{142637F2-D300-4285-B327-4EE26925029C}|Main\\Main.csproj|c:\\users\\dawku\\documents\\github\\warehouse\\main\\app.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "AbsoluteMoniker": "D:0:0:{142637F2-D300-4285-B327-4EE26925029C}|Main\\Main.csproj|C:\\Users\\karol\\OneDrive\\Dokumente\\GitHub\\Warehouse\\main\\app.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
       "RelativeMoniker": "D:0:0:{142637F2-D300-4285-B327-4EE26925029C}|Main\\Main.csproj|solutionrelative:main\\app.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{142637F2-D300-4285-B327-4EE26925029C}|Main\\Main.csproj|c:\\users\\dawku\\documents\\github\\warehouse\\main\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{142637F2-D300-4285-B327-4EE26925029C}|Main\\Main.csproj|C:\\Users\\karol\\OneDrive\\Dokumente\\GitHub\\Warehouse\\main\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{142637F2-D300-4285-B327-4EE26925029C}|Main\\Main.csproj|solutionrelative:main\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -22,45 +22,21 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\dawku\\Documents\\GitHub\\Warehouse\\Main\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\karol\\OneDrive\\Dokumente\\GitHub\\Warehouse\\Main\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Main\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\dawku\\Documents\\GitHub\\Warehouse\\Main\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\karol\\OneDrive\\Dokumente\\GitHub\\Warehouse\\Main\\MainWindow.xaml.cs",
               "RelativeToolTip": "Main\\MainWindow.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAMAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-02T11:14:41.555Z",
               "EditorCaption": ""
@@ -69,50 +45,25 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\dawku\\Documents\\GitHub\\Warehouse\\Main\\App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\karol\\OneDrive\\Dokumente\\GitHub\\Warehouse\\Main\\App.xaml.cs",
               "RelativeDocumentMoniker": "Main\\App.xaml.cs",
-              "ToolTip": "C:\\Users\\dawku\\Documents\\GitHub\\Warehouse\\Main\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\karol\\OneDrive\\Dokumente\\GitHub\\Warehouse\\Main\\App.xaml.cs",
               "RelativeToolTip": "Main\\App.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-02T11:14:35.83Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2024-03-02T11:14:35.83Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\dawku\\Documents\\GitHub\\Warehouse\\Main\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\karol\\OneDrive\\Dokumente\\GitHub\\Warehouse\\Main\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Main\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\dawku\\Documents\\GitHub\\Warehouse\\Main\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\karol\\OneDrive\\Dokumente\\GitHub\\Warehouse\\Main\\MainWindow.xaml",
               "RelativeToolTip": "Main\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-03-02T11:14:18.165Z",
               "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedHeight": 955,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
-            }
-          ]
-        },
-        {
-          "DockedHeight": 402,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             }
           ]
         }

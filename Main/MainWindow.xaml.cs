@@ -21,6 +21,7 @@ namespace Main
     /// komentarz
     /// halo
     /// Cześć
+    /// KarolcOM
     public partial class MainWindow : Window
     {
         public MainWindow()
