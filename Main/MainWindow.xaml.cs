@@ -18,20 +18,11 @@ namespace Main
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
     /// </summary>
-    /// komentarz
-    /// halo
-    /// Cześć
-    /// KarolcOM
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Witam grupę testerów oprogramowania");
         }
     }
 }

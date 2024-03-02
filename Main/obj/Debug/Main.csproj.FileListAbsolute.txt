@@ -13,3 +13,20 @@ G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.csproj.GenerateResour
 G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.csproj.CoreCompileInputs.cache
 G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.exe
 G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.pdb
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Main.exe.config
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Main.exe
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Main.pdb
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.csproj.AssemblyReference.cache
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\MainWindow.g.cs
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\StartWindow.g.cs
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\App.g.cs
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main_MarkupCompile.cache
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main_MarkupCompile.lref
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\MainWindow.baml
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\StartWindow.baml
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.g.resources
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.Properties.Resources.resources
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.csproj.GenerateResource.cache
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.csproj.CoreCompileInputs.cache
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.exe
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.pdb
