@@ -64,6 +64,9 @@
     <Compile Include="GUI\WarehouseControl.xaml.cs">
       <DependentUpon>WarehouseControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\LogInControl.xaml.cs">
+      <DependentUpon>LogInControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="GUI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,6 +88,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\WarehouseControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\LogInControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

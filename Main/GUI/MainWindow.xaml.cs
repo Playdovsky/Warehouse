@@ -20,9 +20,14 @@ namespace Main
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Main method creates log in control as the first thing in the workspace.
+        /// Full log in functionality will be added during further developement.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            ContentControlWorkspace.Content = new LogInControl();
         }
 
         /// <summary>
@@ -40,5 +45,6 @@ namespace Main
         {
             ContentControlWorkspace.Content = new WarehouseControl();
         }
+
     }
 }

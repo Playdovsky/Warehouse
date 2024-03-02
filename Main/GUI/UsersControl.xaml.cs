@@ -17,6 +17,7 @@ namespace Main
 {
     /// <summary>
     /// Users control workspace.
+    /// This is workspace which is available to use inside MainWindow.
     /// </summary>
     public partial class UsersControl : UserControl
     {

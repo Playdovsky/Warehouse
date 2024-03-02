@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\Project properties\App.xaml
-41820709540
+51089016857
 
-8-983121858
+9-44091027
 13-1310406943
-GUI\MainWindow.xaml;GUI\StartWindow.xaml;GUI\UsersControl.xaml;GUI\WarehouseControl.xaml;
+GUI\MainWindow.xaml;GUI\StartWindow.xaml;GUI\UsersControl.xaml;GUI\WarehouseControl.xaml;GUI\LogInControl.xaml;
 
 False
 

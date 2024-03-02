@@ -34,3 +34,5 @@ C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\StartWindow.baml
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\UsersControl.baml
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\WarehouseControl.baml
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\LogInControl.g.cs
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\LogInControl.baml
