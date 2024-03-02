@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Main
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Users control workspace.
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UsersControl : UserControl
     {
-        public MainWindow()
+        public UsersControl()
         {
             InitializeComponent();
         }

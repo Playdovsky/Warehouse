@@ -9,12 +9,12 @@ Main
 none
 false
 DEBUG;TRACE
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\App.xaml
-2-269550713
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\Project properties\App.xaml
+41820709540
 
-6979816047
+8-983121858
 13-1310406943
-MainWindow.xaml;StartWindow.xaml;
+GUI\MainWindow.xaml;GUI\StartWindow.xaml;GUI\UsersControl.xaml;GUI\WarehouseControl.xaml;
 
 False
 

@@ -17,16 +17,20 @@ C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Main
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Main.exe
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Main.pdb
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.csproj.AssemblyReference.cache
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\MainWindow.g.cs
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\StartWindow.g.cs
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\App.g.cs
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main_MarkupCompile.cache
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main_MarkupCompile.lref
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\MainWindow.baml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\StartWindow.baml
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.g.resources
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.Properties.Resources.resources
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.csproj.GenerateResource.cache
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.csproj.CoreCompileInputs.cache
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.exe
 C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.pdb
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\MainWindow.g.cs
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\StartWindow.g.cs
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\UsersControl.g.cs
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\WarehouseControl.g.cs
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Project properties\App.g.cs
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\MainWindow.baml
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\StartWindow.baml
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\UsersControl.baml
+C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\WarehouseControl.baml

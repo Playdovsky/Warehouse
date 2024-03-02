@@ -16,7 +16,7 @@ using System.Windows.Threading;
 namespace Main
 {
     /// <summary>
-    /// Logika interakcji dla klasy StartWindow.xaml
+    /// Startup window which is executed for first 2 seconds.
     /// </summary>
     public partial class StartWindow : Window
     {
