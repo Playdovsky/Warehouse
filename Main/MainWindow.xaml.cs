@@ -20,6 +20,7 @@ namespace Main
     /// </summary>
     /// komentarz
     /// halo
+    /// Cześć
     public partial class MainWindow : Window
     {
         public MainWindow()
