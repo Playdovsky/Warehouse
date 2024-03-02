@@ -19,6 +19,7 @@ namespace Main
     /// Logika interakcji dla klasy MainWindow.xaml
     /// </summary>
     /// komentarz
+    /// halo
     public partial class MainWindow : Window
     {
         public MainWindow()
