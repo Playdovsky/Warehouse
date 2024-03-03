@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Main"
         mc:Ignorable="d"
-        Title="StartWindow" Height="450" Width="800" WindowStyle="None">
+        Title="StartWindow" Height="450" Width="800" WindowStyle="None"
+        Icon="{StaticResource AppIcon}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
