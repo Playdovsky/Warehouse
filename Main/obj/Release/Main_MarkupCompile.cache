@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\maria\Source\Repos\Playdovsky\Warehouse\Main\obj\Release\
+C:\Users\dawku\Source\Repos\Playdovsky\Warehouse\Main\obj\Release\
 Main
 none
 false
 TRACE
-C:\Users\maria\Source\Repos\Playdovsky\Warehouse\Main\App.xaml
-1219584333
+C:\Users\dawku\Source\Repos\Playdovsky\Warehouse\Main\Project properties\App.xaml
+51089016857
 
-51579654133
+9-44091027
 13-1310406943
-MainWindow.xaml;
+GUI\MainWindow.xaml;GUI\StartWindow.xaml;GUI\UsersControl.xaml;GUI\WarehouseControl.xaml;GUI\LogInControl.xaml;
 
 True
 
