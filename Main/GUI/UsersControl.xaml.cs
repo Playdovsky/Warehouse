@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -45,6 +46,55 @@ namespace Main
             };
                 DataContext = this;
             }
+        /// <summary>
+        /// Resizes the DataGrid and animates the display of UserInfo_Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var selectedRow = (DataGridRow)ListOfUsers_DataGrid.ItemContainerGenerator.ContainerFromItem(ListOfUsers_DataGrid.SelectedItem);
+            if (selectedRow != null)
+            {
+                if (ListOfUsers_DataGrid.ActualWidth <= 280)
+                {
+                    DoubleAnimation slideInAnimation = new DoubleAnimation
+                    {
+                        From = 0,
+                        To = 350,
+                        Duration = TimeSpan.FromSeconds(0.5)
+                    };
+
+                    UserInfo_Grid.BeginAnimation(Grid.WidthProperty, slideInAnimation);
+                    UserInfo_Grid.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    DoubleAnimation reduceWidthAnimation = new DoubleAnimation
+                    {
+                        From = ListOfUsers_DataGrid.ActualWidth,
+                        To = 280,
+                        Duration = TimeSpan.FromSeconds(0.5)
+                    };
+
+                    reduceWidthAnimation.Completed += (s, args) =>
+                    {
+                        DoubleAnimation slideInAnimation = new DoubleAnimation
+                        {
+                            From = 0,
+                            To = 350,
+                            Duration = TimeSpan.FromSeconds(0.5)
+                        };
+
+                        UserInfo_Grid.BeginAnimation(Grid.WidthProperty, slideInAnimation);
+                        UserInfo_Grid.Visibility = Visibility.Visible;
+                    };
+
+                    SearchParametrs_Label.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
+                    ListOfUsers_DataGrid.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
+                }
+            }
+        }
     }
     public class User
     {
