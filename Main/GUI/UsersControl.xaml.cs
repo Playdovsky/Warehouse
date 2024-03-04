@@ -28,23 +28,24 @@ namespace Main
             InitializeComponent();
             Users = new List<User>
             {
-                new User { Id = 1, Name = "John", Surname = "Doe", Login = "john_doe", Password = "password123", Role = "user", Email = "john_doe@example.com", Address = "123 Main St", Phone = "555-1234" },
-                new User { Id = 2, Name = "Alice", Surname = "Smith", Login = "alice_smith", Password = "password456", Role = "admin", Email = "alice@example.com", Address = "456 Oak Ave", Phone = "555-5678" },
-                new User { Id = 3, Name = "Bob", Surname = "Johnson", Login = "bob_johnson", Password = "password789", Role = "user", Email = "bob@example.com", Address = "789 Elm Blvd", Phone = "555-91011" },
-                new User { Id = 4, Name = "Emily", Surname = "Brown", Login = "emily_brown", Password = "password321", Role = "user", Email = "emily@example.com", Address = "321 Pine St", Phone = "555-2468" },
-                new User { Id = 5, Name = "Michael", Surname = "Wilson", Login = "michael_wilson", Password = "password654", Role = "admin", Email = "michael@example.com", Address = "654 Maple Ave", Phone = "555-1357" },
-                new User { Id = 6, Name = "Sophia", Surname = "Martinez", Login = "sophia_martinez", Password = "password987", Role = "user", Email = "sophia@example.com", Address = "987 Cedar Blvd", Phone = "555-3691" },
-                new User { Id = 7, Name = "William", Surname = "Taylor", Login = "william_taylor", Password = "password246", Role = "user", Email = "william@example.com", Address = "246 Birch St", Phone = "555-8024" },
-                new User { Id = 8, Name = "Olivia", Surname = "Thomas", Login = "olivia_thomas", Password = "password135", Role = "admin", Email = "olivia@example.com", Address = "135 Elm Ave", Phone = "555-5793" },
-                new User { Id = 9, Name = "James", Surname = "Hernandez", Login = "james_hernandez", Password = "password468", Role = "user", Email = "james@example.com", Address = "468 Oak St", Phone = "555-2468" },
-                new User { Id = 10, Name = "Isabella", Surname = "Young", Login = "isabella_young", Password = "password579", Role = "user", Email = "isabella@example.com", Address = "579 Pine Ave", Phone = "555-1357" },
-                new User { Id = 11, Name = "Alexander", Surname = "Garcia", Login = "alexander_garcia", Password = "password789", Role = "user", Email = "alexander@example.com", Address = "789 Cedar St", Phone = "555-2468" },
-                new User { Id = 12, Name = "Mia", Surname = "Martinez", Login = "mia_martinez", Password = "password111", Role = "admin", Email = "mia@example.com", Address = "111 Maple Ave", Phone = "555-1357" },
-                new User { Id = 13, Name = "Ethan", Surname = "Robinson", Login = "ethan_robinson", Password = "password222", Role = "user", Email = "ethan@example.com", Address = "222 Elm Blvd", Phone = "555-3691" },
-                new User { Id = 14, Name = "Ava", Surname = "Perez", Login = "ava_perez", Password = "password333", Role = "user", Email = "ava@example.com", Address = "333 Birch St", Phone = "555-8024" },
-                new User { Id = 15, Name = "Benjamin", Surname = "Turner", Login = "benjamin_turner", Password = "password444", Role = "user", Email = "benjamin@example.com", Address = "444 Oak Ave", Phone = "555-5793" }
+                new User { UserId = 1, FirstName = "John", LastName = "Doe",Gender = "Male", Login = "john_doe", Password = "password123", Role = "user", Email = "john_doe@example.com", City = "New York", Street = "Main St", PostalCode = "10-001", HouseNumber = "12", ApartmentNumber = "12" ,Pesel = "12345678901", PhoneNumber = "555-1234" },
+                new User { UserId = 2, FirstName = "Alice", LastName = "Smith",Gender = "Female", Login = "alice_smith", Password = "password456", Role = "admin", Email = "alice@example.com", City = "Los Angeles", Street = "Oak Ave", PostalCode = "90-001", HouseNumber = "45", ApartmentNumber = "" ,Pesel = "23456789012", PhoneNumber = "555-5678" },
+                new User { UserId = 3, FirstName = "Bob", LastName = "Johnson",Gender = "Male", Login = "bob_johnson", Password = "password789", Role = "user", Email = "bob@example.com", City = "Chicago", Street = "Elm Blvd", PostalCode = "60-601", HouseNumber = "78", ApartmentNumber = "" ,Pesel = "34567890123", PhoneNumber = "555-91011" },
+                new User { UserId = 4, FirstName = "Emily", LastName = "Brown",Gender = "Female", Login = "emily_brown", Password = "password321", Role = "user", Email = "emily@example.com", City = "Houston", Street = "Pine St", PostalCode = "77-001", HouseNumber = "32", ApartmentNumber = "4" ,Pesel = "45678901234", PhoneNumber = "555-2468" },
+                new User { UserId = 5, FirstName = "Michael", LastName = "Wilson",Gender = "Male", Login = "michael_wilson", Password = "password654", Role = "admin", Email = "michael@example.com", City = "Phoenix", Street = "Maple Ave", PostalCode = "85-001", HouseNumber = "65", ApartmentNumber = "" ,Pesel = "56789012345", PhoneNumber = "555-1357" },
+                new User { UserId = 6, FirstName = "Sophia", LastName = "Martinez",Gender = "Female", Login = "sophia_martinez", Password = "password987", Role = "user", Email = "sophia@example.com", City = "Philadelphia", Street = "Cedar Blvd", PostalCode = "19-101", HouseNumber = "98", ApartmentNumber = "" ,Pesel = "67890123456", PhoneNumber = "555-3691" },
+                new User { UserId = 7, FirstName = "William", LastName = "Taylor",Gender = "Male", Login = "william_taylor", Password = "password246", Role = "user", Email = "william@example.com", City = "San Antonio", Street = "Birch St", PostalCode = "78-201", HouseNumber = "24", ApartmentNumber = "" ,Pesel = "78901234567", PhoneNumber = "555-8024" },
+                new User { UserId = 8, FirstName = "Olivia", LastName = "Thomas",Gender = "Female", Login = "olivia_thomas", Password = "password135", Role = "admin", Email = "olivia@example.com", City = "San Diego", Street = "Elm Ave", PostalCode = "92-101", HouseNumber = "13", ApartmentNumber = "" ,Pesel = "89012345678", PhoneNumber = "555-5793" },
+                new User { UserId = 9, FirstName = "James", LastName = "Hernandez",Gender = "Male", Login = "james_hernandez", Password = "password468", Role = "user", Email = "james@example.com", City = "Dallas", Street = "Oak St", PostalCode = "75-201", HouseNumber = "46", ApartmentNumber = "34" ,Pesel = "90123456789", PhoneNumber = "555-2468" },
+                new User { UserId = 10, FirstName = "Isabella", LastName = "Young",Gender = "Female", Login = "isabella_young", Password = "password579", Role = "user", Email = "isabella@example.com", City = "San Jose", Street = "Pine Ave", PostalCode = "95-101", HouseNumber = "57", ApartmentNumber = "" ,Pesel = "01234567890", PhoneNumber = "555-1357" },
+                new User { UserId = 11, FirstName = "Alexander", LastName = "Garcia",Gender = "Male", Login = "alexander_garcia", Password = "password789", Role = "user", Email = "alexander@example.com", City = "Austin", Street = "Cedar St", PostalCode = "78-701", HouseNumber = "78", ApartmentNumber = "" ,Pesel = "09876543210", PhoneNumber = "555-2468" },
+                new User { UserId = 12, FirstName = "Mia", LastName = "Martinez",Gender = "Female", Login = "mia_martinez", Password = "password111", Role = "admin", Email = "mia@example.com", City = "Indianapolis", Street = "Maple Ave", PostalCode = "46-201", HouseNumber = "11", ApartmentNumber = "" ,Pesel = "98765432101", PhoneNumber = "555-1357" },
+                new User { UserId = 13, FirstName = "Ethan", LastName = "Robinson",Gender = "Male", Login = "ethan_robinson", Password = "password222", Role = "user", Email = "ethan@example.com", City = "Jacksonville", Street = "Elm Blvd", PostalCode = "32-201", HouseNumber = "22", ApartmentNumber = "" ,Pesel = "87654321012", PhoneNumber = "555-3691" },
+                new User { UserId = 14, FirstName = "Ava", LastName = "Perez",Gender = "Female", Login = "ava_perez", Password = "password333", Role = "user", Email = "ava@example.com", City = "San Francisco", Street = "Birch St", PostalCode = "94-101", HouseNumber = "33", ApartmentNumber = "" ,Pesel = "76543210123", PhoneNumber = "555-8024" },
+                new User { UserId = 15, FirstName = "Benjamin", LastName = "Turner",Gender = "Male", Login = "benjamin_turner", Password = "password444", Role = "user", Email = "benjamin@example.com", City = "Columbus", Street = "Oak Ave", PostalCode = "43-201", HouseNumber = "44", ApartmentNumber = "" ,Pesel = "65432101234", PhoneNumber = "555-5793" }
             };
-                DataContext = this;
+
+            DataContext = this;
             }
         /// <summary>
         /// Resizes the DataGrid and animates the display of UserInfo_Grid
@@ -53,9 +54,24 @@ namespace Main
         /// <param name="e"></param>
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedRow = (DataGridRow)ListOfUsers_DataGrid.ItemContainerGenerator.ContainerFromItem(ListOfUsers_DataGrid.SelectedItem);
-            if (selectedRow != null)
+            var selectedUser = (User)ListOfUsers_DataGrid.SelectedItem;
+            if (selectedUser != null)
             {
+                FirstName_TextBox.Text = selectedUser.FirstName;
+                LastName_TextBox.Text = selectedUser.LastName;
+                if (selectedUser.Gender == "Male")
+                    Gender_ComboBox.SelectedIndex = 1;
+                else if (selectedUser.Gender == "Female")
+                    Gender_ComboBox.SelectedIndex = 0;
+                Email_TextBox.Text = selectedUser.Email;
+                City_TextBox.Text = selectedUser.City;
+                Street_TextBox.Text = selectedUser.Street;
+                PostalCode_TextBox.Text = selectedUser.PostalCode;
+                HouseNumber_TextBox.Text = selectedUser.HouseNumber;
+                ApartmentNumber_TextBox.Text = selectedUser.ApartmentNumber;
+                PESEL_TextBox.Text = selectedUser.Pesel;
+                PhoneNumber_TextBox.Text = selectedUser.PhoneNumber;
+
                 if (ListOfUsers_DataGrid.ActualWidth <= 280)
                 {
                     DoubleAnimation slideInAnimation = new DoubleAnimation
@@ -98,14 +114,22 @@ namespace Main
     }
     public class User
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public int UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Gender { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
         public string Email { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string PostalCode { get; set; }
+        public string HouseNumber { get; set; }
+        public string ApartmentNumber { get; set; }
+        public string Pesel { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string PhoneNumber { get; set; }
     }
+
 }

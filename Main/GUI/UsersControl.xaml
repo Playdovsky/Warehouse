@@ -13,23 +13,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!-- DataGrid -->
-        <DataGrid x:Name="ListOfUsers_DataGrid" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,63,0,20" Width="640" Background="White" BorderThickness="1" BorderBrush="#ccc" RowHeight="30" MouseDoubleClick="DataGrid_MouseDoubleClick">
+        <DataGrid x:Name="ListOfUsers_DataGrid" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,63,0,20" Width="640" Background="White" BorderThickness="1" BorderBrush="#ccc" RowHeight="30" MouseDoubleClick="DataGrid_MouseDoubleClick" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="80" Header="Id" Binding="{Binding Id}">
+                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding UserId}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         </Style>
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="180" Header="Name" Binding="{Binding Name}">
+                <DataGridTextColumn Width="180" Header="Name" Binding="{Binding FirstName}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         </Style>
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="180" Header="Surname" Binding="{Binding Surname}">
+                <DataGridTextColumn Width="180" Header="Surname" Binding="{Binding LastName}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -90,14 +90,14 @@
             <StackPanel Margin="28,2,12,370" Orientation="Horizontal" Width="310">
                 <!-- Etykieta i pole tekstowe dla imienia -->
                 <StackPanel Width="150">
-                    <Label Content="Name:"/>
-                    <TextBox x:Name="Name_TextBox" Text="Jan" IsEnabled="False" Height="20"/>
+                    <Label Content="First Name:"/>
+                    <TextBox x:Name="FirstName_TextBox" Text="Jan" IsEnabled="False" Height="20"/>
                 </StackPanel>
 
                 <!-- Etykieta i pole tekstowe dla nazwiska -->
                 <StackPanel Margin="10,0,0,0" Width="150">
-                    <Label Content="SubName:"/>
-                    <TextBox x:Name="SubName_TextBox" Text="Kowalski" IsEnabled="False" Height="20"/>
+                    <Label Content="Last Name:"/>
+                    <TextBox x:Name="LastName_TextBox" Text="Kowalski" IsEnabled="False" Height="20"/>
                 </StackPanel>
             </StackPanel>
 
@@ -126,8 +126,8 @@
                     <Label Content="Street:" Grid.Column="0" Margin="0,25,0,4" Grid.RowSpan="2" Height="27"/>
                     <TextBox x:Name="Street_TextBox" Text="Krakowska" Grid.Row="1" IsEnabled="False" Margin="1,4,6,3" Grid.Column="1" Height="20"/>
 
-                    <Label Content="Apartament :" Grid.Column="2" Margin="2,25,2,4" Grid.RowSpan="2" Height="27"/>
-                    <TextBox x:Name="ApartamentNumber_TextBox" Text="3A" Grid.Row="1" Grid.Column="3" IsEnabled="False" Margin="2,2,2,5" Height="20"/>
+                    <Label Content="Apartment :" Grid.Column="2" Margin="2,25,2,4" Grid.RowSpan="2" Height="27"/>
+                    <TextBox x:Name="ApartmentNumber_TextBox" Text="3A" Grid.Row="1" Grid.Column="3" IsEnabled="False" Margin="2,2,2,5" Height="20"/>
 
                     <!-- Po prawej stronie -->
                     <Label Content="Postal Code:" Grid.Row="2" Grid.Column="0" Margin="0,0,0,44" Height="27"/>
