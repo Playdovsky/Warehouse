@@ -20,6 +20,7 @@ namespace Main
     /// Users control workspace.
     /// This is workspace which is available to use inside MainWindow.
     /// </summary>
+    /// Komentarz testowy
     public partial class UsersControl : UserControl
     {
         public List<User> Users { get; set; }
