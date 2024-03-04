@@ -55,26 +55,26 @@ namespace Main
         /// <param name="e"></param>
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedUser = (User)ListOfUsers_DataGrid.SelectedItem;
+            var selectedUser = (User)DataGridListOfUsers.SelectedItem;
             if (selectedUser != null)
             {
-                FirstName_TextBox.Text = selectedUser.FirstName;
-                LastName_TextBox.Text = selectedUser.LastName;
-                Login_TextBox.Text = selectedUser.UserId;
+                TextBoxFirstName.Text = selectedUser.FirstName;
+                TextBoxLastName.Text = selectedUser.LastName;
+                TextBoxLogin.Text = selectedUser.UserId;
                 if (selectedUser.Gender == "Male")
-                    Gender_ComboBox.SelectedIndex = 1;
+                    ComboBoxGender.SelectedIndex = 1;
                 else if (selectedUser.Gender == "Female")
-                    Gender_ComboBox.SelectedIndex = 0;
-                Email_TextBox.Text = selectedUser.Email;
-                City_TextBox.Text = selectedUser.City;
-                Street_TextBox.Text = selectedUser.Street;
-                PostalCode_TextBox.Text = selectedUser.PostalCode;
-                HouseNumber_TextBox.Text = selectedUser.HouseNumber;
-                ApartmentNumber_TextBox.Text = selectedUser.ApartmentNumber;
-                PESEL_TextBox.Text = selectedUser.Pesel;
-                PhoneNumber_TextBox.Text = selectedUser.PhoneNumber;
+                    ComboBoxGender.SelectedIndex = 0;
+                TextBoxEmail.Text = selectedUser.Email;
+                TextBoxCity.Text = selectedUser.City;
+                TextBoxStreet.Text = selectedUser.Street;
+                TextBoxPostalCode.Text = selectedUser.PostalCode;
+                TextBoxHouseNumber.Text = selectedUser.HouseNumber;
+                TextBoxApartmentNumber.Text = selectedUser.ApartmentNumber;
+                TextBoxPESEL.Text = selectedUser.Pesel;
+                TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
 
-                if (ListOfUsers_DataGrid.ActualWidth <= 280)
+                if (DataGridListOfUsers.ActualWidth <= 280)
                 {
                     DoubleAnimation slideInAnimation = new DoubleAnimation
                     {
@@ -83,14 +83,14 @@ namespace Main
                         Duration = TimeSpan.FromSeconds(0.5)
                     };
 
-                    UserInfo_Grid.BeginAnimation(Grid.WidthProperty, slideInAnimation);
-                    UserInfo_Grid.Visibility = Visibility.Visible;
+                    GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
+                    GridUserInfo.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     DoubleAnimation reduceWidthAnimation = new DoubleAnimation
                     {
-                        From = ListOfUsers_DataGrid.ActualWidth,
+                        From = DataGridListOfUsers.ActualWidth,
                         To = 280,
                         Duration = TimeSpan.FromSeconds(0.5)
                     };
@@ -104,12 +104,12 @@ namespace Main
                             Duration = TimeSpan.FromSeconds(0.5)
                         };
 
-                        UserInfo_Grid.BeginAnimation(Grid.WidthProperty, slideInAnimation);
-                        UserInfo_Grid.Visibility = Visibility.Visible;
+                        GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
+                        GridUserInfo.Visibility = Visibility.Visible;
                     };
 
-                    SearchParametrs_Label.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
-                    ListOfUsers_DataGrid.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
+                    LabelSearchParametrs.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
+                    DataGridListOfUsers.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
                 }
             }
         }
