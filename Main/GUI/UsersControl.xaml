@@ -15,28 +15,28 @@
         <!-- DataGrid -->
         <DataGrid x:Name="ListOfUsers_DataGrid" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,63,0,20" Width="640" Background="White" BorderThickness="1" BorderBrush="#ccc" RowHeight="30" MouseDoubleClick="DataGrid_MouseDoubleClick" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding UserId}">
+                <DataGridTextColumn Width="*" Header="UserId" Binding="{Binding UserId}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         </Style>
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="180" Header="Name" Binding="{Binding FirstName}">
+                <DataGridTextColumn Width="*" Header="Name" Binding="{Binding FirstName}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         </Style>
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="180" Header="Surname" Binding="{Binding LastName}">
+                <DataGridTextColumn Width="*" Header="Surname" Binding="{Binding LastName}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         </Style>
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="180" Header="Email" Binding="{Binding Email}">
+                <DataGridTextColumn Width="*" Header="Email" Binding="{Binding Email}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -86,25 +86,18 @@
         </DataGrid>
 
         <Grid x:Name="UserInfo_Grid" Margin="290,0,20,0" Grid.RowSpan="2" Width="350" Visibility="Hidden">
-            <!-- Imię -->
             <StackPanel Margin="28,2,12,370" Orientation="Horizontal" Width="310">
-                <!-- Etykieta i pole tekstowe dla imienia -->
                 <StackPanel Width="150">
                     <Label Content="First Name:"/>
                     <TextBox x:Name="FirstName_TextBox" Text="Jan" IsEnabled="False" Height="20"/>
                 </StackPanel>
 
-                <!-- Etykieta i pole tekstowe dla nazwiska -->
                 <StackPanel Margin="10,0,0,0" Width="150">
                     <Label Content="Last Name:"/>
                     <TextBox x:Name="LastName_TextBox" Text="Kowalski" IsEnabled="False" Height="20"/>
                 </StackPanel>
             </StackPanel>
 
-
-            <!-- Nazwisko -->
-
-            <!-- Adres zamieszkania -->
             <GroupBox Header="Address" Margin="24,220,12,89">
                 <Grid Margin="0,5,0,0">
                     <Grid.RowDefinitions>
@@ -119,39 +112,38 @@
                         <ColumnDefinition Width="15*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Po lewej stronie -->
-                    <Label Content="City:" Grid.Row="0" Grid.Column="0" Margin="0,0,0,24" Grid.RowSpan="2" Height="27"/>
+                    <Label Content="City:" Grid.Row="0" Grid.Column="0" Margin="1,0,105,2" Height="27" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="City_TextBox" Text="Warszawa" Grid.Row="0" IsEnabled="False" Margin="1,4,6,2" Grid.Column="1" Height="20"/>
 
-                    <Label Content="Street:" Grid.Column="0" Margin="0,25,0,4" Grid.RowSpan="2" Height="27"/>
+                    <Label Content="Street:" Grid.Column="0" Margin="0,27,0,2" Grid.RowSpan="2" Height="27"/>
                     <TextBox x:Name="Street_TextBox" Text="Krakowska" Grid.Row="1" IsEnabled="False" Margin="1,4,6,3" Grid.Column="1" Height="20"/>
 
-                    <Label Content="Apartment :" Grid.Column="2" Margin="2,25,2,4" Grid.RowSpan="2" Height="27"/>
+                    <Label Content="Apartment :" Grid.Column="2" Margin="2,28,2,1" Grid.RowSpan="2" Height="27"/>
                     <TextBox x:Name="ApartmentNumber_TextBox" Text="3A" Grid.Row="1" Grid.Column="3" IsEnabled="False" Margin="2,2,2,5" Height="20"/>
 
-                    <!-- Po prawej stronie -->
                     <Label Content="Postal Code:" Grid.Row="2" Grid.Column="0" Margin="0,0,0,44" Height="27"/>
                     <TextBox x:Name="PostalCode_TextBox" Text="00-001" Grid.Row="2" IsEnabled="False" Margin="1,4,6,46" Grid.Column="1" Height="20"/>
 
-                    <Label Content="House Nr. :" Grid.Row="0" Grid.Column="2" Margin="2,2,2,25" Grid.RowSpan="2" Height="27"/>
+                    <Label Content="House Nr. :" Grid.Row="0" Grid.Column="2" Margin="2,2,2,27" Grid.RowSpan="2" Height="27"/>
                     <TextBox x:Name="HouseNumber_TextBox" Text="12" Grid.Row="0" Grid.Column="3" IsEnabled="False" Margin="2,4,2,2" Height="20"/>
                 </Grid>
             </GroupBox>
 
-
-            <!-- Numer PESEL -->
             <StackPanel Margin="28,107,172,266" Height="47">
                 <Label Content="PESEL:"/>
                 <TextBox x:Name="PESEL_TextBox" Text="12345678901" IsEnabled="False" Height="20"/>
             </StackPanel>
 
-            <!-- Data urodzenia -->
-            <StackPanel Margin="28,55,172,318" Height="47" Width="150">
+            <StackPanel Margin="28,55,172,318" Height="47">
+                <Label Content="Login:"/>
+                <TextBox x:Name="Login_TextBox" Text="user_name" IsEnabled="False" Height="20"/>
+            </StackPanel>
+
+            <StackPanel Margin="188,107,12,266" Height="47" Width="150">
                 <Label Content="Date of Birth:"/>
                 <TextBox x:Name="DateOfBirth_TextBox" Text="01.01.1990" IsEnabled="False" Height="20"/>
             </StackPanel>
 
-            <!-- Płeć -->
             <StackPanel Margin="188,55,12,318" Height="47" Width="150">
                 <Label Content="Gender:"/>
                 <ComboBox x:Name="Gender_ComboBox" IsEnabled="False" Height="20">
@@ -160,14 +152,12 @@
                 </ComboBox>
             </StackPanel>
 
-            <!-- Adres e-mail -->
-            <StackPanel Margin="26,159,14,211">
+            <StackPanel Margin="26,159,172,211">
                 <Label Content="Email:"/>
                 <TextBox x:Name="Email_TextBox" Text="jan.kowalski@example.com" IsEnabled="False" Height="20"/>
             </StackPanel>
 
-            <!-- Numer telefonu -->
-            <StackPanel Margin="188,107,12,266" Height="47">
+            <StackPanel Margin="188,159,12,214" Height="47">
                 <Label Content="Phone Number:"/>
                 <TextBox  x:Name="PhoneNumber_TextBox" Text="123456789" IsEnabled="False" Height="20"/>
             </StackPanel>
