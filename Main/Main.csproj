@@ -176,10 +176,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model1.Designer.cs">
+    <Compile Include="Database.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
     <Compile Include="Project properties\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -225,12 +225,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
-    <EntityDeploy Include="Model1.edmx">
+    <EntityDeploy Include="Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <None Include="Database.edmx.diagram">
+      <DependentUpon>Database.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -242,7 +242,7 @@
     <None Include="Project properties\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="AppIcon.ico" />
+    <Resource Include="Resources\AppIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -250,12 +250,12 @@
   <ItemGroup>
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>Database.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
   </ItemGroup>

@@ -13,29 +13,6 @@ G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.csproj.GenerateResour
 G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.csproj.CoreCompileInputs.cache
 G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.exe
 G:\Visual Studio repos\repos\Warehouse\Main\obj\Debug\Main.pdb
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Main.exe.config
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Main.exe
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Main.pdb
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.csproj.AssemblyReference.cache
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main_MarkupCompile.cache
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main_MarkupCompile.lref
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.g.resources
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.Properties.Resources.resources
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.csproj.GenerateResource.cache
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.csproj.CoreCompileInputs.cache
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.exe
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.pdb
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\MainWindow.g.cs
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\StartWindow.g.cs
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\UsersControl.g.cs
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\WarehouseControl.g.cs
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Project properties\App.g.cs
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\MainWindow.baml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\StartWindow.baml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\UsersControl.baml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\WarehouseControl.baml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\LogInControl.g.cs
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\GUI\LogInControl.baml
 C:\Users\maria\Desktop\Praca\GitHub\GitHub project\Warehouse\Main\bin\Debug\Main.exe.config
 C:\Users\maria\Desktop\Praca\GitHub\GitHub project\Warehouse\Main\bin\Debug\Main.exe
 C:\Users\maria\Desktop\Praca\GitHub\GitHub project\Warehouse\Main\bin\Debug\Main.pdb
@@ -84,59 +61,3 @@ C:\Users\dawku\source\repos\Playdovsky\Warehouse\Main\obj\Debug\Main.csproj.Gene
 C:\Users\dawku\source\repos\Playdovsky\Warehouse\Main\obj\Debug\Main.csproj.CoreCompileInputs.cache
 C:\Users\dawku\source\repos\Playdovsky\Warehouse\Main\obj\Debug\Main.exe
 C:\Users\dawku\source\repos\Playdovsky\Warehouse\Main\obj\Debug\Main.pdb
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\EntityFramework.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\EntityFramework.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Project properties\App.baml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main.csproj.CopyComplete
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Bcl.HashCode.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.EntityFrameworkCore.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Configuration.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Logging.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Options.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Primitives.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Buffers.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Collections.Immutable.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.ComponentModel.Annotations.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Diagnostics.DiagnosticSource.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Memory.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Numerics.Vectors.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Threading.Tasks.Extensions.dll
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Bcl.HashCode.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.EntityFrameworkCore.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Configuration.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.DependencyInjection.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Logging.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Options.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\Microsoft.Extensions.Primitives.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Buffers.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Collections.Immutable.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Diagnostics.DiagnosticSource.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Memory.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Numerics.Vectors.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\bin\Debug\System.Threading.Tasks.Extensions.xml
-C:\Users\tubix\OneDrive\Documents\GitHub\Warehouse\Warehouse\Main\obj\Debug\Main_Content.g.cs
