@@ -1,19 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace Main
 {
@@ -31,49 +16,6 @@ namespace Main
             InitializeComponent();
             ContentControlWorkspace.Content = new LogInControl();
         }
-
-        /*
-        public static void Connection()
-        {
-            try
-            {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-
-                builder.DataSource = "magazyn-serwer.database.windows.net";
-                builder.UserID = "magazynek";
-                builder.Password = "Testowanie123!";
-                builder.InitialCatalog = "test";
-
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
-                {
-                    connection.Open();
-
-                    String sql = "SELECT TOP(3) * FROM [dbo].[User]";
-
-                    using (SqlCommand command = new SqlCommand(sql, connection))
-                    {
-                        List<string> dbStrings = new List<string>();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                dbStrings.Add($"{reader.GetString(0)} {reader.GetString(1)}");
-                            }
-
-                            foreach(string dbString in dbStrings)
-                            {
-                                MessageBox.Show(dbString);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException e)
-            {
-                MessageBox.Show(e.ToString());
-            }
-        }
-        */
 
         /// <summary>
         /// On button click creates and opens users control workspace.

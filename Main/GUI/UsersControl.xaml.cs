@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Main
 {
@@ -20,16 +12,19 @@ namespace Main
     /// Users control workspace.
     /// This is workspace which is available to use inside MainWindow.
     /// </summary>
-    /// Komentarz testowy
     public partial class UsersControl : UserControl
     {
-
-
         public List<User> Users { get; set; }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public UsersControl()
         {
             InitializeComponent();
             Users = new List<User>();
+            
+            //Retrieves data from "User" table and binds it with users list and sets the data context.
             using (var context = new WarehouseEntities())
             {
                 var users = from u in context.User select u;
@@ -42,24 +37,25 @@ namespace Main
             DataContext = this;
         }
 
-            /// <summary>
-            /// Resizes the DataGrid and animates the display of UserInfo_Grid
-            /// </summary>
-            /// <param name="sender"></param>
-            /// <param name="e"></param>
-            private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Resizes the DataGrid and animates the display of UserInfo_Grid.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedUser = (User)DataGridListOfUsers.SelectedItem;
             if (selectedUser != null)
             {
-
                 TextBoxFirstName.Text = selectedUser.FirstName;
                 TextBoxLastName.Text = selectedUser.LastName;
                 TextBoxLogin.Text = selectedUser.Login;
+
                 if (selectedUser.Gender == "Male")
                     ComboBoxGender.SelectedIndex = 1;
                 else if (selectedUser.Gender == "Female")
                     ComboBoxGender.SelectedIndex = 0;
+
                 TextBoxEmail.Text = selectedUser.Email;
                 TextBoxCity.Text = selectedUser.City;
                 TextBoxStreet.Text = selectedUser.Street;
