@@ -15,13 +15,6 @@
         <!-- DataGrid -->
         <DataGrid x:Name="DataGridListOfUsers" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,63,0,20" Width="640" Background="White" BorderThickness="1" BorderBrush="#ccc" RowHeight="30" MouseDoubleClick="DataGrid_MouseDoubleClick" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="UserId" Binding="{Binding UserId}">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Name" Binding="{Binding FirstName}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
