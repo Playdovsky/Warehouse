@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Main"
              StartupUri="../GUI/StartWindow.xaml">
     <Application.Resources>
-        <BitmapImage x:Key="AppIcon" UriSource="/Main;component/AppIcon.ico" />
+        <BitmapImage x:Key="AppIcon" UriSource="/Main;component/Resources/AppIcon.ico" />
     </Application.Resources>
 </Application>
