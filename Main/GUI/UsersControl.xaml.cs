@@ -130,7 +130,7 @@ namespace Main
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void EnableFields_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             TextBoxFirstName.IsEnabled = true;
             TextBoxLastName.IsEnabled = true;
             TextBoxLogin.IsEnabled = true;
@@ -198,6 +198,73 @@ namespace Main
                     LoadUsers();
                 }
             }
+        }
+        /// <summary>
+        /// button that open clear GridUserInfo (contains button Add User)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CreateUser_Click(object sender, RoutedEventArgs e)
+        {
+            TextBoxFirstName.Text = "";
+            TextBoxLastName.Text = "";
+            TextBoxEmail.Text = "";
+            TextBoxCity.Text = "";
+            TextBoxStreet.Text = "";
+            TextBoxApartmentNumber.Text = "";
+            TextBoxPostalCode.Text = "";
+            TextBoxHouseNumber.Text = "";
+            TextBoxPESEL.Text = "";
+            TextBoxLogin.Text = "";
+            ComboBoxGender.SelectedIndex = -1; // Usuwa zaznaczenie
+            TextBoxPhoneNumber.Text = "";
+            EnableFields_Click(sender, e);
+            ButtonEnableFields.Visibility = Visibility.Hidden;
+            ButtonApplyChanges.Visibility = Visibility.Hidden;
+
+
+            if (DataGridListOfUsers.ActualWidth <= 280)
+            {
+                DoubleAnimation slideInAnimation = new DoubleAnimation
+                {
+                    From = 0,
+                    To = 350,
+                    Duration = TimeSpan.FromSeconds(0.5)
+                };
+
+                GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
+                GridUserInfo.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                DoubleAnimation reduceWidthAnimation = new DoubleAnimation
+                {
+                    From = DataGridListOfUsers.ActualWidth,
+                    To = 280,
+                    Duration = TimeSpan.FromSeconds(0.5)
+                };
+
+                reduceWidthAnimation.Completed += (s, args) =>
+                {
+                    DoubleAnimation slideInAnimation = new DoubleAnimation
+                    {
+                        From = 0,
+                        To = 350,
+                        Duration = TimeSpan.FromSeconds(0.5)
+                    };
+
+                    GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
+                    GridUserInfo.Visibility = Visibility.Visible;
+                };
+
+
+                DataGridListOfUsers.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
+            }
+
+        }
+        private void AddUser_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
     }
