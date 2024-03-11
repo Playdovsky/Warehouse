@@ -146,6 +146,26 @@ namespace Main
             ButtonApplyChanges.Visibility = Visibility.Visible;
         }
         /// <summary>
+        /// Real Time user list update
+        /// </summary>
+        private void LoadUsers()
+        {
+            Users.Clear();
+
+            using (var context = new WarehouseEntities())
+            {
+                var users = context.User.ToList();
+                foreach (var user in users)
+                {
+                    Users.Add(user);
+                }
+            }
+
+            DataGridListOfUsers.ItemsSource = null;
+            DataGridListOfUsers.ItemsSource = Users;
+        }
+
+        /// <summary>
         /// Button that save changes to the database
         /// </summary>
         /// <param name="sender"></param>
@@ -174,6 +194,8 @@ namespace Main
                     
                     context.Entry(selectedUser).State = EntityState.Modified;
                     context.SaveChanges();
+
+                    LoadUsers();
                 }
             }
         }
