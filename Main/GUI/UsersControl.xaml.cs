@@ -221,6 +221,7 @@ namespace Main
             EnableFields_Click(sender, e);
             ButtonEnableFields.Visibility = Visibility.Hidden;
             ButtonApplyChanges.Visibility = Visibility.Hidden;
+            ButtonAddUser.Visibility = Visibility.Visible;
 
 
             if (DataGridListOfUsers.ActualWidth <= 280)
@@ -262,11 +263,63 @@ namespace Main
             }
 
         }
+        /// <summary>
+        /// adding user to the database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
 
-        }
+            User newUser = new User
 
+            {
+                FirstName = TextBoxFirstName.Text,
+                LastName = TextBoxLastName.Text,
+                Login = TextBoxLogin.Text,
+                Email = TextBoxEmail.Text,
+                City = TextBoxCity.Text,
+                Street = TextBoxStreet.Text,
+                PostalCode = TextBoxPostalCode.Text,
+                HouseNumber = TextBoxHouseNumber.Text,
+                ApartmentNumber = TextBoxApartmentNumber.Text,
+                Pesel = TextBoxPESEL.Text,
+                PhoneNumber = TextBoxPhoneNumber.Text,
+                Gender = ComboBoxGender.Text
+
+            };
+            newUser.Id = Guid.NewGuid();
+
+            using (var context = new WarehouseEntities())
+            {
+                context.User.Add(newUser);
+                context.SaveChanges();
+
+               
+                LoadUsers();
+            }
+
+            TextBoxFirstName.Text = "";
+            TextBoxLastName.Text = "";
+            TextBoxEmail.Text = "";
+            TextBoxCity.Text = "";
+            TextBoxStreet.Text = "";
+            TextBoxApartmentNumber.Text = "";
+            TextBoxPostalCode.Text = "";
+            TextBoxHouseNumber.Text = "";
+            TextBoxPESEL.Text = "";
+            TextBoxLogin.Text = "";
+            ComboBoxGender.SelectedIndex = -1; 
+            TextBoxPhoneNumber.Text = "";
+
+            MessageBox.Show("User added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            
+            LoadUsers();
+
+        }
     }
+
 }
+
 
