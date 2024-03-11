@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!-- DataGrid -->
-        <DataGrid x:Name="DataGridListOfUsers" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,63,0,20" Width="640" Background="White" BorderThickness="1" BorderBrush="#ccc" RowHeight="30" MouseDoubleClick="DataGrid_MouseDoubleClick" IsReadOnly="True">
+        <DataGrid x:Name="DataGridListOfUsers" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,63,0,20" Width="640" Background="White" BorderThickness="1" BorderBrush="#ccc" RowHeight="30" MouseDoubleClick="DataGrid_MouseDoubleClick" IsReadOnly="True" SelectionChanged="DataGridListOfUsers_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Name" Binding="{Binding FirstName}">
                     <DataGridTextColumn.HeaderStyle>
@@ -156,7 +156,7 @@
             </StackPanel>
             <Label Content="Field for buttons (user modification)" HorizontalAlignment="Left" Height="70" Margin="26,336,0,0" VerticalAlignment="Top" Width="310" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#4CCCCCCC"/>
         </Grid>
-
-        <Label x:Name="LabelSearchParametrs" Content="Field to search for users in the list" HorizontalAlignment="Left" Height="63" Grid.RowSpan="2" VerticalAlignment="Top" Width="640" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#4CCCCCCC"/>
+        <TextBox x:Name="SearchingTextBox" HorizontalAlignment="Left" Margin="10,24,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="283" Height="20" TextChanged="SearchingTextBox_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"><Run Language="pl-pl" Text="Search by Name"/></TextBlock>
     </Grid>
 </UserControl>

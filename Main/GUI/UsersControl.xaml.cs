@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -99,10 +100,28 @@ namespace Main
                         GridUserInfo.Visibility = Visibility.Visible;
                     };
 
-                    LabelSearchParametrs.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
+                   
                     DataGridListOfUsers.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
                 }
             }
         }
+
+        private void DataGridListOfUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// The user can filter the list by entering first name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchingTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string filter = SearchingTextBox.Text.ToLower();
+            var filteredUsers = Users.Where(x => x.FirstName.ToLower().Contains(filter)).ToList();
+            DataGridListOfUsers.ItemsSource = filteredUsers;
+        }
+
     }
 }
