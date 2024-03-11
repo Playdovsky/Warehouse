@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using System.Data.Entity;
+using System.Runtime.Remoting.Contexts;
 
 namespace Main
 {
@@ -24,7 +26,7 @@ namespace Main
         {
             InitializeComponent();
             Users = new List<User>();
-            
+
             //Retrieves data from "User" table and binds it with users list and sets the data context.
             using (var context = new WarehouseEntities())
             {
@@ -100,7 +102,7 @@ namespace Main
                         GridUserInfo.Visibility = Visibility.Visible;
                     };
 
-                   
+
                     DataGridListOfUsers.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
                 }
             }
@@ -122,6 +124,60 @@ namespace Main
             var filteredUsers = Users.Where(x => x.FirstName.ToLower().Contains(filter)).ToList();
             DataGridListOfUsers.ItemsSource = filteredUsers;
         }
+        /// <summary>
+        /// Button that allows to modify the User Info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnableFields_Click(object sender, RoutedEventArgs e)
+        {
+            TextBoxFirstName.IsEnabled = true;
+            TextBoxLastName.IsEnabled = true;
+            TextBoxLogin.IsEnabled = true;
+            TextBoxEmail.IsEnabled = true;
+            TextBoxCity.IsEnabled = true;
+            TextBoxStreet.IsEnabled = true;
+            TextBoxPostalCode.IsEnabled = true;
+            TextBoxHouseNumber.IsEnabled = true;
+            TextBoxApartmentNumber.IsEnabled = true;
+            TextBoxPESEL.IsEnabled = true;
+            TextBoxPhoneNumber.IsEnabled = true;
+            ComboBoxGender.IsEnabled = true;
+            ButtonApplyChanges.Visibility = Visibility.Visible;
+        }
+        /// <summary>
+        /// Button that save changes to the database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ApplyChanges_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedUser = (User)DataGridListOfUsers.SelectedItem;
+            if (selectedUser != null)
+            {
+                
+                selectedUser.FirstName = TextBoxFirstName.Text;
+                selectedUser.LastName = TextBoxLastName.Text;
+                selectedUser.Login = TextBoxLogin.Text;
+                selectedUser.Email = TextBoxEmail.Text;
+                selectedUser.City = TextBoxCity.Text;
+                selectedUser.Street = TextBoxStreet.Text;
+                selectedUser.PostalCode = TextBoxPostalCode.Text;
+                selectedUser.HouseNumber = TextBoxHouseNumber.Text;
+                selectedUser.ApartmentNumber = TextBoxApartmentNumber.Text;
+                selectedUser.Pesel = TextBoxPESEL.Text;
+                selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
+                selectedUser.Gender = ComboBoxGender.Text;
+
+                using (var context = new WarehouseEntities())
+                {
+                    
+                    context.Entry(selectedUser).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
+        }
 
     }
 }
+

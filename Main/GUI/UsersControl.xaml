@@ -78,7 +78,8 @@
             </DataGrid.RowStyle>
         </DataGrid>
 
-        <Grid x:Name="GridUserInfo" Margin="290,0,20,0" Grid.RowSpan="2" Width="350" Visibility="Hidden">
+        <Grid x:Name="GridUserInfo" Margin="290,0,20,0" Grid.RowSpan="2" Width="350" Visibility="Visible">
+
             <StackPanel Margin="28,2,12,370" Orientation="Horizontal" Width="310">
                 <StackPanel Width="150">
                     <Label Content="First Name:"/>
@@ -154,7 +155,9 @@
                 <Label Content="Phone Number:"/>
                 <TextBox  x:Name="TextBoxPhoneNumber" Text="123456789" IsEnabled="False" Height="20"/>
             </StackPanel>
-            <Label Content="Field for buttons (user modification)" HorizontalAlignment="Left" Height="70" Margin="26,336,0,0" VerticalAlignment="Top" Width="310" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#4CCCCCCC"/>
+            <Button x:Name="ButtonEnableFields" Content="Enable Fields" Click="EnableFields_Click" Margin="24,348,193,29" Height="42" Width="120"/>
+            <Button x:Name="ButtonApplyChanges" Content="Apply Changes" Click="ApplyChanges_Click" HorizontalAlignment="Left" Margin="188,348,0,0" VerticalAlignment="Top" Height="42" Width="120" Visibility="Hidden"/>
+
         </Grid>
         <TextBox x:Name="SearchingTextBox" HorizontalAlignment="Left" Margin="10,24,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="283" Height="20" TextChanged="SearchingTextBox_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"><Run Language="pl-pl" Text="Search by Name"/></TextBlock>
