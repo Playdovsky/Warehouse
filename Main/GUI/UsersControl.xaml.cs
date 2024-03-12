@@ -28,7 +28,7 @@ namespace Main
             Users = new List<User>();
 
             //Retrieves data from "User" table and binds it with users list and sets the data context.
-            using (var context = new WarehouseEntities())
+            using (var context = new WarehouseDBEntities())
             {
                 var users = from u in context.User select u;
                 foreach (var user in users)
@@ -152,7 +152,7 @@ namespace Main
         {
             Users.Clear();
 
-            using (var context = new WarehouseEntities())
+            using (var context = new WarehouseDBEntities())
             {
                 var users = context.User.ToList();
                 foreach (var user in users)
@@ -189,7 +189,7 @@ namespace Main
                 selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
                 selectedUser.Gender = ComboBoxGender.Text;
 
-                using (var context = new WarehouseEntities())
+                using (var context = new WarehouseDBEntities())
                 {
                     
                     context.Entry(selectedUser).State = EntityState.Modified;
@@ -272,7 +272,6 @@ namespace Main
         {
 
             User newUser = new User
-
             {
                 FirstName = TextBoxFirstName.Text,
                 LastName = TextBoxLastName.Text,
@@ -290,7 +289,7 @@ namespace Main
             };
             newUser.Id = Guid.NewGuid();
 
-            using (var context = new WarehouseEntities())
+            using (var context = new WarehouseDBEntities())
             {
                 context.User.Add(newUser);
                 context.SaveChanges();

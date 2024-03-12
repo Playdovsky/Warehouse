@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WarehouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WarehouseDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -44,7 +44,7 @@ warning 6002: The table/view 'Warehouse.sys.database_firewall_rules' does not ha
           <Property Name="create_date" Type="datetime" Nullable="false" />
           <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="WarehouseModelStoreContainer">
+        <EntityContainer Name="WarehouseDBStoreContainer">
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
             <DefiningQuery>SELECT 
@@ -60,7 +60,7 @@ warning 6002: The table/view 'Warehouse.sys.database_firewall_rules' does not ha
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="WarehouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="WarehouseDB" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="database_firewall_rules">
           <Key>
             <PropertyRef Name="id" />
@@ -77,9 +77,9 @@ warning 6002: The table/view 'Warehouse.sys.database_firewall_rules' does not ha
           <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityContainer Name="WarehouseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="WarehouseDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
-          <EntitySet Name="User" EntityType="WarehouseModel.User" />
+          <EntitySet Name="User" EntityType="WarehouseDB.User" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -107,9 +107,9 @@ warning 6002: The table/view 'Warehouse.sys.database_firewall_rules' does not ha
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WarehouseModelStoreContainer" CdmEntityContainer="WarehouseEntities">
+        <EntityContainerMapping StorageEntityContainer="WarehouseDBStoreContainer" CdmEntityContainer="WarehouseDBEntities">
           <EntitySetMapping Name="database_firewall_rules">
-            <EntityTypeMapping TypeName="WarehouseModel.database_firewall_rules">
+            <EntityTypeMapping TypeName="WarehouseDB.database_firewall_rules">
               <MappingFragment StoreEntitySet="database_firewall_rules">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -121,7 +121,7 @@ warning 6002: The table/view 'Warehouse.sys.database_firewall_rules' does not ha
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="WarehouseModel.User">
+            <EntityTypeMapping TypeName="WarehouseDB.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />

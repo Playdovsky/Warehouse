@@ -13,10 +13,10 @@ namespace Main
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WarehouseEntities : DbContext
+    public partial class WarehouseDBEntities : DbContext
     {
-        public WarehouseEntities()
-            : base("name=WarehouseEntities")
+        public WarehouseDBEntities()
+            : base("name=WarehouseDBEntities")
         {
         }
     
