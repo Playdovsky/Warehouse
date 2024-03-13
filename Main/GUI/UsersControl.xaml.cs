@@ -263,6 +263,7 @@ namespace Main
             }
 
         }
+
         /// <summary>
         /// adding user to the database
         /// </summary>
@@ -284,7 +285,8 @@ namespace Main
                 ApartmentNumber = TextBoxApartmentNumber.Text,
                 Pesel = TextBoxPESEL.Text,
                 PhoneNumber = TextBoxPhoneNumber.Text,
-                Gender = ComboBoxGender.Text
+                Gender = ComboBoxGender.Text,
+                Password = TextBoxPassword.Text
 
             };
             newUser.Id = Guid.NewGuid();
@@ -316,6 +318,31 @@ namespace Main
             
             LoadUsers();
 
+        }
+
+        /// <summary>
+        /// Delete user from DateBase. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonDeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedUser = (User)DataGridListOfUsers.SelectedItem;
+            if (selectedUser != null)
+            {
+                using (var context = new WarehouseDBEntities())
+                {
+                    if (context.Entry(selectedUser).State == EntityState.Detached)
+                    {
+                        context.User.Attach(selectedUser);
+                    }
+
+                    context.User.Remove(selectedUser);
+                    context.SaveChanges();
+
+                    LoadUsers();
+                }
+            }
         }
     }
 
