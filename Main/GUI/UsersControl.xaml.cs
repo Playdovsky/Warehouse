@@ -37,6 +37,8 @@ namespace Main
                 }
             }
 
+            ComboBoxRole.Items.Add("user");
+            ComboBoxRole.Items.Add("admin");
             DataContext = this;
         }
 
@@ -67,6 +69,10 @@ namespace Main
                 TextBoxApartmentNumber.Text = selectedUser.ApartmentNumber;
                 TextBoxPESEL.Text = selectedUser.Pesel;
                 TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
+                TextBoxPassword.Text = selectedUser.Password;
+                ComboBoxRole.SelectedItem = selectedUser.Role;
+                TextBoxPassword.Visibility = Visibility.Visible;
+                ComboBoxRole.Visibility = Visibility.Visible;
 
                 if (DataGridListOfUsers.ActualWidth <= 280)
                 {
@@ -108,11 +114,6 @@ namespace Main
             }
         }
 
-        private void DataGridListOfUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// The user can filter the list by entering first name
         /// </summary>
@@ -124,6 +125,7 @@ namespace Main
             var filteredUsers = Users.Where(x => x.FirstName.ToLower().Contains(filter)).ToList();
             DataGridListOfUsers.ItemsSource = filteredUsers;
         }
+
         /// <summary>
         /// Button that allows to modify the User Info
         /// </summary>
@@ -143,8 +145,11 @@ namespace Main
             TextBoxPESEL.IsEnabled = true;
             TextBoxPhoneNumber.IsEnabled = true;
             ComboBoxGender.IsEnabled = true;
+            TextBoxPassword.IsEnabled = true;
+            ComboBoxRole.IsEnabled = true;
             ButtonApplyChanges.Visibility = Visibility.Visible;
         }
+
         /// <summary>
         /// Real Time user list update
         /// </summary>
@@ -188,6 +193,8 @@ namespace Main
                 selectedUser.Pesel = TextBoxPESEL.Text;
                 selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
                 selectedUser.Gender = ComboBoxGender.Text;
+                selectedUser.Password = TextBoxPassword.Text;
+                selectedUser.Role = ComboBoxRole.SelectionBoxItem.ToString();
 
                 using (var context = new WarehouseDBEntities())
                 {
@@ -218,10 +225,14 @@ namespace Main
             TextBoxLogin.Text = "";
             ComboBoxGender.SelectedIndex = -1; // Usuwa zaznaczenie
             TextBoxPhoneNumber.Text = "";
+            TextBoxPassword.Text = "";
             EnableFields_Click(sender, e);
             ButtonEnableFields.Visibility = Visibility.Hidden;
             ButtonApplyChanges.Visibility = Visibility.Hidden;
             ButtonAddUser.Visibility = Visibility.Visible;
+            ButtonDeleteUser.Visibility = Visibility.Hidden;
+            TextBoxPassword.Visibility = Visibility.Visible;
+            ComboBoxRole.Visibility = Visibility.Visible;
 
 
             if (DataGridListOfUsers.ActualWidth <= 280)
@@ -286,7 +297,8 @@ namespace Main
                 Pesel = TextBoxPESEL.Text,
                 PhoneNumber = TextBoxPhoneNumber.Text,
                 Gender = ComboBoxGender.Text,
-                Password = TextBoxPassword.Text
+                Password = TextBoxPassword.Text,
+                Role = ComboBoxRole.SelectionBoxItem.ToString()
 
             };
             newUser.Id = Guid.NewGuid();

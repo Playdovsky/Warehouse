@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!-- DataGrid -->
-        <DataGrid x:Name="DataGridListOfUsers" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,63,0,20" Width="640" Background="White" BorderThickness="1" BorderBrush="#ccc" RowHeight="30" MouseDoubleClick="DataGrid_MouseDoubleClick" IsReadOnly="True" SelectionChanged="DataGridListOfUsers_SelectionChanged">
+        <DataGrid x:Name="DataGridListOfUsers" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,63,0,20" Width="640" Background="White" BorderThickness="1" BorderBrush="#ccc" RowHeight="30" MouseDoubleClick="DataGrid_MouseDoubleClick" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Name" Binding="{Binding FirstName}">
                     <DataGridTextColumn.HeaderStyle>
@@ -78,7 +78,7 @@
             </DataGrid.RowStyle>
         </DataGrid>
 
-        <Grid x:Name="GridUserInfo" Margin="290,0,20,0" Grid.RowSpan="2" Width="350" Visibility="Visible">
+        <Grid x:Name="GridUserInfo" Margin="290,0,20,0" Grid.RowSpan="2" Width="350" Visibility="Hidden">
 
             <StackPanel Margin="28,2,12,370" Orientation="Horizontal" Width="310">
                 <StackPanel Width="150">
@@ -155,15 +155,16 @@
                 <Label Content="Phone Number:"/>
                 <TextBox  x:Name="TextBoxPhoneNumber" Text="123456789" IsEnabled="False" Height="20"/>
             </StackPanel>
-            <Button x:Name="ButtonEnableFields" Content="Enable Fields" Click="EnableFields_Click" Margin="24,348,193,29" Height="42" Width="120"/>
-            <Button x:Name="ButtonApplyChanges" Content="Apply Changes" Click="ApplyChanges_Click" HorizontalAlignment="Left" Margin="188,348,0,0" VerticalAlignment="Top" Height="42" Width="120" Visibility="Hidden"/>
-            <Button x:Name="ButtonAddUser" Content="Add User" Visibility="Hidden" Click="AddUser_Click" HorizontalAlignment="Left" Margin="167,342,0,0" VerticalAlignment="Top" Height="54" Width="141"/>
-            <Button x:Name="ButtonDeleteUser" Content="Delete User" HorizontalAlignment="Left" Margin="188,348,0,0" VerticalAlignment="Top" Width="120" Height="42" Click="ButtonDeleteUser_Click"/>
+            <Button x:Name="ButtonEnableFields" Content="Enable Fields" Click="EnableFields_Click" Margin="26,342,228,54"/>
+            <Button x:Name="ButtonApplyChanges" Content="Apply Changes" Click="ApplyChanges_Click" HorizontalAlignment="Left" Margin="26,342,0,0" VerticalAlignment="Top" Height="24" Width="96" Visibility="Hidden"/>
+            <Button x:Name="ButtonAddUser" Content="Add User" Visibility="Hidden" Click="AddUser_Click" HorizontalAlignment="Left" Margin="26,342,0,0" VerticalAlignment="Top" Height="54" Width="96"/>
+            <Button x:Name="ButtonDeleteUser" Content="Delete User" HorizontalAlignment="Left" Margin="26,372,0,0" VerticalAlignment="Top" Width="96" Height="24" Click="ButtonDeleteUser_Click"/>
 
         </Grid>
         <TextBox x:Name="SearchingTextBox" HorizontalAlignment="Left" Margin="10,24,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="20" TextChanged="SearchingTextBox_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"><Run Language="pl-pl" Text="Search by Name"/></TextBlock>
         <Button x:Name="ButtonCreateUser" Content="Create User" Click="CreateUser_Click" HorizontalAlignment="Left" Margin="186,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="41" Width="99"/>
-        <TextBox x:Name="TextBoxPassword" HorizontalAlignment="Left" Height="23" Margin="515,299,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TextBoxPassword" HorizontalAlignment="Left" Height="23" Margin="515,342,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <ComboBox x:Name="ComboBoxRole" HorizontalAlignment="Left" Margin="515,372,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
     </Grid>
 </UserControl>
