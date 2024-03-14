@@ -199,61 +199,66 @@ namespace Main
             var selectedUser = (User)DataGridListOfUsers.SelectedItem;
             if (selectedUser != null)
             {
-                if (!ValidatePESEL(TextBoxPESEL.Text))
+                try
                 {
-                    MessageBox.Show("Numer PESEL jest nieprawidłowy.");
-                    return;
+                    if (!ValidatePESEL(TextBoxPESEL.Text))
+                    {
+                        throw new Exception("The PESEL number is incorrect.");
+                    }
+
+                    if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
+                    {
+                        throw new Exception("The phone number is invalid. Enter 9 digits.");
+                    }
+
+                    selectedUser.FirstName = TextBoxFirstName.Text;
+                    selectedUser.LastName = TextBoxLastName.Text;
+                    selectedUser.Login = TextBoxLogin.Text;
+                    selectedUser.Email = TextBoxEmail.Text;
+                    selectedUser.City = TextBoxCity.Text;
+                    selectedUser.Street = TextBoxStreet.Text;
+                    selectedUser.PostalCode = TextBoxPostalCode.Text;
+                    selectedUser.HouseNumber = TextBoxHouseNumber.Text;
+                    selectedUser.ApartmentNumber = TextBoxApartmentNumber.Text;
+                    selectedUser.Pesel = TextBoxPESEL.Text;
+                    selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
+                    selectedUser.Gender = ComboBoxGender.Text;
+                    selectedUser.Password = TextBoxPassword.Text;
+                    selectedUser.Role = ComboBoxRole.SelectionBoxItem.ToString();
+
+                    TextBoxFirstName.IsEnabled = false;
+                    TextBoxLastName.IsEnabled = false;
+                    TextBoxLogin.IsEnabled = false;
+                    TextBoxEmail.IsEnabled = false;
+                    TextBoxCity.IsEnabled = false;
+                    TextBoxStreet.IsEnabled = false;
+                    TextBoxPostalCode.IsEnabled = false;
+                    TextBoxHouseNumber.IsEnabled = false;
+                    TextBoxApartmentNumber.IsEnabled = false;
+                    TextBoxPESEL.IsEnabled = false;
+                    TextBoxPhoneNumber.IsEnabled = false;
+                    ComboBoxGender.IsEnabled = false;
+                    TextBoxPassword.IsEnabled = false;
+                    ComboBoxRole.IsEnabled = false;
+
+                    ButtonApplyChanges.Visibility = Visibility.Hidden;
+                    ButtonEnableFields.Visibility = Visibility.Visible;
+
+                    using (var context = new WarehouseDBEntities())
+                    {
+                        context.Entry(selectedUser).State = EntityState.Modified;
+                        context.SaveChanges();
+
+                        LoadUsers();
+                    }
                 }
-
-                if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Numer telefonu jest nieprawidłowy. Wprowadź 9 cyfr.");
-                    return;
-                }
-
-                selectedUser.FirstName = TextBoxFirstName.Text;
-                selectedUser.LastName = TextBoxLastName.Text;
-                selectedUser.Login = TextBoxLogin.Text;
-                selectedUser.Email = TextBoxEmail.Text;
-                selectedUser.City = TextBoxCity.Text;
-                selectedUser.Street = TextBoxStreet.Text;
-                selectedUser.PostalCode = TextBoxPostalCode.Text;
-                selectedUser.HouseNumber = TextBoxHouseNumber.Text;
-                selectedUser.ApartmentNumber = TextBoxApartmentNumber.Text;
-                selectedUser.Pesel = TextBoxPESEL.Text;
-                selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
-                selectedUser.Gender = ComboBoxGender.Text;
-                selectedUser.Password = TextBoxPassword.Text;
-                selectedUser.Role = ComboBoxRole.SelectionBoxItem.ToString();
-
-                TextBoxFirstName.IsEnabled = false;
-                TextBoxLastName.IsEnabled = false;
-                TextBoxLogin.IsEnabled = false;
-                TextBoxEmail.IsEnabled = false;
-                TextBoxCity.IsEnabled = false;
-                TextBoxStreet.IsEnabled = false;
-                TextBoxPostalCode.IsEnabled = false;
-                TextBoxHouseNumber.IsEnabled = false;
-                TextBoxApartmentNumber.IsEnabled = false;
-                TextBoxPESEL.IsEnabled = false;
-                TextBoxPhoneNumber.IsEnabled = false;
-                ComboBoxGender.IsEnabled = false;
-                TextBoxPassword.IsEnabled = false;
-                ComboBoxRole.IsEnabled = false;
-
-                ButtonApplyChanges.Visibility = Visibility.Hidden;
-                ButtonEnableFields.Visibility = Visibility.Visible;
-
-                using (var context = new WarehouseDBEntities())
-                {
-                    
-                    context.Entry(selectedUser).State = EntityState.Modified;
-                    context.SaveChanges();
-
-                    LoadUsers();
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
+        
         /// <summary>
         /// button that open clear GridUserInfo (contains button Add User)
         /// </summary>
@@ -330,45 +335,50 @@ namespace Main
         /// <param name="e"></param>
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            if (!ValidatePESEL(TextBoxPESEL.Text))
+            try
             {
-                MessageBox.Show("Numer PESEL jest nieprawidłowy.");
-                return;
+                if (!ValidatePESEL(TextBoxPESEL.Text))
+                {
+                    throw new Exception("The PESEL number is incorrect.");
+                }
+
+                if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
+                {
+                    throw new Exception("The phone number is invalid. Enter 9 digits.");
+                }
+
+                User newUser = new User
+                {
+                    FirstName = TextBoxFirstName.Text,
+                    LastName = TextBoxLastName.Text,
+                    Login = TextBoxLogin.Text,
+                    Email = TextBoxEmail.Text,
+                    City = TextBoxCity.Text,
+                    Street = TextBoxStreet.Text,
+                    PostalCode = TextBoxPostalCode.Text,
+                    HouseNumber = TextBoxHouseNumber.Text,
+                    ApartmentNumber = TextBoxApartmentNumber.Text,
+                    Pesel = TextBoxPESEL.Text,
+                    PhoneNumber = TextBoxPhoneNumber.Text,
+                    Gender = ComboBoxGender.Text,
+                    Password = TextBoxPassword.Text,
+                    Role = ComboBoxRole.SelectionBoxItem.ToString()
+
+                };
+                newUser.Id = Guid.NewGuid();
+
+                using (var context = new WarehouseDBEntities())
+                {
+                    context.User.Add(newUser);
+                    context.SaveChanges();
+
+
+                    LoadUsers();
+                }
             }
-
-            if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
+            catch (Exception ex)
             {
-                MessageBox.Show("Numer telefonu jest nieprawidłowy. Wprowadź 9 cyfr.");
-                return;
-            }
-
-            User newUser = new User
-            {
-                FirstName = TextBoxFirstName.Text,
-                LastName = TextBoxLastName.Text,
-                Login = TextBoxLogin.Text,
-                Email = TextBoxEmail.Text,
-                City = TextBoxCity.Text,
-                Street = TextBoxStreet.Text,
-                PostalCode = TextBoxPostalCode.Text,
-                HouseNumber = TextBoxHouseNumber.Text,
-                ApartmentNumber = TextBoxApartmentNumber.Text,
-                Pesel = TextBoxPESEL.Text,
-                PhoneNumber = TextBoxPhoneNumber.Text,
-                Gender = ComboBoxGender.Text,
-                Password = TextBoxPassword.Text,
-                Role = ComboBoxRole.SelectionBoxItem.ToString()
-
-            };
-            newUser.Id = Guid.NewGuid();
-
-            using (var context = new WarehouseDBEntities())
-            {
-                context.User.Add(newUser);
-                context.SaveChanges();
-
-               
-                LoadUsers();
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             TextBoxFirstName.Text = "";
