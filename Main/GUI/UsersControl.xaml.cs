@@ -69,6 +69,7 @@ namespace Main
                 TextBoxHouseNumber.Text = selectedUser.HouseNumber;
                 TextBoxApartmentNumber.Text = selectedUser.ApartmentNumber;
                 TextBoxPESEL.Text = selectedUser.Pesel;
+                TextBoxDateOfBirth.Text = selectedUser.BirthDate.Value.ToString("dd.MM.yyyy");
                 TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
                 TextBoxPassword.Text = selectedUser.Password;
                 ComboBoxRole.SelectedItem = selectedUser.Role;
@@ -89,6 +90,7 @@ namespace Main
                 TextBoxHouseNumber.IsEnabled = false;
                 TextBoxApartmentNumber.IsEnabled = false;
                 TextBoxPESEL.IsEnabled = false;
+                TextBoxDateOfBirth.IsEnabled = false;
                 TextBoxPhoneNumber.IsEnabled = false;
                 ComboBoxGender.IsEnabled = false;
                 TextBoxPassword.IsEnabled = false;
@@ -163,6 +165,7 @@ namespace Main
             TextBoxHouseNumber.IsEnabled = true;
             TextBoxApartmentNumber.IsEnabled = true;
             TextBoxPESEL.IsEnabled = true;
+            TextBoxDateOfBirth.IsEnabled=true;
             TextBoxPhoneNumber.IsEnabled = true;
             ComboBoxGender.IsEnabled = true;
             TextBoxPassword.IsEnabled = true;
@@ -222,6 +225,7 @@ namespace Main
                     selectedUser.HouseNumber = TextBoxHouseNumber.Text;
                     selectedUser.ApartmentNumber = TextBoxApartmentNumber.Text;
                     selectedUser.Pesel = TextBoxPESEL.Text;
+                    selectedUser.BirthDate = DateTime.Parse(TextBoxDateOfBirth.Text);
                     selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
                     selectedUser.Gender = ComboBoxGender.Text;
                     selectedUser.Password = TextBoxPassword.Text;
@@ -237,6 +241,7 @@ namespace Main
                     TextBoxHouseNumber.IsEnabled = false;
                     TextBoxApartmentNumber.IsEnabled = false;
                     TextBoxPESEL.IsEnabled = false;
+                    TextBoxDateOfBirth.IsEnabled = false;
                     TextBoxPhoneNumber.IsEnabled = false;
                     ComboBoxGender.IsEnabled = false;
                     TextBoxPassword.IsEnabled = false;
@@ -276,6 +281,7 @@ namespace Main
             TextBoxPostalCode.Text = "";
             TextBoxHouseNumber.Text = "";
             TextBoxPESEL.Text = "";
+            TextBoxDateOfBirth.Text = "";
             TextBoxLogin.Text = "";
             ComboBoxGender.SelectedIndex = -1; // Usuwa zaznaczenie
             TextBoxPhoneNumber.Text = "";

@@ -135,7 +135,7 @@
 
             <StackPanel Margin="188,107,12,266" Height="47" Width="150">
                 <Label Content="Date of Birth:"/>
-                <TextBox x:Name="TextBoxDateOfBirth" Text="01.01.1990" IsEnabled="False" Height="20"/>
+                <TextBox x:Name="TextBoxDateOfBirth" Text="dd.mm.yyyy" IsEnabled="False" Height="20"/>
             </StackPanel>
 
             <StackPanel Margin="188,55,12,318" Height="47" Width="150">
@@ -157,7 +157,7 @@
             </StackPanel>
 
             <Button x:Name="ButtonEnableFields" Content="Enable Fields" Click="EnableFields_Click" Margin="26,340,228,56"/>
-            <Button x:Name="ButtonApplyChanges" Content="Apply Changes" Click="ApplyChanges_Click" Margin="24,343,228,54" Height="24" Width="96" Visibility="Hidden"/>
+            <Button x:Name="ButtonApplyChanges" Content="Apply Changes" Click="ApplyChanges_Click" Margin="26,340,228,56" Height="24" Width="96" Visibility="Hidden"/>
             <Button x:Name="ButtonAddUser" Content="Add User" Click="AddUser_Click" Margin="26,342,228,24" Height="54" Width="96" Visibility="Hidden"/>
             <Button x:Name="ButtonDeleteUser" Content="Delete User" Margin="26,371,228,25" Width="96" Height="24" Click="ButtonDeleteUser_Click" Visibility="Hidden"/>
 
