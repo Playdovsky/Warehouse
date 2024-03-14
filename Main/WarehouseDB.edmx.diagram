@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="83dcad6357534267926c4a4ac2d60229" Name="Diagram1">
-        <EntityTypeShape EntityType="WarehouseModel.database_firewall_rules" Width="1.5" PointX="2.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="WarehouseModel.User" Width="1.5" PointX="0.625" PointY="0.875" />
+      <Diagram DiagramId="6ba48633c39047488777c718313ea221" Name="Diagram1">
+        <EntityTypeShape EntityType="WarehouseDB.database_firewall_rules" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDB.User" Width="1.5" PointX="0.625" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
