@@ -78,7 +78,7 @@
             </DataGrid.RowStyle>
         </DataGrid>
 
-        <Grid x:Name="GridUserInfo" Margin="290,0,20,0" Grid.RowSpan="2" Width="350" Visibility="Hidden">
+        <Grid x:Name="GridUserInfo" Margin="290,0,20,0" Grid.RowSpan="2" Width="350">
 
             <StackPanel Margin="28,2,12,370" Orientation="Horizontal" Width="310">
                 <StackPanel Width="150">
@@ -155,16 +155,21 @@
                 <Label Content="Phone Number:"/>
                 <TextBox  x:Name="TextBoxPhoneNumber" Text="123456789" IsEnabled="False" Height="20"/>
             </StackPanel>
-            <Button x:Name="ButtonEnableFields" Content="Enable Fields" Click="EnableFields_Click" Margin="26,342,228,54"/>
-            <Button x:Name="ButtonApplyChanges" Content="Apply Changes" Click="ApplyChanges_Click" HorizontalAlignment="Left" Margin="26,342,0,0" VerticalAlignment="Top" Height="24" Width="96" Visibility="Hidden"/>
-            <Button x:Name="ButtonAddUser" Content="Add User" Visibility="Hidden" Click="AddUser_Click" HorizontalAlignment="Left" Margin="26,342,0,0" VerticalAlignment="Top" Height="54" Width="96"/>
-            <Button x:Name="ButtonDeleteUser" Content="Delete User" HorizontalAlignment="Left" Margin="26,372,0,0" VerticalAlignment="Top" Width="96" Height="24" Click="ButtonDeleteUser_Click" Visibility="Hidden"/>
 
+            <Button x:Name="ButtonEnableFields" Content="Enable Fields" Click="EnableFields_Click" Margin="26,340,228,56"/>
+            <Button x:Name="ButtonApplyChanges" Content="Apply Changes" Click="ApplyChanges_Click" Margin="24,343,228,54" Height="24" Width="96" Visibility="Hidden"/>
+            <Button x:Name="ButtonAddUser" Content="Add User" Click="AddUser_Click" Margin="26,342,228,24" Height="54" Width="96" Visibility="Hidden"/>
+            <Button x:Name="ButtonDeleteUser" Content="Delete User" Margin="26,371,228,25" Width="96" Height="24" Click="ButtonDeleteUser_Click" Visibility="Hidden"/>
+
+            <Label x:Name="LabelPassword" Content="Password :" Grid.Row="0" Margin="146,339,138,58" Height="23" Width="66"/>
+            <TextBox x:Name="TextBoxPassword" Height="19" Margin="217,343,12,58" TextWrapping="Wrap" Text="Password" IsEnabled="False"/>
+
+            <Label x:Name="LabelRole" Content="Role :" Grid.Row="0" Margin="146,370,138,27" Height="23" Width="66"/>
+            <ComboBox x:Name="ComboBoxRole" HorizontalAlignment="Left" Margin="217,374,0,0" VerticalAlignment="Top" Width="121" IsEnabled="False" Height="19"/>
         </Grid>
         <TextBox x:Name="SearchingTextBox" HorizontalAlignment="Left" Margin="10,24,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="20" TextChanged="SearchingTextBox_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"><Run Language="pl-pl" Text="Search by Name"/></TextBlock>
         <Button x:Name="ButtonCreateUser" Content="Create User" Click="CreateUser_Click" HorizontalAlignment="Left" Margin="186,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="41" Width="99"/>
-        <TextBox x:Name="TextBoxPassword" HorizontalAlignment="Left" Height="19" Margin="553,348,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="65" Visibility="Hidden" IsEnabled="False"/>
-        <ComboBox x:Name="ComboBoxRole" HorizontalAlignment="Left" Margin="553,372,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Hidden" IsEnabled="False" Height="19"/>
+
     </Grid>
 </UserControl>

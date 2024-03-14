@@ -25,6 +25,7 @@ namespace Main
         public UsersControl()
         {
             InitializeComponent();
+            GridUserInfo.Visibility = Visibility.Hidden;
             Users = new List<User>();
 
             //Retrieves data from "User" table and binds it with users list and sets the data context.
@@ -122,9 +123,9 @@ namespace Main
                             To = 350,
                             Duration = TimeSpan.FromSeconds(0.5)
                         };
+                        GridUserInfo.Visibility = Visibility.Visible;
 
                         GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
-                        GridUserInfo.Visibility = Visibility.Visible;
                     };
 
 
