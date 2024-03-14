@@ -199,7 +199,18 @@ namespace Main
             var selectedUser = (User)DataGridListOfUsers.SelectedItem;
             if (selectedUser != null)
             {
-                
+                if (!ValidatePESEL(TextBoxPESEL.Text))
+                {
+                    MessageBox.Show("Numer PESEL jest nieprawidłowy.");
+                    return;
+                }
+
+                if (TextBoxPhoneNumber.Text.Length != 9 || !TextBoxPhoneNumber.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("Numer telefonu jest nieprawidłowy. Wprowadź 9 cyfr.");
+                    return;
+                }
+
                 selectedUser.FirstName = TextBoxFirstName.Text;
                 selectedUser.LastName = TextBoxLastName.Text;
                 selectedUser.Login = TextBoxLogin.Text;
@@ -319,6 +330,17 @@ namespace Main
         /// <param name="e"></param>
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
+            if (!ValidatePESEL(TextBoxPESEL.Text))
+            {
+                MessageBox.Show("Numer PESEL jest nieprawidłowy.");
+                return;
+            }
+
+            if (TextBoxPhoneNumber.Text.Length != 9 || !TextBoxPhoneNumber.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("Numer telefonu jest nieprawidłowy. Wprowadź 9 cyfr.");
+                return;
+            }
 
             User newUser = new User
             {
@@ -393,6 +415,31 @@ namespace Main
                 }
             }
         }
+        /// <summary>
+        /// a way to check whether the PESEL number is correct or not
+        /// </summary>
+        /// <param name="pesel"></param>
+        /// <returns></returns>
+        private bool ValidatePESEL(string pesel)
+        {
+            if (pesel.Length != 11 || !pesel.All(char.IsDigit))
+            {
+                return false;
+            }
+
+            int[] weights = { 1, 3, 7, 9, 1, 3, 7, 9, 1, 3 };
+            int sum = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                sum += int.Parse(pesel[i].ToString()) * weights[i];
+            }
+
+            int controlNumber = (10 - (sum % 10)) % 10;
+
+            return controlNumber == int.Parse(pesel[10].ToString());
+        }
+
     }
 
 }
