@@ -73,6 +73,25 @@ namespace Main
                 ComboBoxRole.SelectedItem = selectedUser.Role;
                 TextBoxPassword.Visibility = Visibility.Visible;
                 ComboBoxRole.Visibility = Visibility.Visible;
+                ButtonAddUser.Visibility = Visibility.Hidden;
+                ButtonEnableFields.Visibility = Visibility.Visible;
+                ButtonDeleteUser.Visibility = Visibility.Visible;
+                ButtonApplyChanges.Visibility = Visibility.Hidden;
+
+                TextBoxFirstName.IsEnabled = false;
+                TextBoxLastName.IsEnabled = false;
+                TextBoxLogin.IsEnabled = false;
+                TextBoxEmail.IsEnabled = false;
+                TextBoxCity.IsEnabled = false;
+                TextBoxStreet.IsEnabled = false;
+                TextBoxPostalCode.IsEnabled = false;
+                TextBoxHouseNumber.IsEnabled = false;
+                TextBoxApartmentNumber.IsEnabled = false;
+                TextBoxPESEL.IsEnabled = false;
+                TextBoxPhoneNumber.IsEnabled = false;
+                ComboBoxGender.IsEnabled = false;
+                TextBoxPassword.IsEnabled = false;
+                ComboBoxRole.IsEnabled = false;
 
                 if (DataGridListOfUsers.ActualWidth <= 280)
                 {
@@ -195,6 +214,24 @@ namespace Main
                 selectedUser.Gender = ComboBoxGender.Text;
                 selectedUser.Password = TextBoxPassword.Text;
                 selectedUser.Role = ComboBoxRole.SelectionBoxItem.ToString();
+
+                TextBoxFirstName.IsEnabled = false;
+                TextBoxLastName.IsEnabled = false;
+                TextBoxLogin.IsEnabled = false;
+                TextBoxEmail.IsEnabled = false;
+                TextBoxCity.IsEnabled = false;
+                TextBoxStreet.IsEnabled = false;
+                TextBoxPostalCode.IsEnabled = false;
+                TextBoxHouseNumber.IsEnabled = false;
+                TextBoxApartmentNumber.IsEnabled = false;
+                TextBoxPESEL.IsEnabled = false;
+                TextBoxPhoneNumber.IsEnabled = false;
+                ComboBoxGender.IsEnabled = false;
+                TextBoxPassword.IsEnabled = false;
+                ComboBoxRole.IsEnabled = false;
+
+                ButtonApplyChanges.Visibility = Visibility.Hidden;
+                ButtonEnableFields.Visibility = Visibility.Visible;
 
                 using (var context = new WarehouseDBEntities())
                 {
