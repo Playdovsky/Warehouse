@@ -205,7 +205,7 @@ namespace Main
                     return;
                 }
 
-                if (TextBoxPhoneNumber.Text.Length != 9 || !TextBoxPhoneNumber.Text.All(char.IsDigit))
+                if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
                 {
                     MessageBox.Show("Numer telefonu jest nieprawidłowy. Wprowadź 9 cyfr.");
                     return;
@@ -336,7 +336,7 @@ namespace Main
                 return;
             }
 
-            if (TextBoxPhoneNumber.Text.Length != 9 || !TextBoxPhoneNumber.Text.All(char.IsDigit))
+            if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
             {
                 MessageBox.Show("Numer telefonu jest nieprawidłowy. Wprowadź 9 cyfr.");
                 return;
@@ -416,7 +416,7 @@ namespace Main
             }
         }
         /// <summary>
-        /// a way to check whether the PESEL number is correct or not
+        /// method that check whether the PESEL number is correct or not
         /// </summary>
         /// <param name="pesel"></param>
         /// <returns></returns>
@@ -438,6 +438,17 @@ namespace Main
             int controlNumber = (10 - (sum % 10)) % 10;
 
             return controlNumber == int.Parse(pesel[10].ToString());
+        }
+        /// <summary>
+        /// method that check whether the Phone Number is correct or not
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
+        private bool ValidatePhoneNumber(string phoneNumber)
+        {
+            phoneNumber = phoneNumber.Replace(" ", "").Replace("-", "");
+
+            return phoneNumber.Length == 9 && phoneNumber.All(char.IsDigit);
         }
 
     }
