@@ -17,6 +17,9 @@ namespace Main
     /// </summary>
     public partial class UsersControl : UserControl
     {
+        private bool dataGridReduced = false;
+        private double originalDataGridWidth;
+        private double reducedDataGridWidth;
         public List<User> Users { get; set; }
 
         /// <summary>
@@ -96,24 +99,30 @@ namespace Main
                 TextBoxPassword.IsEnabled = false;
                 ComboBoxRole.IsEnabled = false;
 
-                if (DataGridListOfUsers.ActualWidth <= 280)
+                if (!dataGridReduced)
+                {
+                    originalDataGridWidth = DataGridListOfUsers.ActualWidth;
+                    reducedDataGridWidth = originalDataGridWidth - (originalDataGridWidth / 3.0);
+                }
+
+                if (DataGridListOfUsers.ActualWidth <= reducedDataGridWidth)
                 {
                     DoubleAnimation slideInAnimation = new DoubleAnimation
                     {
                         From = 0,
-                        To = 350,
+                        To = 550,
                         Duration = TimeSpan.FromSeconds(0.5)
                     };
 
                     GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
                     GridUserInfo.Visibility = Visibility.Visible;
                 }
-                else
+                else if (!dataGridReduced && DataGridListOfUsers.ActualWidth > reducedDataGridWidth)
                 {
                     DoubleAnimation reduceWidthAnimation = new DoubleAnimation
                     {
                         From = DataGridListOfUsers.ActualWidth,
-                        To = 280,
+                        To = reducedDataGridWidth,
                         Duration = TimeSpan.FromSeconds(0.5)
                     };
 
@@ -122,7 +131,7 @@ namespace Main
                         DoubleAnimation slideInAnimation = new DoubleAnimation
                         {
                             From = 0,
-                            To = 350,
+                            To = 550,
                             Duration = TimeSpan.FromSeconds(0.5)
                         };
                         GridUserInfo.Visibility = Visibility.Visible;
@@ -130,8 +139,8 @@ namespace Main
                         GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
                     };
 
-
                     DataGridListOfUsers.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
+                    dataGridReduced = true;
                 }
             }
         }
@@ -303,24 +312,30 @@ namespace Main
             ComboBoxRole.Visibility = Visibility.Visible;
 
 
-            if (DataGridListOfUsers.ActualWidth <= 280)
+            if (!dataGridReduced)
+            {
+                originalDataGridWidth = DataGridListOfUsers.ActualWidth;
+                reducedDataGridWidth = originalDataGridWidth - (originalDataGridWidth / 3.0);
+            }
+
+            if (DataGridListOfUsers.ActualWidth <= reducedDataGridWidth)
             {
                 DoubleAnimation slideInAnimation = new DoubleAnimation
                 {
                     From = 0,
-                    To = 350,
+                    To = 550,
                     Duration = TimeSpan.FromSeconds(0.5)
                 };
 
                 GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
                 GridUserInfo.Visibility = Visibility.Visible;
             }
-            else
+            else if (!dataGridReduced && DataGridListOfUsers.ActualWidth > reducedDataGridWidth)
             {
                 DoubleAnimation reduceWidthAnimation = new DoubleAnimation
                 {
                     From = DataGridListOfUsers.ActualWidth,
-                    To = 280,
+                    To = reducedDataGridWidth,
                     Duration = TimeSpan.FromSeconds(0.5)
                 };
 
@@ -329,16 +344,16 @@ namespace Main
                     DoubleAnimation slideInAnimation = new DoubleAnimation
                     {
                         From = 0,
-                        To = 350,
+                        To = 550,
                         Duration = TimeSpan.FromSeconds(0.5)
                     };
+                    GridUserInfo.Visibility = Visibility.Visible;
 
                     GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
-                    GridUserInfo.Visibility = Visibility.Visible;
                 };
 
-
                 DataGridListOfUsers.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
+                dataGridReduced = true;
             }
 
         }

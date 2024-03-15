@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="420" d:DesignWidth="660"
              Background="white"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
              >
     <Grid x:Name="LabelTestWarehosue">
         <Label Content="Warehouse window" HorizontalAlignment="Center" Margin="0,192,0,0" VerticalAlignment="Top"/>
