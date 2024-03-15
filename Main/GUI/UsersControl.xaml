@@ -80,16 +80,14 @@
 
         <Grid x:Name="GridUserInfo" Margin="290,0,20,0" Grid.RowSpan="2" Width="350">
 
-            <StackPanel Margin="28,2,12,370" Orientation="Horizontal" Width="310">
-                <StackPanel Width="150">
-                    <Label Content="First Name:"/>
-                    <TextBox x:Name="TextBoxFirstName" Text="Jan" IsEnabled="False" Height="20"/>
-                </StackPanel>
+            <StackPanel Width="150" Margin="27,0,173,370">
+                <Label Content="First Name:"/>
+                <TextBox x:Name="TextBoxFirstName" Text="Jan" IsEnabled="False" Height="20"/>
+            </StackPanel>
 
-                <StackPanel Margin="10,0,0,0" Width="150">
-                    <Label Content="Last Name:"/>
-                    <TextBox x:Name="TextBoxLastName" Text="Kowalski" IsEnabled="False" Height="20"/>
-                </StackPanel>
+            <StackPanel Margin="188,0,12,370" Width="150">
+                <Label Content="Last Name:"/>
+                <TextBox x:Name="TextBoxLastName" Text="Kowalski" IsEnabled="False" Height="20"/>
             </StackPanel>
 
             <GroupBox Header="Address" Margin="24,220,12,89">

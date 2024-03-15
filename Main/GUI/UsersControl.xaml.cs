@@ -69,7 +69,7 @@ namespace Main
                 TextBoxHouseNumber.Text = selectedUser.HouseNumber;
                 TextBoxApartmentNumber.Text = selectedUser.ApartmentNumber;
                 TextBoxPESEL.Text = selectedUser.Pesel;
-                TextBoxDateOfBirth.Text = selectedUser.BirthDate.Value.ToString("dd.MM.yyyy");
+                TextBoxDateOfBirth.Text = selectedUser.BirthDate?.ToString("dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
                 TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
                 TextBoxPassword.Text = selectedUser.Password;
                 ComboBoxRole.SelectedItem = selectedUser.Role;
@@ -225,7 +225,15 @@ namespace Main
                     selectedUser.HouseNumber = TextBoxHouseNumber.Text;
                     selectedUser.ApartmentNumber = TextBoxApartmentNumber.Text;
                     selectedUser.Pesel = TextBoxPESEL.Text;
-                    selectedUser.BirthDate = DateTime.Parse(TextBoxDateOfBirth.Text);
+                    DateTime birthDate;
+                    if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out birthDate))
+                    {
+                        selectedUser.BirthDate = birthDate;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                     selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
                     selectedUser.Gender = ComboBoxGender.Text;
                     selectedUser.Password = TextBoxPassword.Text;
@@ -366,13 +374,22 @@ namespace Main
                     HouseNumber = TextBoxHouseNumber.Text,
                     ApartmentNumber = TextBoxApartmentNumber.Text,
                     Pesel = TextBoxPESEL.Text,
-                    BirthDate=DateTime.Parse(TextBoxDateOfBirth.Text),
                     PhoneNumber = TextBoxPhoneNumber.Text,
                     Gender = ComboBoxGender.Text,
                     Password = TextBoxPassword.Text,
                     Role = ComboBoxRole.SelectionBoxItem.ToString()
 
                 };
+                DateTime birthDate;
+                if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out birthDate))
+                {
+                    newUser.BirthDate = birthDate;
+                }
+                else
+                {
+                    MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 newUser.Id = Guid.NewGuid();
 
                 using (var context = new WarehouseDBEntities())
