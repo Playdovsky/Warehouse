@@ -3,7 +3,7 @@
 namespace Main
 {
     /// <summary>
-    /// Main window of all operations
+    /// Main window of all operations.
     /// </summary>
     public partial class MainWindow : Window
     {

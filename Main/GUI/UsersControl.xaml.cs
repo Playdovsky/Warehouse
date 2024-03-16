@@ -20,11 +20,10 @@ namespace Main
         private bool dataGridReduced = false;
         private double originalDataGridWidth;
         private double reducedDataGridWidth;
+        private bool enabled = false;
+
         public List<User> Users { get; set; }
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
         public UsersControl()
         {
             InitializeComponent();
@@ -53,51 +52,28 @@ namespace Main
         /// <param name="e"></param>
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var selectedUser = (User)DataGridListOfUsers.SelectedItem;
+            User selectedUser = (User)DataGridListOfUsers.SelectedItem;
+
             if (selectedUser != null)
             {
-                TextBoxFirstName.Text = selectedUser.FirstName;
-                TextBoxLastName.Text = selectedUser.LastName;
-                TextBoxLogin.Text = selectedUser.Login;
 
                 if (selectedUser.Gender == "Male")
                     ComboBoxGender.SelectedIndex = 1;
                 else if (selectedUser.Gender == "Female")
                     ComboBoxGender.SelectedIndex = 0;
 
-                TextBoxEmail.Text = selectedUser.Email;
-                TextBoxCity.Text = selectedUser.City;
-                TextBoxStreet.Text = selectedUser.Street;
-                TextBoxPostalCode.Text = selectedUser.PostalCode;
-                TextBoxHouseNumber.Text = selectedUser.HouseNumber;
-                TextBoxApartmentNumber.Text = selectedUser.ApartmentNumber;
-                TextBoxPESEL.Text = selectedUser.Pesel;
                 TextBoxDateOfBirth.Text = selectedUser.BirthDate?.ToString("dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
-                TextBoxPassword.Text = selectedUser.Password;
-                ComboBoxRole.SelectedItem = selectedUser.Role;
-                TextBoxPassword.Visibility = Visibility.Visible;
-                ComboBoxRole.Visibility = Visibility.Visible;
+
+                SelectedUserInitialization(selectedUser);
+
                 ButtonAddUser.Visibility = Visibility.Hidden;
                 ButtonEnableFields.Visibility = Visibility.Visible;
                 ButtonDeleteUser.Visibility = Visibility.Visible;
+
                 ButtonApplyChanges.Visibility = Visibility.Hidden;
 
-                TextBoxFirstName.IsEnabled = false;
-                TextBoxLastName.IsEnabled = false;
-                TextBoxLogin.IsEnabled = false;
-                TextBoxEmail.IsEnabled = false;
-                TextBoxCity.IsEnabled = false;
-                TextBoxStreet.IsEnabled = false;
-                TextBoxPostalCode.IsEnabled = false;
-                TextBoxHouseNumber.IsEnabled = false;
-                TextBoxApartmentNumber.IsEnabled = false;
-                TextBoxPESEL.IsEnabled = false;
-                TextBoxDateOfBirth.IsEnabled = false;
-                TextBoxPhoneNumber.IsEnabled = false;
-                ComboBoxGender.IsEnabled = false;
-                TextBoxPassword.IsEnabled = false;
-                ComboBoxRole.IsEnabled = false;
+                enabled = false;
+                EnableFieldsOperation();
 
                 if (!dataGridReduced)
                 {
@@ -146,7 +122,7 @@ namespace Main
         }
 
         /// <summary>
-        /// The user can filter the list by entering first name
+        /// The user can filter the list by entering first name.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -158,32 +134,19 @@ namespace Main
         }
 
         /// <summary>
-        /// Button that allows to modify the User Info
+        /// Button that allows to modify the User Info.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void EnableFields_Click(object sender, RoutedEventArgs e)
-        { 
-            TextBoxFirstName.IsEnabled = true;
-            TextBoxLastName.IsEnabled = true;
-            TextBoxLogin.IsEnabled = true;
-            TextBoxEmail.IsEnabled = true;
-            TextBoxCity.IsEnabled = true;
-            TextBoxStreet.IsEnabled = true;
-            TextBoxPostalCode.IsEnabled = true;
-            TextBoxHouseNumber.IsEnabled = true;
-            TextBoxApartmentNumber.IsEnabled = true;
-            TextBoxPESEL.IsEnabled = true;
-            TextBoxDateOfBirth.IsEnabled=true;
-            TextBoxPhoneNumber.IsEnabled = true;
-            ComboBoxGender.IsEnabled = true;
-            TextBoxPassword.IsEnabled = true;
-            ComboBoxRole.IsEnabled = true;
+        {
+            enabled = true;
+            EnableFieldsOperation();
             ButtonApplyChanges.Visibility = Visibility.Visible;
         }
 
         /// <summary>
-        /// Real Time user list update
+        /// Real Time user list update.
         /// </summary>
         private void LoadUsers()
         {
@@ -203,114 +166,75 @@ namespace Main
         }
 
         /// <summary>
-        /// Button that save changes to the database
+        /// Button which saves changes to the database.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ApplyChanges_Click(object sender, RoutedEventArgs e)
         {
-            var selectedUser = (User)DataGridListOfUsers.SelectedItem;
-            if (selectedUser != null)
+
+            User selectedUser = (User)DataGridListOfUsers.SelectedItem;
+
+            try
             {
-                try
+                if (!ValidatePESEL(TextBoxPESEL.Text))
                 {
-                    if (!ValidatePESEL(TextBoxPESEL.Text))
-                    {
-                        throw new Exception("The PESEL number is incorrect.");
-                    }
-
-                    if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
-                    {
-                        throw new Exception("The phone number is invalid. Enter 9 digits.");
-                    }
-
-                    selectedUser.FirstName = TextBoxFirstName.Text;
-                    selectedUser.LastName = TextBoxLastName.Text;
-                    selectedUser.Login = TextBoxLogin.Text;
-                    selectedUser.Email = TextBoxEmail.Text;
-                    selectedUser.City = TextBoxCity.Text;
-                    selectedUser.Street = TextBoxStreet.Text;
-                    selectedUser.PostalCode = TextBoxPostalCode.Text;
-                    selectedUser.HouseNumber = TextBoxHouseNumber.Text;
-                    selectedUser.ApartmentNumber = TextBoxApartmentNumber.Text;
-                    selectedUser.Pesel = TextBoxPESEL.Text;
-                    DateTime birthDate;
-                    if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out birthDate))
-                    {
-                        selectedUser.BirthDate = birthDate;
-                    }
-                    else
-                    {
-                        MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
-                    selectedUser.Gender = ComboBoxGender.Text;
-                    selectedUser.Password = TextBoxPassword.Text;
-                    selectedUser.Role = ComboBoxRole.SelectionBoxItem.ToString();
-
-                    TextBoxFirstName.IsEnabled = false;
-                    TextBoxLastName.IsEnabled = false;
-                    TextBoxLogin.IsEnabled = false;
-                    TextBoxEmail.IsEnabled = false;
-                    TextBoxCity.IsEnabled = false;
-                    TextBoxStreet.IsEnabled = false;
-                    TextBoxPostalCode.IsEnabled = false;
-                    TextBoxHouseNumber.IsEnabled = false;
-                    TextBoxApartmentNumber.IsEnabled = false;
-                    TextBoxPESEL.IsEnabled = false;
-                    TextBoxDateOfBirth.IsEnabled = false;
-                    TextBoxPhoneNumber.IsEnabled = false;
-                    ComboBoxGender.IsEnabled = false;
-                    TextBoxPassword.IsEnabled = false;
-                    ComboBoxRole.IsEnabled = false;
-
-                    ButtonApplyChanges.Visibility = Visibility.Hidden;
-                    ButtonEnableFields.Visibility = Visibility.Visible;
-
-                    using (var context = new WarehouseDBEntities())
-                    {
-                        context.Entry(selectedUser).State = EntityState.Modified;
-                        context.SaveChanges();
-
-                        LoadUsers();
-                    }
+                    throw new Exception("The PESEL number is incorrect.");
                 }
-                catch (Exception ex)
+
+                if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    throw new Exception("The phone number is invalid. Enter 9 digits.");
                 }
+
+                DateTime birthDate;
+
+                if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out birthDate))
+                {
+                    selectedUser.BirthDate = birthDate;
+                }
+                else
+                {
+                    MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                SelectedUserInitialization(selectedUser);
+
+                enabled = false;
+                EnableFieldsOperation();
+
+                ButtonApplyChanges.Visibility = Visibility.Hidden;
+                ButtonEnableFields.Visibility = Visibility.Visible;
+
+                using (var context = new WarehouseDBEntities())
+                {
+                    context.Entry(selectedUser).State = EntityState.Modified;
+                    context.SaveChanges();
+
+                    LoadUsers();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         
         /// <summary>
-        /// button that open clear GridUserInfo (contains button Add User)
+        /// Button which opens clear GridUserInfo (contains 'Add User' button).
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CreateUser_Click(object sender, RoutedEventArgs e)
         {
-            TextBoxFirstName.Text = "";
-            TextBoxLastName.Text = "";
-            TextBoxEmail.Text = "";
-            TextBoxCity.Text = "";
-            TextBoxStreet.Text = "";
-            TextBoxApartmentNumber.Text = "";
-            TextBoxPostalCode.Text = "";
-            TextBoxHouseNumber.Text = "";
-            TextBoxPESEL.Text = "";
-            TextBoxDateOfBirth.Text = "";
-            TextBoxLogin.Text = "";
-            ComboBoxGender.SelectedIndex = -1; // Usuwa zaznaczenie
-            TextBoxPhoneNumber.Text = "";
-            TextBoxPassword.Text = "";
+            ClearFields();
             EnableFields_Click(sender, e);
-            ButtonEnableFields.Visibility = Visibility.Hidden;
-            ButtonApplyChanges.Visibility = Visibility.Hidden;
+            
             ButtonAddUser.Visibility = Visibility.Visible;
+            ButtonEnableFields.Visibility = Visibility.Hidden;
             ButtonDeleteUser.Visibility = Visibility.Hidden;
-            TextBoxPassword.Visibility = Visibility.Visible;
-            ComboBoxRole.Visibility = Visibility.Visible;
 
+            ButtonApplyChanges.Visibility = Visibility.Hidden;
 
             if (!dataGridReduced)
             {
@@ -359,7 +283,7 @@ namespace Main
         }
 
         /// <summary>
-        /// adding user to the database
+        /// Adds user to the database.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -393,9 +317,10 @@ namespace Main
                     Gender = ComboBoxGender.Text,
                     Password = TextBoxPassword.Text,
                     Role = ComboBoxRole.SelectionBoxItem.ToString()
-
                 };
+
                 DateTime birthDate;
+
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out birthDate))
                 {
                     newUser.BirthDate = birthDate;
@@ -405,13 +330,13 @@ namespace Main
                     MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
                 newUser.Id = Guid.NewGuid();
 
                 using (var context = new WarehouseDBEntities())
                 {
                     context.User.Add(newUser);
                     context.SaveChanges();
-
 
                     LoadUsers();
                 }
@@ -421,35 +346,20 @@ namespace Main
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            TextBoxFirstName.Text = "";
-            TextBoxLastName.Text = "";
-            TextBoxEmail.Text = "";
-            TextBoxCity.Text = "";
-            TextBoxStreet.Text = "";
-            TextBoxApartmentNumber.Text = "";
-            TextBoxPostalCode.Text = "";
-            TextBoxHouseNumber.Text = "";
-            TextBoxPESEL.Text = "";
-            TextBoxDateOfBirth.Text = "";
-            TextBoxLogin.Text = "";
-            ComboBoxGender.SelectedIndex = -1; 
-            TextBoxPhoneNumber.Text = "";
+            ClearFields();
 
             MessageBox.Show("User added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            
-            LoadUsers();
-
         }
 
         /// <summary>
-        /// Delete user from DateBase. 
+        /// Delete user from database.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             var selectedUser = (User)DataGridListOfUsers.SelectedItem;
+
             if (selectedUser != null)
             {
                 using (var context = new WarehouseDBEntities())
@@ -465,12 +375,81 @@ namespace Main
                     LoadUsers();
                 }
             }
+            else
+            {
+                throw new ArgumentNullException("If you want to delete user you have to select him in the first place");
+            }
         }
+
         /// <summary>
-        /// method that check whether the PESEL number is correct or not
+        /// Setting data from database for selected user in datagrid.
         /// </summary>
-        /// <param name="pesel"></param>
-        /// <returns></returns>
+        /// <param name="selectedUser">User which has been selected</param>
+        private void SelectedUserInitialization(User selectedUser)
+        {
+            TextBoxFirstName.Text = selectedUser.FirstName;
+            TextBoxLastName.Text = selectedUser.LastName;
+            TextBoxLogin.Text = selectedUser.Login;
+            TextBoxEmail.Text = selectedUser.Email;
+            TextBoxCity.Text = selectedUser.City;
+            TextBoxStreet.Text = selectedUser.Street;
+            TextBoxPostalCode.Text = selectedUser.PostalCode;
+            TextBoxHouseNumber.Text = selectedUser.HouseNumber;
+            TextBoxApartmentNumber.Text = selectedUser.ApartmentNumber;
+            TextBoxPESEL.Text = selectedUser.Pesel;
+            TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
+            TextBoxPassword.Text = selectedUser.Password;
+            ComboBoxRole.SelectedItem = selectedUser.Role;
+        }
+
+        /// <summary>
+        /// Makes fields enabled / disabled for modification.
+        /// </summary>
+        private void EnableFieldsOperation()
+        {
+            TextBoxFirstName.IsEnabled = enabled;
+            TextBoxLastName.IsEnabled = enabled;
+            TextBoxLogin.IsEnabled = enabled;
+            TextBoxEmail.IsEnabled = enabled;
+            TextBoxCity.IsEnabled = enabled;
+            TextBoxStreet.IsEnabled = enabled;
+            TextBoxPostalCode.IsEnabled = enabled;
+            TextBoxHouseNumber.IsEnabled = enabled;
+            TextBoxApartmentNumber.IsEnabled = enabled;
+            TextBoxPESEL.IsEnabled = enabled;
+            TextBoxDateOfBirth.IsEnabled = enabled;
+            TextBoxPhoneNumber.IsEnabled = enabled;
+            ComboBoxGender.IsEnabled = enabled;
+            TextBoxPassword.IsEnabled = enabled;
+            ComboBoxRole.IsEnabled = enabled;
+        }
+
+        /// <summary>
+        /// Clears textboxes and combobox fields.
+        /// </summary>
+        private void ClearFields()
+        {
+            TextBoxFirstName.Text = "";
+            TextBoxLastName.Text = "";
+            TextBoxEmail.Text = "";
+            TextBoxCity.Text = "";
+            TextBoxStreet.Text = "";
+            TextBoxApartmentNumber.Text = "";
+            TextBoxPostalCode.Text = "";
+            TextBoxHouseNumber.Text = "";
+            TextBoxPESEL.Text = "";
+            TextBoxDateOfBirth.Text = "";
+            TextBoxLogin.Text = "";
+            ComboBoxGender.SelectedIndex = -1;
+            TextBoxPhoneNumber.Text = "";
+            TextBoxPassword.Text = "";
+        }
+
+        /// <summary>
+        /// Method that check whether the PESEL number is correct or not.
+        /// </summary>
+        /// <param name="pesel">pesel number to be checked by method</param>
+        /// <returns>True if pesel format is correct or False if it is not correct</returns>
         private bool ValidatePESEL(string pesel)
         {
             if (pesel.Length != 11 || !pesel.All(char.IsDigit))
@@ -490,20 +469,17 @@ namespace Main
 
             return controlNumber == int.Parse(pesel[10].ToString());
         }
+
         /// <summary>
-        /// method that check whether the Phone Number is correct or not
+        /// Method that check whether the Phone Number is correct or not.
         /// </summary>
-        /// <param name="phoneNumber"></param>
-        /// <returns></returns>
+        /// <param name="phoneNumber">phone number to be checked by method</param>
+        /// <returns>True if phone number format is correct or False if it is not correct</returns>
         private bool ValidatePhoneNumber(string phoneNumber)
         {
             phoneNumber = phoneNumber.Replace(" ", "").Replace("-", "");
 
             return phoneNumber.Length == 9 && phoneNumber.All(char.IsDigit);
         }
-
     }
-
 }
-
-
