@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using System.Data.Entity;
 
 namespace Main
 {
@@ -20,28 +18,16 @@ namespace Main
         private double reducedDataGridWidth;
         private bool enabled = false;
 
-        public List<User> Users { get; set; }
-
         public UsersControl()
         {
             InitializeComponent();
             GridUserInfo.Visibility = Visibility.Hidden;
-            Users = new List<User>();
-
-            //Retrieves data from "User" table and binds it with users list and sets the data context.
-            using (var context = new WarehouseDBEntities())
-            {
-                var users = from u in context.User select u;
-                foreach (var user in users)
-                {
-                    Users.Add(user);
-                }
-            }
+            Service.UserListInitialization();
 
             ComboBoxRole.Items.Add("user");
             ComboBoxRole.Items.Add("admin");
 
-            DataContext = this;
+            DataGridListOfUsers.ItemsSource = Service.Users;
         }
 
         /// <summary>
@@ -140,7 +126,7 @@ namespace Main
         private void SearchingTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string filter = SearchingTextBox.Text.ToLower();
-            var filteredUsers = Users.Where(x => x.FirstName.ToLower().Contains(filter)).ToList();
+            var filteredUsers = Service.Users.Where(x => x.FirstName.ToLower().Contains(filter)).ToList();
             DataGridListOfUsers.ItemsSource = filteredUsers;
         }
 
@@ -157,26 +143,6 @@ namespace Main
         }
 
         /// <summary>
-        /// Real Time user list update.
-        /// </summary>
-        private void LoadUsers()
-        {
-            Users.Clear();
-
-            using (var context = new WarehouseDBEntities())
-            {
-                var users = context.User.ToList();
-                foreach (var user in users)
-                {
-                    Users.Add(user);
-                }
-            }
-
-            DataGridListOfUsers.ItemsSource = null;
-            DataGridListOfUsers.ItemsSource = Users;
-        }
-
-        /// <summary>
         /// Button which saves changes to the database.
         /// </summary>
         /// <param name="sender"></param>
@@ -187,12 +153,12 @@ namespace Main
 
             try
             {
-                if (!ValidatePESEL(TextBoxPESEL.Text))
+                if (!Service.ValidatePESEL(TextBoxPESEL.Text))
                 {
                     throw new FormatException("The PESEL number is incorrect.");
                 }
 
-                if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
+                if (!Service.ValidatePhoneNumber(TextBoxPhoneNumber.Text))
                 {
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
@@ -226,13 +192,8 @@ namespace Main
                 ButtonApplyChanges.Visibility = Visibility.Hidden;
                 ButtonEnableFields.Visibility = Visibility.Visible;
 
-                using (var context = new WarehouseDBEntities())
-                {
-                    context.Entry(selectedUser).State = EntityState.Modified;
-                    context.SaveChanges();
-
-                    LoadUsers();
-                }
+                Service.ApplyChanges(selectedUser);
+                LoadUsers();
             }
             catch (Exception ex)
             {
@@ -310,14 +271,14 @@ namespace Main
         {
             try
             {
-                if (!ValidatePESEL(TextBoxPESEL.Text))
+                if (!Service.ValidatePESEL(TextBoxPESEL.Text))
                 {
-                    throw new Exception("The PESEL number is incorrect.");
+                    throw new FormatException("The PESEL number is incorrect.");
                 }
 
-                if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
+                if (!Service.ValidatePhoneNumber(TextBoxPhoneNumber.Text))
                 {
-                    throw new Exception("The phone number is invalid. Enter 9 digits.");
+                    throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
 
                 User newUser = new User
@@ -348,15 +309,8 @@ namespace Main
                     return;
                 }
 
-                newUser.Id = Guid.NewGuid();
-
-                using (var context = new WarehouseDBEntities())
-                {
-                    context.User.Add(newUser);
-                    context.SaveChanges();
-
-                    LoadUsers();
-                }
+                Service.AddUser(newUser);
+                LoadUsers();
             }
             catch (Exception ex)
             {
@@ -369,33 +323,26 @@ namespace Main
         }
 
         /// <summary>
-        /// Delete user from database.
+        /// Removes user from database.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonDeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            var selectedUser = (User)DataGridListOfUsers.SelectedItem;
+            User selectedUser = (User)DataGridListOfUsers.SelectedItem;
+            Service.Removal(selectedUser);
+            LoadUsers();
+            ClearFields();
+        }
 
-            if (selectedUser != null)
-            {
-                using (var context = new WarehouseDBEntities())
-                {
-                    if (context.Entry(selectedUser).State == EntityState.Detached)
-                    {
-                        context.User.Attach(selectedUser);
-                    }
-
-                    context.User.Remove(selectedUser);
-                    context.SaveChanges();
-
-                    LoadUsers();
-                }
-            }
-            else
-            {
-                throw new ArgumentNullException("If you want to delete user you have to select him in the first place");
-            }
+        /// <summary>
+        /// Real Time user list update also known as 'refresh'.
+        /// </summary>
+        private void LoadUsers()
+        {
+            Service.LoadUsers();
+            DataGridListOfUsers.ItemsSource = null;
+            DataGridListOfUsers.ItemsSource = Service.Users;
         }
 
         /// <summary>
@@ -439,43 +386,6 @@ namespace Main
             ComboBoxGender.SelectedIndex = -1;
             TextBoxPhoneNumber.Text = "";
             TextBoxPassword.Text = "";
-        }
-
-        /// <summary>
-        /// Method that check whether the PESEL number is correct or not.
-        /// </summary>
-        /// <param name="pesel">pesel number to be checked by method</param>
-        /// <returns>True if pesel format is correct or False if it is not correct</returns>
-        private bool ValidatePESEL(string pesel)
-        {
-            if (pesel.Length != 11 || !pesel.All(char.IsDigit))
-            {
-                return false;
-            }
-
-            int[] weights = { 1, 3, 7, 9, 1, 3, 7, 9, 1, 3 };
-            int sum = 0;
-
-            for (int i = 0; i < 10; i++)
-            {
-                sum += int.Parse(pesel[i].ToString()) * weights[i];
-            }
-
-            int controlNumber = (10 - (sum % 10)) % 10;
-
-            return controlNumber == int.Parse(pesel[10].ToString());
-        }
-
-        /// <summary>
-        /// Method that check whether the Phone Number is correct or not.
-        /// </summary>
-        /// <param name="phoneNumber">phone number to be checked by method</param>
-        /// <returns>True if phone number format is correct or False if it is not correct</returns>
-        private bool ValidatePhoneNumber(string phoneNumber)
-        {
-            phoneNumber = phoneNumber.Replace(" ", "").Replace("-", "");
-
-            return phoneNumber.Length == 9 && phoneNumber.All(char.IsDigit);
         }
     }
 }
