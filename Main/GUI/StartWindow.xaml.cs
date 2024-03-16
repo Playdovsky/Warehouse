@@ -24,7 +24,7 @@ namespace Main
             mainWindow.Hide();
             await Task.Delay(2000);
             mainWindow.Show();
-            this.Close();
+            Close();
         }
     }
 }

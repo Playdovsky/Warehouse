@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Data.Entity;
-using System.Runtime.Remoting.Contexts;
 
 namespace Main
 {
@@ -42,6 +40,7 @@ namespace Main
 
             ComboBoxRole.Items.Add("user");
             ComboBoxRole.Items.Add("admin");
+
             DataContext = this;
         }
 
@@ -64,7 +63,19 @@ namespace Main
 
                 TextBoxDateOfBirth.Text = selectedUser.BirthDate?.ToString("dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
 
-                SelectedUserInitialization(selectedUser);
+                TextBoxFirstName.Text = selectedUser.FirstName;
+                TextBoxLastName.Text = selectedUser.LastName;
+                TextBoxLogin.Text = selectedUser.Login;
+                TextBoxEmail.Text = selectedUser.Email;
+                TextBoxCity.Text = selectedUser.City;
+                TextBoxStreet.Text = selectedUser.Street;
+                TextBoxPostalCode.Text = selectedUser.PostalCode;
+                TextBoxHouseNumber.Text = selectedUser.HouseNumber;
+                TextBoxApartmentNumber.Text = selectedUser.ApartmentNumber;
+                TextBoxPESEL.Text = selectedUser.Pesel;
+                TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
+                TextBoxPassword.Text = selectedUser.Password;
+                ComboBoxRole.SelectedItem = selectedUser.Role;
 
                 ButtonAddUser.Visibility = Visibility.Hidden;
                 ButtonEnableFields.Visibility = Visibility.Visible;
@@ -90,7 +101,7 @@ namespace Main
                         Duration = TimeSpan.FromSeconds(0.5)
                     };
 
-                    GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
+                    GridUserInfo.BeginAnimation(WidthProperty, slideInAnimation);
                     GridUserInfo.Visibility = Visibility.Visible;
                 }
                 else if (!dataGridReduced && DataGridListOfUsers.ActualWidth > reducedDataGridWidth)
@@ -112,10 +123,10 @@ namespace Main
                         };
                         GridUserInfo.Visibility = Visibility.Visible;
 
-                        GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
+                        GridUserInfo.BeginAnimation(WidthProperty, slideInAnimation);
                     };
 
-                    DataGridListOfUsers.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
+                    DataGridListOfUsers.BeginAnimation(WidthProperty, reduceWidthAnimation);
                     dataGridReduced = true;
                 }
             }
@@ -172,24 +183,21 @@ namespace Main
         /// <param name="e"></param>
         private void ApplyChanges_Click(object sender, RoutedEventArgs e)
         {
-
             User selectedUser = (User)DataGridListOfUsers.SelectedItem;
 
             try
             {
                 if (!ValidatePESEL(TextBoxPESEL.Text))
                 {
-                    throw new Exception("The PESEL number is incorrect.");
+                    throw new FormatException("The PESEL number is incorrect.");
                 }
 
                 if (!ValidatePhoneNumber(TextBoxPhoneNumber.Text))
                 {
-                    throw new Exception("The phone number is invalid. Enter 9 digits.");
+                    throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
 
-                DateTime birthDate;
-
-                if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out birthDate))
+                if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
                 {
                     selectedUser.BirthDate = birthDate;
                 }
@@ -198,7 +206,19 @@ namespace Main
                     MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                SelectedUserInitialization(selectedUser);
+                selectedUser.FirstName = TextBoxFirstName.Text; 
+                selectedUser.LastName = TextBoxLastName.Text;
+                selectedUser.Login = TextBoxLogin.Text;
+                selectedUser.Email = TextBoxEmail.Text;
+                selectedUser.City = TextBoxCity.Text;
+                selectedUser.Street = TextBoxStreet.Text;
+                selectedUser.PostalCode = TextBoxPostalCode.Text;
+                selectedUser.HouseNumber = TextBoxHouseNumber.Text;
+                selectedUser.ApartmentNumber = TextBoxApartmentNumber.Text;
+                selectedUser.Pesel = TextBoxPESEL.Text;
+                selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
+                selectedUser.Password = TextBoxPassword.Text;
+                selectedUser.Role = ComboBoxRole.SelectedItem.ToString();
 
                 enabled = false;
                 EnableFieldsOperation();
@@ -251,7 +271,7 @@ namespace Main
                     Duration = TimeSpan.FromSeconds(0.5)
                 };
 
-                GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
+                GridUserInfo.BeginAnimation(WidthProperty, slideInAnimation);
                 GridUserInfo.Visibility = Visibility.Visible;
             }
             else if (!dataGridReduced && DataGridListOfUsers.ActualWidth > reducedDataGridWidth)
@@ -273,13 +293,12 @@ namespace Main
                     };
                     GridUserInfo.Visibility = Visibility.Visible;
 
-                    GridUserInfo.BeginAnimation(Grid.WidthProperty, slideInAnimation);
+                    GridUserInfo.BeginAnimation(WidthProperty, slideInAnimation);
                 };
 
-                DataGridListOfUsers.BeginAnimation(DataGrid.WidthProperty, reduceWidthAnimation);
+                DataGridListOfUsers.BeginAnimation(WidthProperty, reduceWidthAnimation);
                 dataGridReduced = true;
             }
-
         }
 
         /// <summary>
@@ -319,9 +338,7 @@ namespace Main
                     Role = ComboBoxRole.SelectionBoxItem.ToString()
                 };
 
-                DateTime birthDate;
-
-                if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out birthDate))
+                if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
                 {
                     newUser.BirthDate = birthDate;
                 }
@@ -379,27 +396,6 @@ namespace Main
             {
                 throw new ArgumentNullException("If you want to delete user you have to select him in the first place");
             }
-        }
-
-        /// <summary>
-        /// Setting data from database for selected user in datagrid.
-        /// </summary>
-        /// <param name="selectedUser">User which has been selected</param>
-        private void SelectedUserInitialization(User selectedUser)
-        {
-            TextBoxFirstName.Text = selectedUser.FirstName;
-            TextBoxLastName.Text = selectedUser.LastName;
-            TextBoxLogin.Text = selectedUser.Login;
-            TextBoxEmail.Text = selectedUser.Email;
-            TextBoxCity.Text = selectedUser.City;
-            TextBoxStreet.Text = selectedUser.Street;
-            TextBoxPostalCode.Text = selectedUser.PostalCode;
-            TextBoxHouseNumber.Text = selectedUser.HouseNumber;
-            TextBoxApartmentNumber.Text = selectedUser.ApartmentNumber;
-            TextBoxPESEL.Text = selectedUser.Pesel;
-            TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
-            TextBoxPassword.Text = selectedUser.Password;
-            ComboBoxRole.SelectedItem = selectedUser.Role;
         }
 
         /// <summary>
