@@ -119,14 +119,18 @@ namespace Main
         }
 
         /// <summary>
-        /// The user can filter the list by entering first name.
+        /// The user can filter the list by entering first name, last name or E-mail address.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SearchingTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string filter = SearchingTextBox.Text.ToLower();
-            var filteredUsers = Service.Users.Where(x => x.FirstName.ToLower().Contains(filter)).ToList();
+            var filteredUsers = Service.Users.Where(x =>
+                x.FirstName.ToLower().Contains(filter) ||
+                x.LastName.ToLower().Contains(filter) ||
+                x.Email.ToLower().Contains(filter)
+            ).ToList();
             DataGridListOfUsers.ItemsSource = filteredUsers;
         }
 
