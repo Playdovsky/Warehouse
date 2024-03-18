@@ -109,9 +109,33 @@ namespace Main
         /// </summary>
         /// <param name="pesel">pesel number to be checked by method</param>
         /// <returns>True if pesel format is correct or False if it is not correct</returns>
-        public static bool ValidatePESEL(string pesel)
+        public static bool ValidatePESEL(string pesel, DateTime birthDate, string gender)
         {
             if (pesel.Length != 11 || !pesel.All(char.IsDigit))
+            {
+                return false;
+            }
+
+            int year = int.Parse(pesel.Substring(0, 2));
+            int month = int.Parse(pesel.Substring(2, 2));
+            int day = int.Parse(pesel.Substring(4, 2));
+
+            int birthYear = 1900 + year;
+            if (month > 12)
+            {
+                birthYear += 100;
+                month -= 20;
+            }
+
+            if (birthDate.Year != birthYear || birthDate.Month != month || birthDate.Day != day)
+            {
+                return false;
+            }
+
+            int genderDigit = int.Parse(pesel.Substring(9, 1));
+            bool isMale = genderDigit % 2 == 1;
+
+            if ((gender == "Male" && !isMale) || (gender == "Female" && isMale))
             {
                 return false;
             }
@@ -128,6 +152,7 @@ namespace Main
 
             return controlNumber == int.Parse(pesel[10].ToString());
         }
+
 
         /// <summary>
         /// Method that check whether the Phone Number is correct or not.
