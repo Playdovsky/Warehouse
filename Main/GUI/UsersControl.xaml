@@ -166,7 +166,7 @@
             <ComboBox x:Name="ComboBoxRole" Margin="290,729,10,209" IsEnabled="False" Height="28" FontSize="14" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
         </Grid>
         <TextBox x:Name="SearchingTextBox" FontSize="14" HorizontalAlignment="Left" Margin="10,29,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" Height="28" TextChanged="SearchingTextBox_TextChanged" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Left" FontSize="14" Height="28" Margin="10,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"><Run Language="pl-pl" Text="Search by Name"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" FontSize="14" Height="28" Margin="10,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"><Run Text="Search"/><Run Language="pl-pl" Text=" &amp; Filter"/></TextBlock>
         <Button x:Name="ButtonCreateUser" Content="Create User" Click="CreateUser_Click" HorizontalAlignment="Left" Margin="382,1,0,0" Grid.Row="1" VerticalAlignment="Top" Height="56" Width="99"/>
 
     </Grid>

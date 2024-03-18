@@ -157,10 +157,6 @@ namespace Main
 
             try
             {
-                if (!Service.ValidatePESEL(TextBoxPESEL.Text))
-                {
-                    throw new FormatException("The PESEL number is incorrect.");
-                }
 
                 if (!Service.ValidatePhoneNumber(TextBoxPhoneNumber.Text))
                 {
@@ -175,6 +171,7 @@ namespace Main
                 {
                     MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                
 
                 selectedUser.FirstName = TextBoxFirstName.Text; 
                 selectedUser.LastName = TextBoxLastName.Text;
@@ -189,6 +186,11 @@ namespace Main
                 selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
                 selectedUser.Password = TextBoxPassword.Text;
                 selectedUser.Role = ComboBoxRole.SelectedItem.ToString();
+                selectedUser.Gender = ComboBoxGender.Text;
+                if (!Service.ValidatePESEL(TextBoxPESEL.Text, birthDate, selectedUser.Gender))
+                {
+                    throw new FormatException("The PESEL number is incorrect.");
+                }
 
                 enabled = false;
                 EnableFieldsOperation();
@@ -275,11 +277,7 @@ namespace Main
         {
             try
             {
-                if (!Service.ValidatePESEL(TextBoxPESEL.Text))
-                {
-                    throw new FormatException("The PESEL number is incorrect.");
-                }
-
+               
                 if (!Service.ValidatePhoneNumber(TextBoxPhoneNumber.Text))
                 {
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
@@ -312,7 +310,10 @@ namespace Main
                     MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-
+                if (!Service.ValidatePESEL(TextBoxPESEL.Text, birthDate, newUser.Gender))
+                {
+                    throw new FormatException("The PESEL number is incorrect.");
+                }
                 Service.AddUser(newUser);
                 LoadUsers();
             }
