@@ -335,9 +335,22 @@ namespace Main
         private void ButtonDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             User selectedUser = (User)DataGridListOfUsers.SelectedItem;
-            Service.Removal(selectedUser);
-            LoadUsers();
-            ClearFields();
+
+            if (selectedUser != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this user?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Service.Removal(selectedUser);
+                    LoadUsers();
+                    ClearFields();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a user to delete.", "No User Selected", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         /// <summary>
