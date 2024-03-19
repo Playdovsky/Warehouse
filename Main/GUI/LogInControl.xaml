@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:Main"
              mc:Ignorable="d" 
              d:DesignHeight="420" d:DesignWidth="660"
-             Background="white"
+             Background="LightSkyBlue"
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     <Grid>
-        <Label x:Name="LabelLogIn" Content="Log in screen" HorizontalAlignment="Center" Margin="0,192,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LabelLogIn" Content="Log in screen" HorizontalAlignment="Center" Margin="143,168,89,0" VerticalAlignment="Top" Foreground="White" Height="82" Width="428" FontSize="56"/>
 
     </Grid>
 </UserControl>

@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:Main"
         mc:Ignorable="d"
         Title="StartWindow" Height="450" Width="800" WindowStyle="None" WindowState="Maximized" 
+        Background="LightSkyBlue"
         Icon="{StaticResource AppIcon}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="LabelStart" Content="Warehouse application" HorizontalAlignment="Center" VerticalAlignment="Center" Height="64" Width="374" FontSize="36"/>
+        <Label x:Name="LabelStart" Content="Warehouse application" HorizontalAlignment="Center" VerticalAlignment="Center" Height="166" Width="592" FontSize="56" Foreground="White" Margin="110,163,90,113"/>
 
     </Grid>
 </Window>

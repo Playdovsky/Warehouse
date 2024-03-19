@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 
+
 namespace Main
 {
     /// <summary>
@@ -335,9 +336,22 @@ namespace Main
         private void ButtonDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             User selectedUser = (User)DataGridListOfUsers.SelectedItem;
-            Service.Removal(selectedUser);
-            LoadUsers();
-            ClearFields();
+
+            if (selectedUser != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this user?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Service.Removal(selectedUser);
+                    LoadUsers();
+                    ClearFields();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a user to delete.", "No User Selected", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         /// <summary>
@@ -372,6 +386,7 @@ namespace Main
             ComboBoxRole.IsEnabled = enabled;
         }
 
+
         /// <summary>
         /// Clears textboxes and combobox fields.
         /// </summary>
@@ -391,6 +406,23 @@ namespace Main
             ComboBoxGender.SelectedIndex = -1;
             TextBoxPhoneNumber.Text = "";
             TextBoxPassword.Text = "";
+        }
+
+        /// <summary>
+        /// Converts the entered text to asterisks to hide the password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                string maskedPassword = new string('*', textBox.Text.Length);
+                textBox.Text = maskedPassword;
+
+                textBox.CaretIndex = maskedPassword.Length;
+            }
         }
     }
 }
