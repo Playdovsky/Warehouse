@@ -408,6 +408,11 @@ namespace Main
             TextBoxPassword.Text = "";
         }
 
+        /// <summary>
+        /// Converts the entered text to asterisks to hide the password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -416,7 +421,6 @@ namespace Main
                 string maskedPassword = new string('*', textBox.Text.Length);
                 textBox.Text = maskedPassword;
 
-                // Opcjonalnie, możesz ustawić kursor na koniec pola tekstowego
                 textBox.CaretIndex = maskedPassword.Length;
             }
         }

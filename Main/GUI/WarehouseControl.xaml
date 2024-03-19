@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:Main"
              mc:Ignorable="d" 
              d:DesignHeight="420" d:DesignWidth="660"
-             Background="white"
+             Background="LightSkyBlue"
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
              >
     <Grid x:Name="LabelTestWarehosue">
-        <Label Content="Warehouse window" HorizontalAlignment="Center" Margin="0,192,0,0" VerticalAlignment="Top"/>
+        <Label Content="Warehouse window" HorizontalAlignment="Center" Margin="86,159,60,0" VerticalAlignment="Top" Height="104" Width="514" Foreground="White" FontSize="56"/>
     </Grid>
 </UserControl>
