@@ -160,7 +160,7 @@
             <Button x:Name="ButtonDeleteUser" Content="Delete User" Margin="290,812,10,108" Height="50" Width="250" Click="ButtonDeleteUser_Click" Visibility="Hidden"/>
 
             <Label x:Name="LabelPassword" Content="Password :" Grid.Row="0" Margin="11,691,289,247" Height="28" FontSize="14"/>
-            <TextBox x:Name="TextBoxPassword" Height="28" Margin="10,729,290,209" TextWrapping="Wrap" Text="Password" IsEnabled="False" FontSize="14" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
+            <TextBox x:Name="TextBoxPassword" Height="28" Margin="10,729,290,209" TextWrapping="Wrap" Text="Password" IsEnabled="False" FontSize="14" VerticalContentAlignment="Center" Padding="5,0,0,0" TextChanged="TextBoxPassword_TextChanged"/>
 
             <Label x:Name="LabelRole" Content="Role :" Grid.Row="0" Margin="290,691,10,247" Height="28" FontSize="14"/>
             <ComboBox x:Name="ComboBoxRole" Margin="290,729,10,209" IsEnabled="False" Height="28" FontSize="14" VerticalContentAlignment="Center" Padding="5,0,0,0"/>

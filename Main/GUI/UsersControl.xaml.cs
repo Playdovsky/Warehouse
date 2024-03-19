@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 
+
 namespace Main
 {
     /// <summary>
@@ -385,6 +386,7 @@ namespace Main
             ComboBoxRole.IsEnabled = enabled;
         }
 
+
         /// <summary>
         /// Clears textboxes and combobox fields.
         /// </summary>
@@ -404,6 +406,19 @@ namespace Main
             ComboBoxGender.SelectedIndex = -1;
             TextBoxPhoneNumber.Text = "";
             TextBoxPassword.Text = "";
+        }
+
+        private void TextBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                string maskedPassword = new string('*', textBox.Text.Length);
+                textBox.Text = maskedPassword;
+
+                // Opcjonalnie, możesz ustawić kursor na koniec pola tekstowego
+                textBox.CaretIndex = maskedPassword.Length;
+            }
         }
     }
 }
