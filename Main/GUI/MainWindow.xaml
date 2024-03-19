@@ -43,7 +43,7 @@
                 <SolidColorBrush Color="DeepSkyBlue"/>
             </Button.Background>
         </Button>
-        <Line X1="0" Y1="0" X2="0" Y2="410" Stroke="white" StrokeThickness="3" Margin="115,10,-105,10"/>
+        <Line X1="0" Y1="0" X2="0" Y2="5000" Stroke="white" StrokeThickness="3" Margin="115,10,-105,10"/>
         <ContentControl x:Name="ContentControlWorkspace" HorizontalAlignment="Stretch" Margin="150,20,20,20" VerticalAlignment="Stretch" Background="DeepSkyBlue">
         </ContentControl>
     </Grid>
