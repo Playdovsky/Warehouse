@@ -158,21 +158,39 @@ namespace Main
 
             try
             {
-
+                if (string.IsNullOrEmpty(TextBoxFirstName.Text) || string.IsNullOrEmpty(TextBoxLastName.Text))
+                {
+                    throw new FormatException("Please enter both first and last name.");
+                }
+                if (string.IsNullOrEmpty(TextBoxLogin.Text))
+                {
+                    throw new FormatException("Please enter a login.");
+                }
+                if (ComboBoxGender.SelectedIndex == -1)
+                {
+                    throw new FormatException("Please select a gender for the new user.");
+                }
+                if (!Service.ValidateEmail(TextBoxEmail.Text))
+                {
+                    throw new FormatException("The email address is invalid. Example of a valid email address: example@example.com");
+                }
                 if (!Service.ValidatePhoneNumber(TextBoxPhoneNumber.Text))
                 {
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
-
-                if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
+                using (var context = new WarehouseDBEntities())
                 {
-                    selectedUser.BirthDate = birthDate;
+                    var existingUser = context.User.FirstOrDefault(u => u.Email == TextBoxEmail.Text);
+                    if (existingUser != null)
+                    {
+                        throw new FormatException("User with this email already exists.");
+                    }
+                    var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == TextBoxPhoneNumber.Text);
+                    if (existingUserWithPhoneNumber != null)
+                    {
+                        throw new FormatException("User with this phone number already exists.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                
 
                 selectedUser.FirstName = TextBoxFirstName.Text; 
                 selectedUser.LastName = TextBoxLastName.Text;
@@ -188,9 +206,31 @@ namespace Main
                 selectedUser.Password = TextBoxPassword.Text;
                 selectedUser.Role = ComboBoxRole.SelectedItem.ToString();
                 selectedUser.Gender = ComboBoxGender.Text;
+
+                if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
+                {
+                    selectedUser.BirthDate = birthDate;
+                }
+                else
+                {
+                    MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 if (!Service.ValidatePESEL(TextBoxPESEL.Text, birthDate, selectedUser.Gender))
                 {
                     throw new FormatException("The PESEL number is incorrect.");
+                }
+                if (string.IsNullOrEmpty(TextBoxCity.Text) || string.IsNullOrEmpty(TextBoxStreet.Text) || string.IsNullOrEmpty(TextBoxPostalCode.Text) || string.IsNullOrEmpty(TextBoxHouseNumber.Text))
+                {
+                    throw new FormatException("Please provide complete address details.");
+                }
+                if (string.IsNullOrEmpty(TextBoxPassword.Text))
+                {
+                    throw new FormatException("Please enter a password.");
+                }
+                if (ComboBoxRole.SelectedIndex == -1)
+                {
+                    throw new FormatException("Please select a role for the new user");
                 }
 
                 enabled = false;
@@ -201,6 +241,8 @@ namespace Main
 
                 Service.ApplyChanges(selectedUser);
                 LoadUsers();
+
+                MessageBox.Show("Changes applied successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -278,12 +320,40 @@ namespace Main
         {
             try
             {
-               
+
+                if (string.IsNullOrEmpty(TextBoxFirstName.Text) || string.IsNullOrEmpty(TextBoxLastName.Text))
+                {
+                    throw new FormatException("Please enter both first and last name.");
+                }
+                if (string.IsNullOrEmpty(TextBoxLogin.Text))
+                {
+                    throw new FormatException("Please enter a login.");
+                }
+                if (ComboBoxGender.SelectedIndex == -1)
+                {
+                    throw new FormatException("Please select a gender for the new user.");
+                }
+                if (!Service.ValidateEmail(TextBoxEmail.Text))
+                {
+                    throw new FormatException("The email address is invalid. Example of a valid email address: example@example.com");
+                }
                 if (!Service.ValidatePhoneNumber(TextBoxPhoneNumber.Text))
                 {
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
-
+                using (var context = new WarehouseDBEntities())
+                {
+                    var existingUser = context.User.FirstOrDefault(u => u.Email == TextBoxEmail.Text);
+                    if (existingUser != null)
+                    {
+                        throw new FormatException("User with this email already exists.");
+                    }
+                    var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == TextBoxPhoneNumber.Text);
+                    if (existingUserWithPhoneNumber != null)
+                    {
+                        throw new FormatException("User with this phone number already exists.");
+                    }
+                }
                 User newUser = new User
                 {
                     FirstName = TextBoxFirstName.Text,
@@ -298,10 +368,8 @@ namespace Main
                     Pesel = TextBoxPESEL.Text,
                     PhoneNumber = TextBoxPhoneNumber.Text,
                     Gender = ComboBoxGender.Text,
-                    Password = TextBoxPassword.Text,
-                    Role = ComboBoxRole.SelectionBoxItem.ToString()
-                };
-
+                    Password = TextBoxPassword.Text
+                }; 
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
                 {
                     newUser.BirthDate = birthDate;
@@ -315,17 +383,29 @@ namespace Main
                 {
                     throw new FormatException("The PESEL number is incorrect.");
                 }
+                if (string.IsNullOrEmpty(TextBoxCity.Text) || string.IsNullOrEmpty(TextBoxStreet.Text) || string.IsNullOrEmpty(TextBoxPostalCode.Text) || string.IsNullOrEmpty(TextBoxHouseNumber.Text))
+                {
+                    throw new FormatException("Please provide complete address details.");
+                }
+                if (string.IsNullOrEmpty(TextBoxPassword.Text))
+                {
+                    throw new FormatException("Please enter a password.");
+                }
+                if (ComboBoxRole.SelectedIndex == -1)
+                {
+                    throw new FormatException("Please select a role for the new user");
+                }
                 Service.AddUser(newUser);
                 LoadUsers();
+
+                ClearFields();
+
+                MessageBox.Show("User added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            ClearFields();
-
-            MessageBox.Show("User added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>
@@ -405,7 +485,7 @@ namespace Main
             TextBoxLogin.Text = "";
             ComboBoxGender.SelectedIndex = -1;
             TextBoxPhoneNumber.Text = "";
-            TextBoxPassword.Text = "";
+            TextBoxPassword.Text = ""; 
         }
 
         /// <summary>

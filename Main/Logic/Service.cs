@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace Main
@@ -165,5 +166,25 @@ namespace Main
 
             return phoneNumber.Length == 9 && phoneNumber.All(char.IsDigit);
         }
+
+
+        /// <summary>
+        /// Method that checks whether the email address is correct or not.
+        /// </summary>
+        /// <param name="email">email address to be checked by the method</param>
+        /// <returns>True if the email format is correct, or False if it is not correct</returns>
+        public static bool ValidateEmail(string email)
+        {
+            // If email is empty, return false
+            if (string.IsNullOrEmpty(email))
+                return false;
+
+            // Regular expression pattern for email validation
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            // Check if email matches the pattern
+            return Regex.IsMatch(email, pattern);
+        }
+
     }
 }
