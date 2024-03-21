@@ -178,21 +178,29 @@ namespace Main
                 {
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
-                /*
-                using (var context = new WarehouseDBEntities())
+                if (TextBoxEmail.Text != selectedUser.Email)
                 {
-                    var existingUser = context.User.FirstOrDefault(u => u.Email == TextBoxEmail.Text);
-                    if (existingUser != null)
+                    using (var context = new WarehouseDBEntities())
                     {
-                        throw new FormatException("User with this email already exists.");
-                    }
-                    var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == TextBoxPhoneNumber.Text);
-                    if (existingUserWithPhoneNumber != null)
-                    {
-                        throw new FormatException("User with this phone number already exists.");
+                        var existingUser = context.User.FirstOrDefault(u => u.Email == TextBoxEmail.Text);
+                        if (existingUser != null)
+                        {
+                            throw new FormatException("User with this email already exists.");
+                        }
                     }
                 }
-                */
+                
+                if (TextBoxPhoneNumber.Text != selectedUser.PhoneNumber)
+                {
+                    using (var context = new WarehouseDBEntities())
+                    {
+                        var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == TextBoxPhoneNumber.Text);
+                        if (existingUserWithPhoneNumber != null)
+                        {
+                            throw new FormatException("User with this phone number already exists.");
+                        }
+                    }
+                }
 
                 tempUser.FirstName = TextBoxFirstName.Text;
                 tempUser.LastName = TextBoxLastName.Text;
