@@ -51,13 +51,29 @@ namespace Main
         }
 
         /// <summary>
-        /// Method which saves changes to database.
+        /// Method which saves changes into tabase.
         /// </summary>
         /// <param name="selectedUser">Selected user in datagrid</param>
-        public static void ApplyChanges(User selectedUser)
+        public static void ApplyChanges(User selectedUser, User tempUser)
         {
             using (var context = new WarehouseDBEntities())
             {
+                selectedUser.FirstName = tempUser.FirstName;
+                selectedUser.LastName = tempUser.LastName;
+                selectedUser.Login = tempUser.Login;
+                selectedUser.Email = tempUser.Email;
+                selectedUser.City = tempUser.City;
+                selectedUser.Street = tempUser.Street;
+                selectedUser.PostalCode = tempUser.PostalCode;
+                selectedUser.HouseNumber = tempUser.HouseNumber;
+                selectedUser.ApartmentNumber = tempUser.ApartmentNumber;
+                selectedUser.Pesel = tempUser.Pesel;
+                selectedUser.PhoneNumber = tempUser.PhoneNumber;
+                selectedUser.Password = tempUser.Password;
+                selectedUser.Role = tempUser.Role;
+                selectedUser.Gender = tempUser.Gender;
+                selectedUser.BirthDate = tempUser.BirthDate;
+
                 context.Entry(selectedUser).State = EntityState.Modified;
                 context.SaveChanges();
             }
@@ -186,6 +202,9 @@ namespace Main
             return Regex.IsMatch(email, pattern);
         }
 
+        /// <summary>
+        /// Ends application processes.
+        /// </summary>
         public static void Exit()
         {
             MessageBoxResult result = MessageBox.Show("Do you really want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);

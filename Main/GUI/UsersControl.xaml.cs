@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 
-
 namespace Main
 {
     /// <summary>
@@ -194,6 +193,7 @@ namespace Main
                     }
                 }
                 */
+
                 tempUser.FirstName = TextBoxFirstName.Text;
                 tempUser.LastName = TextBoxLastName.Text;
                 tempUser.Login = TextBoxLogin.Text;
@@ -241,23 +241,7 @@ namespace Main
                 ButtonApplyChanges.Visibility = Visibility.Hidden;
                 ButtonEnableFields.Visibility = Visibility.Visible;
 
-                selectedUser.FirstName = tempUser.FirstName;
-                selectedUser.LastName = tempUser.LastName;
-                selectedUser.Login = tempUser.Login;
-                selectedUser.Email = tempUser.Email;
-                selectedUser.City = tempUser.City;
-                selectedUser.Street = tempUser.Street;
-                selectedUser.PostalCode = tempUser.PostalCode;
-                selectedUser.HouseNumber = tempUser.HouseNumber;
-                selectedUser.ApartmentNumber = tempUser.ApartmentNumber;
-                selectedUser.Pesel = tempUser.Pesel;
-                selectedUser.PhoneNumber = tempUser.PhoneNumber;
-                selectedUser.Password = tempUser.Password;
-                selectedUser.Role = tempUser.Role;
-                selectedUser.Gender = tempUser.Gender;
-                selectedUser.BirthDate = tempUser.BirthDate;
-
-                Service.ApplyChanges(selectedUser);
+                Service.ApplyChanges(selectedUser, tempUser);
                 LoadUsers();
 
                 MessageBox.Show("Changes applied successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -513,6 +497,7 @@ namespace Main
         private void TextBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
+
             if (textBox != null)
             {
                 string maskedPassword = new string('*', textBox.Text.Length);
