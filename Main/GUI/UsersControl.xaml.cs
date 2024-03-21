@@ -155,6 +155,7 @@ namespace Main
         private void ApplyChanges_Click(object sender, RoutedEventArgs e)
         {
             User selectedUser = (User)DataGridListOfUsers.SelectedItem;
+            User tempUser = new User();
 
             try
             {
@@ -178,6 +179,7 @@ namespace Main
                 {
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
+                /*
                 using (var context = new WarehouseDBEntities())
                 {
                     var existingUser = context.User.FirstOrDefault(u => u.Email == TextBoxEmail.Text);
@@ -191,32 +193,32 @@ namespace Main
                         throw new FormatException("User with this phone number already exists.");
                     }
                 }
-
-                selectedUser.FirstName = TextBoxFirstName.Text; 
-                selectedUser.LastName = TextBoxLastName.Text;
-                selectedUser.Login = TextBoxLogin.Text;
-                selectedUser.Email = TextBoxEmail.Text;
-                selectedUser.City = TextBoxCity.Text;
-                selectedUser.Street = TextBoxStreet.Text;
-                selectedUser.PostalCode = TextBoxPostalCode.Text;
-                selectedUser.HouseNumber = TextBoxHouseNumber.Text;
-                selectedUser.ApartmentNumber = TextBoxApartmentNumber.Text;
-                selectedUser.Pesel = TextBoxPESEL.Text;
-                selectedUser.PhoneNumber = TextBoxPhoneNumber.Text;
-                selectedUser.Password = TextBoxPassword.Text;
-                selectedUser.Role = ComboBoxRole.SelectedItem.ToString();
-                selectedUser.Gender = ComboBoxGender.Text;
+                */
+                tempUser.FirstName = TextBoxFirstName.Text;
+                tempUser.LastName = TextBoxLastName.Text;
+                tempUser.Login = TextBoxLogin.Text;
+                tempUser.Email = TextBoxEmail.Text;
+                tempUser.City = TextBoxCity.Text;
+                tempUser.Street = TextBoxStreet.Text;
+                tempUser.PostalCode = TextBoxPostalCode.Text;
+                tempUser.HouseNumber = TextBoxHouseNumber.Text;
+                tempUser.ApartmentNumber = TextBoxApartmentNumber.Text;
+                tempUser.Pesel = TextBoxPESEL.Text;
+                tempUser.PhoneNumber = TextBoxPhoneNumber.Text;
+                tempUser.Password = TextBoxPassword.Text;
+                tempUser.Role = ComboBoxRole.SelectedItem.ToString();
+                tempUser.Gender = ComboBoxGender.Text;
 
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
                 {
-                    selectedUser.BirthDate = birthDate;
+                    tempUser.BirthDate = birthDate;
                 }
                 else
                 {
                     MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                if (!Service.ValidatePESEL(TextBoxPESEL.Text, birthDate, selectedUser.Gender))
+                if (!Service.ValidatePESEL(TextBoxPESEL.Text, birthDate, ComboBoxGender.Text))
                 {
                     throw new FormatException("The PESEL number is incorrect.");
                 }
@@ -238,6 +240,22 @@ namespace Main
 
                 ButtonApplyChanges.Visibility = Visibility.Hidden;
                 ButtonEnableFields.Visibility = Visibility.Visible;
+
+                selectedUser.FirstName = tempUser.FirstName;
+                selectedUser.LastName = tempUser.LastName;
+                selectedUser.Login = tempUser.Login;
+                selectedUser.Email = tempUser.Email;
+                selectedUser.City = tempUser.City;
+                selectedUser.Street = tempUser.Street;
+                selectedUser.PostalCode = tempUser.PostalCode;
+                selectedUser.HouseNumber = tempUser.HouseNumber;
+                selectedUser.ApartmentNumber = tempUser.ApartmentNumber;
+                selectedUser.Pesel = tempUser.Pesel;
+                selectedUser.PhoneNumber = tempUser.PhoneNumber;
+                selectedUser.Password = tempUser.Password;
+                selectedUser.Role = tempUser.Role;
+                selectedUser.Gender = tempUser.Gender;
+                selectedUser.BirthDate = tempUser.BirthDate;
 
                 Service.ApplyChanges(selectedUser);
                 LoadUsers();
