@@ -186,5 +186,19 @@ namespace Main
             return Regex.IsMatch(email, pattern);
         }
 
+        public static void Exit()
+        {
+            MessageBoxResult result = MessageBox.Show("Do you really want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                return;
+            }
+        }
+
     }
 }

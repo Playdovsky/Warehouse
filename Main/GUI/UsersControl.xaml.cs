@@ -320,7 +320,6 @@ namespace Main
         {
             try
             {
-
                 if (string.IsNullOrEmpty(TextBoxFirstName.Text) || string.IsNullOrEmpty(TextBoxLastName.Text))
                 {
                     throw new FormatException("Please enter both first and last name.");
@@ -341,6 +340,7 @@ namespace Main
                 {
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
+
                 using (var context = new WarehouseDBEntities())
                 {
                     var existingUser = context.User.FirstOrDefault(u => u.Email == TextBoxEmail.Text);
@@ -465,7 +465,6 @@ namespace Main
             TextBoxPassword.IsEnabled = enabled;
             ComboBoxRole.IsEnabled = enabled;
         }
-
 
         /// <summary>
         /// Clears textboxes and combobox fields.

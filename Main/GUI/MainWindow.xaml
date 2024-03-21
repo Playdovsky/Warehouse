@@ -7,8 +7,11 @@
         mc:Ignorable="d"
         Title="Warehouse application" Height="450" Width="800" WindowState="Maximized"
         Background="LightSkyBlue"
-        Icon="{StaticResource AppIcon}">
+        Icon="{StaticResource AppIcon}" WindowStyle="None">
     <Grid Margin="0,0,0,-6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Button x:Name="ButtonUsers" Content="Users" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Click="ButtonUsers_Click" Foreground="White" FontSize="18">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
@@ -44,7 +47,20 @@
             </Button.Background>
         </Button>
         <Line X1="0" Y1="0" X2="0" Y2="5000" Stroke="white" StrokeThickness="3" Margin="115,10,-105,10"/>
-        <ContentControl x:Name="ContentControlWorkspace" HorizontalAlignment="Stretch" Margin="150,20,20,20" VerticalAlignment="Stretch" Background="DeepSkyBlue">
-        </ContentControl>
+        <ContentControl x:Name="ContentControlWorkspace" Margin="150,20,20,20" Background="DeepSkyBlue"/>
+        <Button x:Name="ButtonExit" Content="Exit" HorizontalAlignment="Left" Height="50" Margin="10,0,0,35" VerticalAlignment="Bottom" Width="100" Click="ButtonExit_Click" Foreground="White" FontSize="18" Background="DeepSkyBlue">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>

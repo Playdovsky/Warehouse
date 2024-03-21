@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Main
 {
@@ -31,6 +32,14 @@ namespace Main
         private void ButtonWarehouse_Click(object sender, RoutedEventArgs e)
         {
             ContentControlWorkspace.Content = new WarehouseControl();
+        }
+
+        /// <summary>
+        /// Initiates exit procedure.
+        /// </summary>
+        private void ButtonExit_Click(object sender, RoutedEventArgs e)
+        {
+            Service.Exit();
         }
     }
 }
