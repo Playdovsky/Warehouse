@@ -378,7 +378,8 @@ namespace Main
                     Pesel = TextBoxPESEL.Text,
                     PhoneNumber = TextBoxPhoneNumber.Text,
                     Gender = ComboBoxGender.Text,
-                    Password = TextBoxPassword.Text
+                    Password = TextBoxPassword.Text,
+                    Role = ComboBoxRole.Text
                 }; 
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
                 {
