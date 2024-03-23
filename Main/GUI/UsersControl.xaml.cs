@@ -180,7 +180,7 @@ namespace Main
                 }
                 if (TextBoxEmail.Text != selectedUser.Email)
                 {
-                    using (var context = new WarehouseDBEntities())
+                    using (var context = new WarehouseDatabaseEntities())
                     {
                         var existingUser = context.User.FirstOrDefault(u => u.Email == TextBoxEmail.Text);
                         if (existingUser != null)
@@ -192,7 +192,7 @@ namespace Main
                 
                 if (TextBoxPhoneNumber.Text != selectedUser.PhoneNumber)
                 {
-                    using (var context = new WarehouseDBEntities())
+                    using (var context = new WarehouseDatabaseEntities())
                     {
                         var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == TextBoxPhoneNumber.Text);
                         if (existingUserWithPhoneNumber != null)
@@ -351,7 +351,7 @@ namespace Main
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
 
-                using (var context = new WarehouseDBEntities())
+                using (var context = new WarehouseDatabaseEntities())
                 {
                     var existingUser = context.User.FirstOrDefault(u => u.Email == TextBoxEmail.Text);
                     if (existingUser != null)
@@ -505,9 +505,7 @@ namespace Main
         /// <param name="e"></param>
         private void TextBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox textBox = sender as TextBox;
-
-            if (textBox != null)
+            if (sender is TextBox textBox)
             {
                 string maskedPassword = new string('*', textBox.Text.Length);
                 textBox.Text = maskedPassword;

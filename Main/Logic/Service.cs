@@ -23,7 +23,7 @@ namespace Main
             Users = new List<User>();
 
             //Retrieves data from "User" table and binds it with users list and sets the data context.
-            using (var context = new WarehouseDBEntities())
+            using (var context = new WarehouseDatabaseEntities())
             {
                 var users = from u in context.User select u;
                 foreach (var user in users)
@@ -40,7 +40,7 @@ namespace Main
         {
             Users.Clear();
 
-            using (var context = new WarehouseDBEntities())
+            using (var context = new WarehouseDatabaseEntities())
             {
                 var users = context.User.ToList();
                 foreach (var user in users)
@@ -56,7 +56,7 @@ namespace Main
         /// <param name="selectedUser">Selected user in datagrid</param>
         public static void ApplyChanges(User selectedUser, User tempUser)
         {
-            using (var context = new WarehouseDBEntities())
+            using (var context = new WarehouseDatabaseEntities())
             {
                 selectedUser.FirstName = tempUser.FirstName;
                 selectedUser.LastName = tempUser.LastName;
@@ -86,7 +86,7 @@ namespace Main
         public static void AddUser(User newUser)
         {
             newUser.Id = Guid.NewGuid();
-            using (var context = new WarehouseDBEntities())
+            using (var context = new WarehouseDatabaseEntities())
             {
                 context.User.Add(newUser);
                 context.SaveChanges();
@@ -102,7 +102,7 @@ namespace Main
         {
             try
             {
-                using (var context = new WarehouseDBEntities())
+                using (var context = new WarehouseDatabaseEntities())
                 {
                     if (context.Entry(selectedUser).State == EntityState.Detached)
                     {

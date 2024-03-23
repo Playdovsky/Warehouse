@@ -147,9 +147,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="database_firewall_rules.cs">
-      <DependentUpon>WarehouseDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="GUI\StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
@@ -163,23 +160,23 @@
       <DependentUpon>LogInControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>WarehouseDB.tt</DependentUpon>
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Logic\Service.cs" />
-    <Compile Include="WarehouseDB.Context.cs">
+    <Compile Include="WarehouseDatabase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WarehouseDB.Context.tt</DependentUpon>
+      <DependentUpon>WarehouseDatabase.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="WarehouseDB.cs">
+    <Compile Include="WarehouseDatabase.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WarehouseDB.tt</DependentUpon>
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="WarehouseDB.Designer.cs">
+    <Compile Include="WarehouseDatabase.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WarehouseDB.edmx</DependentUpon>
+      <DependentUpon>WarehouseDatabase.edmx</DependentUpon>
     </Compile>
     <Page Include="GUI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -234,12 +231,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EntityDeploy Include="WarehouseDB.edmx">
+    <EntityDeploy Include="WarehouseDatabase.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>WarehouseDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>WarehouseDatabase.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="WarehouseDB.edmx.diagram">
-      <DependentUpon>WarehouseDB.edmx</DependentUpon>
+    <None Include="WarehouseDatabase.edmx.diagram">
+      <DependentUpon>WarehouseDatabase.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -252,15 +249,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WarehouseDB.Context.tt">
+    <Content Include="WarehouseDatabase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WarehouseDB.edmx</DependentUpon>
-      <LastGenOutput>WarehouseDB.Context.cs</LastGenOutput>
+      <DependentUpon>WarehouseDatabase.edmx</DependentUpon>
+      <LastGenOutput>WarehouseDatabase.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="WarehouseDB.tt">
+    <Content Include="WarehouseDatabase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>WarehouseDB.edmx</DependentUpon>
-      <LastGenOutput>WarehouseDB.cs</LastGenOutput>
+      <DependentUpon>WarehouseDatabase.edmx</DependentUpon>
+      <LastGenOutput>WarehouseDatabase.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

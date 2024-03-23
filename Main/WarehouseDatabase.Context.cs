@@ -13,10 +13,10 @@ namespace Main
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WarehouseDBEntities : DbContext
+    public partial class WarehouseDatabaseEntities : DbContext
     {
-        public WarehouseDBEntities()
-            : base("name=WarehouseDBEntities")
+        public WarehouseDatabaseEntities()
+            : base("name=WarehouseDatabaseEntities")
         {
         }
     
@@ -25,7 +25,6 @@ namespace Main
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
         public virtual DbSet<User> User { get; set; }
     }
 }
