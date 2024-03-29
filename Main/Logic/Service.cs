@@ -167,9 +167,17 @@ namespace Main
 
             int controlNumber = (10 - (sum % 10)) % 10;
 
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.Pesel == pesel);
+                if (existingUserWithPhoneNumber != null)
+                {
+                    throw new FormatException("User with this pesel number already exists.");
+                }
+            }
+
             return controlNumber == int.Parse(pesel[10].ToString());
         }
-
 
         /// <summary>
         /// Method that check whether the Phone Number is correct or not.
@@ -178,11 +186,19 @@ namespace Main
         /// <returns>True if phone number format is correct or False if it is not correct</returns>
         public static bool ValidatePhoneNumber(string phoneNumber)
         {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == phoneNumber);
+                if (existingUserWithPhoneNumber != null)
+                {
+                    throw new FormatException("User with this phone number already exists.");
+                }
+            }
+
             phoneNumber = phoneNumber.Replace(" ", "").Replace("-", "");
 
             return phoneNumber.Length == 9 && phoneNumber.All(char.IsDigit);
         }
-
 
         /// <summary>
         /// Method that checks whether the email address is correct or not.
@@ -191,6 +207,15 @@ namespace Main
         /// <returns>True if the email format is correct, or False if it is not correct</returns>
         public static bool ValidateEmail(string email)
         {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var existingUser = context.User.FirstOrDefault(u => u.Email == email);
+                if (existingUser != null)
+                {
+                    throw new FormatException("User with this email already exists.");
+                }
+            }
+
             // If email is empty, return false
             if (string.IsNullOrEmpty(email))
                 return false;
@@ -218,6 +243,5 @@ namespace Main
                 return;
             }
         }
-
     }
 }

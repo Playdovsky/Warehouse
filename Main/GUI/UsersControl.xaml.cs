@@ -170,35 +170,18 @@ namespace Main
                 {
                     throw new FormatException("Please select a gender for the new user.");
                 }
-                if (!Service.ValidateEmail(TextBoxEmail.Text))
-                {
-                    throw new FormatException("The email address is invalid. Example of a valid email address: example@example.com");
-                }
-                if (!Service.ValidatePhoneNumber(TextBoxPhoneNumber.Text))
-                {
-                    throw new FormatException("The phone number is invalid. Enter 9 digits.");
-                }
                 if (TextBoxEmail.Text != selectedUser.Email)
                 {
-                    using (var context = new WarehouseDatabaseEntities())
+                    if (!Service.ValidateEmail(TextBoxEmail.Text))
                     {
-                        var existingUser = context.User.FirstOrDefault(u => u.Email == TextBoxEmail.Text);
-                        if (existingUser != null)
-                        {
-                            throw new FormatException("User with this email already exists.");
-                        }
+                        throw new FormatException("The email address is invalid. Example of a valid email address: example@example.com");
                     }
                 }
-                
                 if (TextBoxPhoneNumber.Text != selectedUser.PhoneNumber)
                 {
-                    using (var context = new WarehouseDatabaseEntities())
+                    if (!Service.ValidatePhoneNumber(TextBoxPhoneNumber.Text))
                     {
-                        var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == TextBoxPhoneNumber.Text);
-                        if (existingUserWithPhoneNumber != null)
-                        {
-                            throw new FormatException("User with this phone number already exists.");
-                        }
+                        throw new FormatException("The phone number is invalid. Enter 9 digits.");
                     }
                 }
 
@@ -226,11 +209,15 @@ namespace Main
                     MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                if (!Service.ValidatePESEL(TextBoxPESEL.Text, birthDate, ComboBoxGender.Text))
+
+                if (TextBoxPESEL.Text != selectedUser.Pesel)
                 {
-                    throw new FormatException("The PESEL number is incorrect.");
+                    if (!Service.ValidatePESEL(TextBoxPESEL.Text, birthDate, ComboBoxGender.Text))
+                    {
+                        throw new FormatException("The PESEL number is incorrect.");
+                    }
                 }
-                if (string.IsNullOrEmpty(TextBoxCity.Text) || string.IsNullOrEmpty(TextBoxStreet.Text) || string.IsNullOrEmpty(TextBoxPostalCode.Text) || string.IsNullOrEmpty(TextBoxHouseNumber.Text))
+                if (string.IsNullOrEmpty(TextBoxCity.Text) || string.IsNullOrEmpty(TextBoxPostalCode.Text) || string.IsNullOrEmpty(TextBoxHouseNumber.Text))
                 {
                     throw new FormatException("Please provide complete address details.");
                 }
@@ -250,6 +237,7 @@ namespace Main
                 ButtonEnableFields.Visibility = Visibility.Visible;
 
                 Service.ApplyChanges(selectedUser, tempUser);
+                ClearFields();
                 LoadUsers();
 
                 MessageBox.Show("Changes applied successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -351,19 +339,6 @@ namespace Main
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
 
-                using (var context = new WarehouseDatabaseEntities())
-                {
-                    var existingUser = context.User.FirstOrDefault(u => u.Email == TextBoxEmail.Text);
-                    if (existingUser != null)
-                    {
-                        throw new FormatException("User with this email already exists.");
-                    }
-                    var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == TextBoxPhoneNumber.Text);
-                    if (existingUserWithPhoneNumber != null)
-                    {
-                        throw new FormatException("User with this phone number already exists.");
-                    }
-                }
                 User newUser = new User
                 {
                     FirstName = TextBoxFirstName.Text,
@@ -381,6 +356,7 @@ namespace Main
                     Password = TextBoxPassword.Text,
                     Role = ComboBoxRole.Text
                 }; 
+
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
                 {
                     newUser.BirthDate = birthDate;
@@ -390,11 +366,12 @@ namespace Main
                     MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
                 if (!Service.ValidatePESEL(TextBoxPESEL.Text, birthDate, newUser.Gender))
                 {
                     throw new FormatException("The PESEL number is incorrect.");
                 }
-                if (string.IsNullOrEmpty(TextBoxCity.Text) || string.IsNullOrEmpty(TextBoxStreet.Text) || string.IsNullOrEmpty(TextBoxPostalCode.Text) || string.IsNullOrEmpty(TextBoxHouseNumber.Text))
+                if (string.IsNullOrEmpty(TextBoxCity.Text) || string.IsNullOrEmpty(TextBoxPostalCode.Text) || string.IsNullOrEmpty(TextBoxHouseNumber.Text))
                 {
                     throw new FormatException("Please provide complete address details.");
                 }
@@ -406,10 +383,10 @@ namespace Main
                 {
                     throw new FormatException("Please select a role for the new user");
                 }
-                Service.AddUser(newUser);
-                LoadUsers();
 
+                Service.AddUser(newUser);
                 ClearFields();
+                LoadUsers();
 
                 MessageBox.Show("User added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -442,6 +419,22 @@ namespace Main
             else
             {
                 MessageBox.Show("Please select a user to delete.", "No User Selected", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        /// <summary>
+        /// Converts the entered text to asterisks to hide the password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                string maskedPassword = new string('*', textBox.Text.Length);
+                textBox.Text = maskedPassword;
+
+                textBox.CaretIndex = maskedPassword.Length;
             }
         }
 
@@ -496,22 +489,6 @@ namespace Main
             ComboBoxGender.SelectedIndex = -1;
             TextBoxPhoneNumber.Text = "";
             TextBoxPassword.Text = ""; 
-        }
-
-        /// <summary>
-        /// Converts the entered text to asterisks to hide the password
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (sender is TextBox textBox)
-            {
-                string maskedPassword = new string('*', textBox.Text.Length);
-                textBox.Text = maskedPassword;
-
-                textBox.CaretIndex = maskedPassword.Length;
-            }
         }
     }
 }
