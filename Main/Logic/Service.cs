@@ -182,10 +182,12 @@ namespace Main
         /// <summary>
         /// Method that check whether the Phone Number is correct or not.
         /// </summary>
-        /// <param name="phoneNumber">phone number to be checked by method</param>
+        /// <param name="phoneNumber">phone number to be checked by a method</param>
         /// <returns>True if phone number format is correct or False if it is not correct</returns>
         public static bool ValidatePhoneNumber(string phoneNumber)
         {
+            phoneNumber = phoneNumber.Replace(" ", "").Replace("-", "");
+            
             using (var context = new WarehouseDatabaseEntities())
             {
                 var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == phoneNumber);
@@ -195,10 +197,20 @@ namespace Main
                 }
             }
 
-            phoneNumber = phoneNumber.Replace(" ", "").Replace("-", "");
-
             return phoneNumber.Length == 9 && phoneNumber.All(char.IsDigit);
         }
+
+        /// <summary>
+        /// This function unifies inserted phone number into one continuous string. 
+        /// </summary>
+        /// <param name="phoneNumber">phone number to be unified</param>
+        /// <returns>unified phone number without spaces and dashes</returns>
+        public static string ConvertPhoneNumber(string phoneNumber)
+        {
+            phoneNumber = phoneNumber.Replace(" ", "").Replace("-", "");
+
+            return phoneNumber;
+        } 
 
         /// <summary>
         /// Method that checks whether the email address is correct or not.

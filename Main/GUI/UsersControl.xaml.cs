@@ -185,6 +185,8 @@ namespace Main
                     }
                 }
 
+                string phoneNumber = Service.ConvertPhoneNumber(TextBoxPhoneNumber.Text);
+
                 tempUser.FirstName = TextBoxFirstName.Text;
                 tempUser.LastName = TextBoxLastName.Text;
                 tempUser.Login = TextBoxLogin.Text;
@@ -195,7 +197,7 @@ namespace Main
                 tempUser.HouseNumber = TextBoxHouseNumber.Text;
                 tempUser.ApartmentNumber = TextBoxApartmentNumber.Text;
                 tempUser.Pesel = TextBoxPESEL.Text;
-                tempUser.PhoneNumber = TextBoxPhoneNumber.Text;
+                tempUser.PhoneNumber = phoneNumber;
                 tempUser.Password = TextBoxPassword.Text;
                 tempUser.Role = ComboBoxRole.SelectedItem.ToString();
                 tempUser.Gender = ComboBoxGender.Text;
@@ -339,6 +341,8 @@ namespace Main
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
 
+                string phoneNumber = Service.ConvertPhoneNumber(TextBoxPhoneNumber.Text);
+
                 User newUser = new User
                 {
                     FirstName = TextBoxFirstName.Text,
@@ -351,7 +355,7 @@ namespace Main
                     HouseNumber = TextBoxHouseNumber.Text,
                     ApartmentNumber = TextBoxApartmentNumber.Text,
                     Pesel = TextBoxPESEL.Text,
-                    PhoneNumber = TextBoxPhoneNumber.Text,
+                    PhoneNumber = phoneNumber,
                     Gender = ComboBoxGender.Text,
                     Password = TextBoxPassword.Text,
                     Role = ComboBoxRole.Text
