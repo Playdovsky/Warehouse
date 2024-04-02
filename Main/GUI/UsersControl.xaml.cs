@@ -242,6 +242,33 @@ namespace Main
                 ClearFields();
                 LoadUsers();
 
+                DoubleAnimation hideUserInfoAnimation = new DoubleAnimation
+                {
+                    From = 550,
+                    To = 0,
+                    Duration = TimeSpan.FromSeconds(0.3)
+                };
+
+                hideUserInfoAnimation.Completed += (s, args) =>
+                {
+                    GridUserInfo.Visibility = Visibility.Hidden;
+
+                    if (dataGridReduced)
+                    {
+                        DoubleAnimation expandWidthAnimation = new DoubleAnimation
+                        {
+                            From = DataGridListOfUsers.ActualWidth,
+                            To = originalDataGridWidth,
+                            Duration = TimeSpan.FromSeconds(0.3)
+                        };
+
+                        DataGridListOfUsers.BeginAnimation(WidthProperty, expandWidthAnimation);
+                        dataGridReduced = false;
+                    }
+                };
+
+                GridUserInfo.BeginAnimation(WidthProperty, hideUserInfoAnimation);
+
                 MessageBox.Show("Changes applied successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
