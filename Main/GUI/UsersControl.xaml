@@ -334,6 +334,7 @@
 
             <Label x:Name="LabelRole" Content="Role :" Grid.Row="0" Margin="290,691,10,247" Height="28" FontSize="14"/>
             <ComboBox x:Name="ComboBoxRole" Margin="290,729,10,209" IsEnabled="False" Height="28" FontSize="14" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
+            <PasswordBox HorizontalAlignment="Left" Margin="165,779,0,0" VerticalAlignment="Top" Width="250" Height="28"/>
         </Grid>
         <TextBox x:Name="SearchingTextBox" FontSize="14" HorizontalAlignment="Left" Margin="10,29,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" Height="28" TextChanged="SearchingTextBox_TextChanged" Padding="5,0,0,0" VerticalContentAlignment="Center">
             <TextBox.Template>

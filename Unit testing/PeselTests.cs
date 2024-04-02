@@ -113,11 +113,12 @@
                 return false;
             }
 
-            int[] weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
             int sum = 0;
 
             for (int i = 0; i < 10; i++)
             {
+
+                int[] weights = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
                 sum += int.Parse(pesel[i].ToString()) * weights[i];
             }
 
