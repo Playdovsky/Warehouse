@@ -42,7 +42,7 @@ namespace Main
 
             using (var context = new WarehouseDatabaseEntities())
             {
-                var users = context.User.ToList();
+                var users = context.User.Where(u => u.IsForgotten == false).ToList();
                 foreach (var user in users)
                 {
                     Users.Add(user);
@@ -109,7 +109,8 @@ namespace Main
                         context.User.Attach(selectedUser);
                     }
 
-                    context.User.Remove(selectedUser);
+                    selectedUser.IsForgotten = true;
+                    context.Entry(selectedUser).State = EntityState.Modified;
                     context.SaveChanges();
                 }
 

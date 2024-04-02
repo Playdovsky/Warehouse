@@ -30,5 +30,6 @@ namespace Main
         public Nullable<System.DateTime> BirthDate { get; set; }
         public string PhoneNumber { get; set; }
         public System.Guid Id { get; set; }
+        public bool IsForgotten { get; set; }
     }
 }
