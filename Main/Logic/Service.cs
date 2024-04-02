@@ -186,7 +186,7 @@ namespace Main
         /// <returns>True if phone number format is correct or False if it is not correct</returns>
         public static bool ValidatePhoneNumber(string phoneNumber)
         {
-            phoneNumber = phoneNumber.Replace(" ", "").Replace("-", "");
+            ConvertPhoneNumber(phoneNumber);
             
             using (var context = new WarehouseDatabaseEntities())
             {
