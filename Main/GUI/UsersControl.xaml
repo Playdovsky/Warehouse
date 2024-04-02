@@ -322,19 +322,18 @@
             </Button>
 
             <Label x:Name="LabelPassword" Content="Password :" Grid.Row="0" Margin="11,691,289,247" Height="28" FontSize="14"/>
-            <TextBox x:Name="TextBoxPassword" Height="28" Margin="10,729,290,209" TextWrapping="Wrap" Text="Password" IsEnabled="False" FontSize="14" VerticalContentAlignment="Center" Padding="5,0,0,0" TextChanged="TextBoxPassword_TextChanged">
-                <TextBox.Template>
-                    <ControlTemplate TargetType="TextBox">
+
+            <Label x:Name="LabelRole" Content="Role :" Grid.Row="0" Margin="290,691,10,247" Height="28" FontSize="14"/>
+            <ComboBox x:Name="ComboBoxRole" Margin="290,729,10,209" IsEnabled="False" Height="28" FontSize="14" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
+            <PasswordBox x:Name="PasswordBox1" HorizontalAlignment="Left" Margin="10,731,0,0" VerticalAlignment="Top" Width="250" Height="28">
+                <PasswordBox.Template>
+                    <ControlTemplate TargetType="PasswordBox">
                         <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
                             <ScrollViewer x:Name="PART_ContentHost"/>
                         </Border>
                     </ControlTemplate>
-                </TextBox.Template>
-            </TextBox>
-
-            <Label x:Name="LabelRole" Content="Role :" Grid.Row="0" Margin="290,691,10,247" Height="28" FontSize="14"/>
-            <ComboBox x:Name="ComboBoxRole" Margin="290,729,10,209" IsEnabled="False" Height="28" FontSize="14" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
-            <PasswordBox HorizontalAlignment="Left" Margin="165,779,0,0" VerticalAlignment="Top" Width="250" Height="28"/>
+                </PasswordBox.Template>
+            </PasswordBox>
         </Grid>
         <TextBox x:Name="SearchingTextBox" FontSize="14" HorizontalAlignment="Left" Margin="10,29,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" Height="28" TextChanged="SearchingTextBox_TextChanged" Padding="5,0,0,0" VerticalContentAlignment="Center">
             <TextBox.Template>

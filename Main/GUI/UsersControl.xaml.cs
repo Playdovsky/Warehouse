@@ -60,7 +60,7 @@ namespace Main
                 TextBoxApartmentNumber.Text = selectedUser.ApartmentNumber;
                 TextBoxPESEL.Text = selectedUser.Pesel;
                 TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
-                TextBoxPassword.Text = selectedUser.Password;
+                PasswordBox1.Password = selectedUser.Password;
                 ComboBoxRole.SelectedItem = selectedUser.Role;
 
                 ButtonAddUser.Visibility = Visibility.Hidden;
@@ -198,7 +198,7 @@ namespace Main
                 tempUser.ApartmentNumber = TextBoxApartmentNumber.Text;
                 tempUser.Pesel = TextBoxPESEL.Text;
                 tempUser.PhoneNumber = phoneNumber;
-                tempUser.Password = TextBoxPassword.Text;
+                tempUser.Password = PasswordBox1.Password;
                 tempUser.Role = ComboBoxRole.SelectedItem.ToString();
                 tempUser.Gender = ComboBoxGender.Text;
 
@@ -223,7 +223,7 @@ namespace Main
                 {
                     throw new FormatException("Please provide complete address details.");
                 }
-                if (string.IsNullOrEmpty(TextBoxPassword.Text))
+                if (string.IsNullOrEmpty(PasswordBox1.Password))
                 {
                     throw new FormatException("Please enter a password.");
                 }
@@ -357,7 +357,7 @@ namespace Main
                     Pesel = TextBoxPESEL.Text,
                     PhoneNumber = phoneNumber,
                     Gender = ComboBoxGender.Text,
-                    Password = TextBoxPassword.Text,
+                    Password = PasswordBox1.Password,
                     Role = ComboBoxRole.Text
                 }; 
 
@@ -379,7 +379,7 @@ namespace Main
                 {
                     throw new FormatException("Please provide complete address details.");
                 }
-                if (string.IsNullOrEmpty(TextBoxPassword.Text))
+                if (string.IsNullOrEmpty(PasswordBox1.Password))
                 {
                     throw new FormatException("Please enter a password.");
                 }
@@ -426,21 +426,7 @@ namespace Main
             }
         }
 
-        /// <summary>
-        /// Converts the entered text to asterisks to hide the password
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (sender is TextBox textBox)
-            {
-                string maskedPassword = new string('*', textBox.Text.Length);
-                textBox.Text = maskedPassword;
-
-                textBox.CaretIndex = maskedPassword.Length;
-            }
-        }
+      
 
         /// <summary>
         /// Real Time user list update also known as 'refresh'.
@@ -470,7 +456,7 @@ namespace Main
             TextBoxDateOfBirth.IsEnabled = enabled;
             TextBoxPhoneNumber.IsEnabled = enabled;
             ComboBoxGender.IsEnabled = enabled;
-            TextBoxPassword.IsEnabled = enabled;
+            PasswordBox1.IsEnabled = enabled;
             ComboBoxRole.IsEnabled = enabled;
         }
 
@@ -492,7 +478,7 @@ namespace Main
             TextBoxLogin.Text = "";
             ComboBoxGender.SelectedIndex = -1;
             TextBoxPhoneNumber.Text = "";
-            TextBoxPassword.Text = ""; 
+            PasswordBox1.Password = ""; 
         }
     }
 }
