@@ -50,7 +50,7 @@ namespace Unit_testing
             Assert.False(Check(phoneNumber));
         }
 
-        public static bool Check(string phoneNumber)
+        private static bool Check(string phoneNumber)
         {
             phoneNumber = phoneNumber.Replace(" ", "").Replace("-", "");
 
