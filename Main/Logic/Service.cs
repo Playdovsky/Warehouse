@@ -14,21 +14,33 @@ namespace Main
     public static class Service
     {
         public static List<User> Users { get; set; }
+        public static List<Permissions> Permissions { get; set; }
 
         /// <summary>
         /// User list initialization.
         /// </summary>
-        public static void UserListInitialization()
+        public static void DataInitialization()
         {
             Users = new List<User>();
+            Permissions = new List<Permissions>();
 
-            //Retrieves data from "User" table and binds it with users list and sets the data context.
+            // Pobieramy dane użytkowników z bazy danych i dodajemy je do listy Users
             using (var context = new WarehouseDatabaseEntities())
             {
                 var users = from u in context.User select u;
                 foreach (var user in users)
                 {
                     Users.Add(user);
+                }
+            }
+
+            // Pobieramy dane uprawnień z bazy danych i dodajemy je do listy Permissions
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var permissions = from p in context.Permissions select p;
+                foreach (var permission in permissions)
+                {
+                    Permissions.Add(permission);
                 }
             }
         }
@@ -73,6 +85,7 @@ namespace Main
                 selectedUser.Role = tempUser.Role;
                 selectedUser.Gender = tempUser.Gender;
                 selectedUser.BirthDate = tempUser.BirthDate;
+                selectedUser.PermissionsId = tempUser.PermissionsId;
 
                 context.Entry(selectedUser).State = EntityState.Modified;
                 context.SaveChanges();
@@ -187,7 +200,7 @@ namespace Main
         /// <returns>True if phone number format is correct or False if it is not correct</returns>
         public static bool ValidatePhoneNumber(string phoneNumber)
         {
-            ConvertPhoneNumber(phoneNumber);
+            phoneNumber = ConvertPhoneNumber(phoneNumber);
             
             using (var context = new WarehouseDatabaseEntities())
             {

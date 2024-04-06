@@ -22,7 +22,7 @@ namespace Main
         {
             InitializeComponent();
             GridUserInfo.Visibility = Visibility.Hidden;
-            Service.UserListInitialization();
+            Service.DataInitialization();
 
             ComboBoxRole.Items.Add("user");
             ComboBoxRole.Items.Add("admin");
@@ -126,11 +126,19 @@ namespace Main
         private void SearchingTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string filter = SearchingTextBox.Text.ToLower();
-            var filteredUsers = Service.Users.Where(x =>
-                x.FirstName.ToLower().Contains(filter) ||
-                x.LastName.ToLower().Contains(filter) ||
-                x.Email.ToLower().Contains(filter)
-            ).ToList();
+            var filteredUsers = Service.Users
+                .Join(Service.Permissions,
+                      user => user.PermissionsId,
+                      permission => permission.Id,
+                      (user, permission) => new { User = user, PermissionName = permission.Name })
+                .Where(x =>
+                    x.User.FirstName.ToLower().Contains(filter) ||
+                    x.User.LastName.ToLower().Contains(filter) ||
+                    x.User.Email.ToLower().Contains(filter) ||
+                    x.PermissionName.ToLower().Contains(filter)
+                )
+                .Select(x => x.User)
+                .ToList();
             DataGridListOfUsers.ItemsSource = filteredUsers;
         }
 
@@ -185,6 +193,30 @@ namespace Main
                     }
                 }
 
+                int permissionValue = 0;
+
+                if (CheckBoxAdministrator.IsChecked.Value || CheckBoxWarehouseman.IsChecked.Value || CheckBoxSalesman.IsChecked.Value)
+                {
+                    if (CheckBoxAdministrator.IsChecked.Value)
+                    {
+                        permissionValue += 1;
+                    }
+
+                    if (CheckBoxWarehouseman.IsChecked.Value)
+                    {
+                        permissionValue += 2;
+                    }
+
+                    if (CheckBoxSalesman.IsChecked.Value)
+                    {
+                        permissionValue += 4;
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException("Permissions are invalid, please select at least one permission for selected user.");
+                }
+
                 string phoneNumber = Service.ConvertPhoneNumber(TextBoxPhoneNumber.Text);
 
                 tempUser.FirstName = TextBoxFirstName.Text;
@@ -201,6 +233,7 @@ namespace Main
                 tempUser.Password = PasswordBox1.Password;
                 tempUser.Role = ComboBoxRole.SelectedItem.ToString();
                 tempUser.Gender = ComboBoxGender.Text;
+                tempUser.PermissionsId = permissionValue;
 
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
                 {
@@ -368,6 +401,30 @@ namespace Main
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
 
+                int permissionValue = 0;
+
+                if (CheckBoxAdministrator.IsChecked.Value || CheckBoxWarehouseman.IsChecked.Value || CheckBoxSalesman.IsChecked.Value)
+                {
+                    if (CheckBoxAdministrator.IsChecked.Value)
+                    {
+                        permissionValue += 1;
+                    }
+
+                    if (CheckBoxWarehouseman.IsChecked.Value)
+                    {
+                        permissionValue += 2;
+                    }
+
+                    if (CheckBoxSalesman.IsChecked.Value)
+                    {
+                        permissionValue += 4;
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException("Permissions are invalid, please select at least one permission for selected user.");
+                }
+
                 string phoneNumber = Service.ConvertPhoneNumber(TextBoxPhoneNumber.Text);
 
                 User newUser = new User
@@ -385,7 +442,8 @@ namespace Main
                     PhoneNumber = phoneNumber,
                     Gender = ComboBoxGender.Text,
                     Password = PasswordBox1.Password,
-                    Role = ComboBoxRole.Text
+                    Role = ComboBoxRole.Text,
+                    PermissionsId = permissionValue
                 }; 
 
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
@@ -453,8 +511,6 @@ namespace Main
             }
         }
 
-      
-
         /// <summary>
         /// Real Time user list update also known as 'refresh'.
         /// </summary>
@@ -485,6 +541,9 @@ namespace Main
             ComboBoxGender.IsEnabled = enabled;
             PasswordBox1.IsEnabled = enabled;
             ComboBoxRole.IsEnabled = enabled;
+            CheckBoxAdministrator.IsEnabled = enabled;
+            CheckBoxWarehouseman.IsEnabled = enabled;
+            CheckBoxSalesman.IsEnabled = enabled;
         }
 
         /// <summary>
