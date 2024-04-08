@@ -24,20 +24,17 @@ namespace Main
             Users = new List<User>();
             Permissions = new List<Permissions>();
 
-            // Pobieramy dane użytkowników z bazy danych i dodajemy je do listy Users
+            // Pobieramy dane użytkowników z bazy danych i dodajemy je do listy Users wraz z ich uprawnieniami
+
             using (var context = new WarehouseDatabaseEntities())
             {
-                var users = from u in context.User select u;
+                var users = from u in context.User.Include("Permissions") select u;
                 foreach (var user in users)
                 {
                     Users.Add(user);
                 }
-            }
 
-            // Pobieramy dane uprawnień z bazy danych i dodajemy je do listy Permissions
-            using (var context = new WarehouseDatabaseEntities())
-            {
-                var permissions = from p in context.Permissions select p;
+                var permissions = context.Permissions.ToList();
                 foreach (var permission in permissions)
                 {
                     Permissions.Add(permission);
@@ -45,8 +42,9 @@ namespace Main
             }
         }
 
+
         /// <summary>
-        /// Real Time user list update also known as 'refresh'.
+        /// Real Time user list update also known as 'refresh'. /// added user permission loading
         /// </summary>
         public static void LoadUsers()
         {
@@ -54,7 +52,7 @@ namespace Main
 
             using (var context = new WarehouseDatabaseEntities())
             {
-                var users = context.User.Where(u => u.IsForgotten == false).ToList();
+                var users = context.User.Include("Permissions").Where(u => u.IsForgotten == false).ToList();
                 foreach (var user in users)
                 {
                     Users.Add(user);
