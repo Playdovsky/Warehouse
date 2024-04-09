@@ -63,6 +63,32 @@ namespace Main
                 PasswordBox1.Password = selectedUser.Password;
                 ComboBoxRole.SelectedItem = selectedUser.Role;
 
+                int userPermissions = selectedUser.PermissionsId;
+                int a = 1, b = 2, c = 4;
+
+                int remainingValue = userPermissions;
+
+                bool hasSalesman = remainingValue >= c;
+                if (hasSalesman)
+                {
+                    remainingValue -= c;
+                    CheckBoxSalesman.IsChecked = true;
+                }
+
+                bool hasWarehouseman = remainingValue >= b;
+                if (hasWarehouseman)
+                {
+                    remainingValue -= b;
+                    CheckBoxWarehouseman.IsChecked = true;
+                }
+
+                bool hasAdministrator = remainingValue >= a;
+                if (hasAdministrator)
+                {
+                    remainingValue -= a;
+                    CheckBoxAdministrator.IsChecked = true;
+                }
+
                 ButtonAddUser.Visibility = Visibility.Hidden;
                 ButtonEnableFields.Visibility = Visibility.Visible;
                 ButtonDeleteUser.Visibility = Visibility.Visible;
