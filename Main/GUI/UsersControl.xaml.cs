@@ -27,7 +27,7 @@ namespace Main
             ComboBoxRole.Items.Add("user");
             ComboBoxRole.Items.Add("admin");
 
-            DataGridListOfUsers.ItemsSource = Service.Users;
+            DataGridListOfUsers.ItemsSource = Service.Users.Where(u => u.IsForgotten == false).ToList();
         }
 
         /// <summary>
@@ -62,6 +62,10 @@ namespace Main
                 TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
                 PasswordBox1.Password = selectedUser.Password;
                 ComboBoxRole.SelectedItem = selectedUser.Role;
+
+                CheckBoxSalesman.IsChecked = false;
+                CheckBoxWarehouseman.IsChecked = false;
+                CheckBoxAdministrator.IsChecked = false;
 
                 int userPermissions = selectedUser.PermissionsId;
                 int a = 1, b = 2, c = 4;
@@ -240,7 +244,7 @@ namespace Main
                 }
                 else
                 {
-                    throw new ArgumentNullException("Permissions are invalid, please select at least one permission for selected user.");
+                    throw new FormatException("Permissions are invalid, please select at least one permission for selected user.");
                 }
 
                 string phoneNumber = Service.ConvertPhoneNumber(TextBoxPhoneNumber.Text);
@@ -291,15 +295,23 @@ namespace Main
                     throw new FormatException("Please select a role for the new user");
                 }
 
-                enabled = false;
-                EnableFieldsOperation();
+                try
+                {
+                    Service.ApplyChanges(selectedUser, tempUser);
+                    ClearFields();
+                    LoadUsers();
 
-                ButtonApplyChanges.Visibility = Visibility.Hidden;
-                ButtonEnableFields.Visibility = Visibility.Visible;
+                    enabled = false;
+                    EnableFieldsOperation();
 
-                Service.ApplyChanges(selectedUser, tempUser);
-                ClearFields();
-                LoadUsers();
+                    ButtonApplyChanges.Visibility = Visibility.Hidden;
+                    ButtonEnableFields.Visibility = Visibility.Visible;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 DoubleAnimation hideUserInfoAnimation = new DoubleAnimation
                 {

@@ -66,27 +66,50 @@ namespace Main
         /// <param name="selectedUser">Selected user in datagrid</param>
         public static void ApplyChanges(User selectedUser, User tempUser)
         {
-            using (var context = new WarehouseDatabaseEntities())
-            {
-                selectedUser.FirstName = tempUser.FirstName;
-                selectedUser.LastName = tempUser.LastName;
-                selectedUser.Login = tempUser.Login;
-                selectedUser.Email = tempUser.Email;
-                selectedUser.City = tempUser.City;
-                selectedUser.Street = tempUser.Street;
-                selectedUser.PostalCode = tempUser.PostalCode;
-                selectedUser.HouseNumber = tempUser.HouseNumber;
-                selectedUser.ApartmentNumber = tempUser.ApartmentNumber;
-                selectedUser.Pesel = tempUser.Pesel;
-                selectedUser.PhoneNumber = tempUser.PhoneNumber;
-                selectedUser.Password = tempUser.Password;
-                selectedUser.Role = tempUser.Role;
-                selectedUser.Gender = tempUser.Gender;
-                selectedUser.BirthDate = tempUser.BirthDate;
-                selectedUser.PermissionsId = tempUser.PermissionsId;
+            try {
+                using (var context = new WarehouseDatabaseEntities())
+                {
+                    var userToUpdate = context.User.Include("Permissions").SingleOrDefault(u => u.Id == selectedUser.Id);
 
-                context.Entry(selectedUser).State = EntityState.Modified;
-                context.SaveChanges();
+                    if (userToUpdate != null)
+                    {
+                        userToUpdate.FirstName = tempUser.FirstName;
+                        userToUpdate.LastName = tempUser.LastName;
+                        userToUpdate.Login = tempUser.Login;
+                        userToUpdate.Email = tempUser.Email;
+                        userToUpdate.City = tempUser.City;
+                        userToUpdate.Street = tempUser.Street;
+                        userToUpdate.PostalCode = tempUser.PostalCode;
+                        userToUpdate.HouseNumber = tempUser.HouseNumber;
+                        userToUpdate.ApartmentNumber = tempUser.ApartmentNumber;
+                        userToUpdate.Pesel = tempUser.Pesel;
+                        userToUpdate.PhoneNumber = tempUser.PhoneNumber;
+                        userToUpdate.Password = tempUser.Password;
+                        userToUpdate.Role = tempUser.Role;
+                        userToUpdate.Gender = tempUser.Gender;
+                        userToUpdate.BirthDate = tempUser.BirthDate;
+
+                        var newPermissions = context.Permissions.SingleOrDefault(p => p.Id == tempUser.PermissionsId);
+                        if (newPermissions != null)
+                        {
+                            userToUpdate.PermissionsId = tempUser.PermissionsId;
+                        }
+                        else
+                        {
+                            throw new Exception("New permissions do not exist.");
+                        }
+
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("User not found in database.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
 
