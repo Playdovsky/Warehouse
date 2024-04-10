@@ -170,7 +170,7 @@ namespace Main
 
             using (var context = new WarehouseDatabaseEntities())
             {
-                var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.Pesel == pesel);
+                var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.Pesel == pesel && u.IsForgotten == false);
                 if (existingUserWithPhoneNumber != null)
                 {
                     throw new FormatException("User with this pesel number already exists.");
@@ -191,7 +191,7 @@ namespace Main
             
             using (var context = new WarehouseDatabaseEntities())
             {
-                var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == phoneNumber);
+                var existingUserWithPhoneNumber = context.User.FirstOrDefault(u => u.PhoneNumber == phoneNumber && u.IsForgotten == false);
                 if (existingUserWithPhoneNumber != null)
                 {
                     throw new FormatException("User with this phone number already exists.");
@@ -222,7 +222,7 @@ namespace Main
         {
             using (var context = new WarehouseDatabaseEntities())
             {
-                var existingUser = context.User.FirstOrDefault(u => u.Email == email);
+                var existingUser = context.User.FirstOrDefault(u => u.Email == email && u.IsForgotten == false);
                 if (existingUser != null)
                 {
                     throw new FormatException("User with this email already exists.");
