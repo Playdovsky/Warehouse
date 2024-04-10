@@ -17,14 +17,12 @@ namespace Main
         public static List<Permissions> Permissions { get; set; }
 
         /// <summary>
-        /// User list initialization.
+        /// Users list and permissions initialization.
         /// </summary>
         public static void DataInitialization()
         {
             Users = new List<User>();
             Permissions = new List<Permissions>();
-
-            // Pobieramy dane użytkowników z bazy danych i dodajemy je do listy Users wraz z ich uprawnieniami
 
             using (var context = new WarehouseDatabaseEntities())
             {
@@ -107,7 +105,7 @@ namespace Main
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

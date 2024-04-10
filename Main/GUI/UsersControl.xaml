@@ -45,7 +45,7 @@
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
-            
+
             <DataGrid.Resources>
                 <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource {x:Type ScrollBar}}">
                     <Setter Property="Background" Value="#eee"/>
@@ -346,7 +346,7 @@
             <CheckBox x:Name="CheckBoxWarehouseman" Content="Warehouseman" HorizontalAlignment="Left" Margin="11,710,0,0" VerticalAlignment="Top" FontSize="14" IsEnabled="False"/>
             <CheckBox x:Name="CheckBoxSalesman" Content="Salesman" HorizontalAlignment="Left" Margin="11,735,0,0" VerticalAlignment="Top" FontSize="14" IsEnabled="False"/>
         </Grid>
-        <TextBox x:Name="SearchingTextBox" FontSize="14" HorizontalAlignment="Left" Margin="10,29,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" Height="28" TextChanged="SearchingTextBox_TextChanged" Padding="5,0,0,0" VerticalContentAlignment="Center">
+        <TextBox x:Name="SearchingTextBox" FontSize="14" HorizontalAlignment="Left" Margin="10,29,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Height="28" TextChanged="SearchingTextBox_TextChanged" Padding="5,0,0,0" VerticalContentAlignment="Center">
             <TextBox.Template>
                 <ControlTemplate TargetType="TextBox">
                     <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
@@ -356,7 +356,7 @@
             </TextBox.Template>
         </TextBox>
         <TextBlock HorizontalAlignment="Left" FontSize="14" Height="28" Margin="10,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"><Run Text="Search"/><Run Language="pl-pl" Text=" &amp; Filter"/></TextBlock>
-        <Button x:Name="ButtonCreateUser" Content="Create User" Click="CreateUser_Click" HorizontalAlignment="Left" Margin="382,29,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="99" Foreground="White" FontSize="18">
+        <Button x:Name="ButtonCreateUser" Content="Create User" Click="CreateUser_Click" Margin="683,29,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Foreground="White" FontSize="18" RenderTransformOrigin="0.438,0.524" HorizontalAlignment="Left">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
@@ -373,6 +373,9 @@
                 <SolidColorBrush Color="DeepSkyBlue"/>
             </Button.Background>
         </Button>
-
+        <CheckBox x:Name="CheckBoxSearchAdministrator" Content="Administrator" IsEnabled="False" HorizontalAlignment="Left" Margin="377,35,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CheckBoxSearchAdministrator_Click"/>
+        <CheckBox x:Name="CheckBoxSearchWarehouseman" Content="Warehouseman" IsEnabled="False" Margin="474,35,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Click="CheckBoxSearchWarehouseman_Click"/>
+        <CheckBox x:Name="CheckBoxSearchSalesman" Content="Salesman" IsEnabled="False" Margin="581,35,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.103,-0.243" HorizontalAlignment="Left" Click="CheckBoxSearchSalesman_Click"/>
+        <CheckBox x:Name="CheckBoxSearchAll" Content="All" IsChecked="True" HorizontalAlignment="Left" Margin="339,35,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="CheckBoxSearchAll_Click"/>
     </Grid>
 </UserControl>
