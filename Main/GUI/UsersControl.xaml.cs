@@ -17,17 +17,18 @@ namespace Main
         private double originalDataGridWidth;
         private double reducedDataGridWidth;
         private bool enabled = false;
+        private bool enabledPermissions = true;
 
         public UsersControl()
         {
             InitializeComponent();
             GridUserInfo.Visibility = Visibility.Hidden;
-            Service.UserListInitialization();
+            Service.DataInitialization();
 
             ComboBoxRole.Items.Add("user");
             ComboBoxRole.Items.Add("admin");
 
-            DataGridListOfUsers.ItemsSource = Service.Users;
+            DataGridListOfUsers.ItemsSource = Service.Users.Where(u => u.IsForgotten == false).ToList();
         }
 
         /// <summary>
@@ -62,6 +63,36 @@ namespace Main
                 TextBoxPhoneNumber.Text = selectedUser.PhoneNumber;
                 PasswordBox1.Password = selectedUser.Password;
                 ComboBoxRole.SelectedItem = selectedUser.Role;
+
+                CheckBoxSalesman.IsChecked = false;
+                CheckBoxWarehouseman.IsChecked = false;
+                CheckBoxAdministrator.IsChecked = false;
+
+                int userPermissions = selectedUser.PermissionsId;
+                int a = 1, b = 2, c = 4;
+
+                int remainingValue = userPermissions;
+
+                bool hasSalesman = remainingValue >= c;
+                if (hasSalesman)
+                {
+                    remainingValue -= c;
+                    CheckBoxSalesman.IsChecked = true;
+                }
+
+                bool hasWarehouseman = remainingValue >= b;
+                if (hasWarehouseman)
+                {
+                    remainingValue -= b;
+                    CheckBoxWarehouseman.IsChecked = true;
+                }
+
+                bool hasAdministrator = remainingValue >= a;
+                if (hasAdministrator)
+                {
+                    remainingValue -= a;
+                    CheckBoxAdministrator.IsChecked = true;
+                }
 
                 ButtonAddUser.Visibility = Visibility.Hidden;
                 ButtonEnableFields.Visibility = Visibility.Visible;
@@ -119,22 +150,6 @@ namespace Main
         }
 
         /// <summary>
-        /// The user can filter the list by entering first name, last name or E-mail address.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SearchingTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string filter = SearchingTextBox.Text.ToLower();
-            var filteredUsers = Service.Users.Where(x =>
-                x.FirstName.ToLower().Contains(filter) ||
-                x.LastName.ToLower().Contains(filter) ||
-                x.Email.ToLower().Contains(filter)
-            ).ToList();
-            DataGridListOfUsers.ItemsSource = filteredUsers;
-        }
-
-        /// <summary>
         /// Button that allows to modify the User Info.
         /// </summary>
         /// <param name="sender"></param>
@@ -185,6 +200,30 @@ namespace Main
                     }
                 }
 
+                int permissionValue = 0;
+
+                if (CheckBoxAdministrator.IsChecked.Value || CheckBoxWarehouseman.IsChecked.Value || CheckBoxSalesman.IsChecked.Value)
+                {
+                    if (CheckBoxAdministrator.IsChecked.Value)
+                    {
+                        permissionValue += 1;
+                    }
+
+                    if (CheckBoxWarehouseman.IsChecked.Value)
+                    {
+                        permissionValue += 2;
+                    }
+
+                    if (CheckBoxSalesman.IsChecked.Value)
+                    {
+                        permissionValue += 4;
+                    }
+                }
+                else
+                {
+                    throw new FormatException("Permissions are invalid, please select at least one permission for selected user.");
+                }
+
                 string phoneNumber = Service.ConvertPhoneNumber(TextBoxPhoneNumber.Text);
 
                 tempUser.FirstName = TextBoxFirstName.Text;
@@ -201,6 +240,7 @@ namespace Main
                 tempUser.Password = PasswordBox1.Password;
                 tempUser.Role = ComboBoxRole.SelectedItem.ToString();
                 tempUser.Gender = ComboBoxGender.Text;
+                tempUser.PermissionsId = permissionValue;
 
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
                 {
@@ -232,15 +272,23 @@ namespace Main
                     throw new FormatException("Please select a role for the new user");
                 }
 
-                enabled = false;
-                EnableFieldsOperation();
+                try
+                {
+                    Service.ApplyChanges(selectedUser, tempUser);
+                    ClearFields();
+                    LoadUsers();
 
-                ButtonApplyChanges.Visibility = Visibility.Hidden;
-                ButtonEnableFields.Visibility = Visibility.Visible;
+                    enabled = false;
+                    EnableFieldsOperation();
 
-                Service.ApplyChanges(selectedUser, tempUser);
-                ClearFields();
-                LoadUsers();
+                    ButtonApplyChanges.Visibility = Visibility.Hidden;
+                    ButtonEnableFields.Visibility = Visibility.Visible;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 DoubleAnimation hideUserInfoAnimation = new DoubleAnimation
                 {
@@ -368,6 +416,30 @@ namespace Main
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
 
+                int permissionValue = 0;
+
+                if (CheckBoxAdministrator.IsChecked.Value || CheckBoxWarehouseman.IsChecked.Value || CheckBoxSalesman.IsChecked.Value)
+                {
+                    if (CheckBoxAdministrator.IsChecked.Value)
+                    {
+                        permissionValue += 1;
+                    }
+
+                    if (CheckBoxWarehouseman.IsChecked.Value)
+                    {
+                        permissionValue += 2;
+                    }
+
+                    if (CheckBoxSalesman.IsChecked.Value)
+                    {
+                        permissionValue += 4;
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException("Permissions are invalid, please select at least one permission for selected user.");
+                }
+
                 string phoneNumber = Service.ConvertPhoneNumber(TextBoxPhoneNumber.Text);
 
                 User newUser = new User
@@ -385,7 +457,8 @@ namespace Main
                     PhoneNumber = phoneNumber,
                     Gender = ComboBoxGender.Text,
                     Password = PasswordBox1.Password,
-                    Role = ComboBoxRole.Text
+                    Role = ComboBoxRole.Text,
+                    PermissionsId = permissionValue
                 }; 
 
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
@@ -453,7 +526,118 @@ namespace Main
             }
         }
 
-      
+        /// <summary>
+        /// On text change call search method.
+        /// </summary>
+        private void SearchingTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchByPermissions();
+        }
+
+        /// <summary>
+        /// The user can filter the list by entering first name, last name or E-mail address.
+        /// User can also search by permissions which has greater priority than text.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Search(int permissionsValue)
+        {
+            string filter = SearchingTextBox.Text.ToLower();
+
+            var filteredUsersByName = Service.Users
+                .Where(x =>
+                    x.FirstName.ToLower().Contains(filter) ||
+                    x.LastName.ToLower().Contains(filter) ||
+                    x.Email.ToLower().Contains(filter)
+                )
+                .ToList();
+
+            if (!CheckBoxSearchAll.IsChecked.Value)
+            {
+                var filteredUsersByPermissions = filteredUsersByName
+                    .Where(x =>
+                        x.PermissionsId == permissionsValue
+                    )
+                    .ToList();
+                DataGridListOfUsers.ItemsSource = filteredUsersByPermissions;
+            }
+            else
+            {
+                DataGridListOfUsers.ItemsSource = filteredUsersByName;
+            }
+
+        }
+
+        /// <summary>
+        /// This function locks / unlocks other checkboxes to prevent from misconception.
+        /// </summary>
+        private void CheckBoxSearchAll_Click(object sender, RoutedEventArgs e)
+        {
+            if (enabledPermissions)
+            {
+                CheckBoxSearchAdministrator.IsEnabled = true;
+                CheckBoxSearchWarehouseman.IsEnabled = true;
+                CheckBoxSearchSalesman.IsEnabled = true;
+                enabledPermissions = false;
+            }
+            else
+            {
+                CheckBoxSearchAdministrator.IsEnabled = false;
+                CheckBoxSearchWarehouseman.IsEnabled = false;
+                CheckBoxSearchSalesman.IsEnabled = false;
+
+                CheckBoxSearchAdministrator.IsChecked = false;
+                CheckBoxSearchWarehouseman.IsChecked = false;
+                CheckBoxSearchSalesman.IsChecked = false;
+
+                enabledPermissions = true;
+            }
+
+            SearchByPermissions();
+        }
+
+        /// <summary>
+        /// Calculates permissionsValue and serves as broker function between permissions and search.
+        /// </summary>
+        private void SearchByPermissions()
+        {
+            int permissionsValue = 0;
+
+            if (CheckBoxSearchAdministrator.IsChecked.Value)
+                permissionsValue += 1;
+
+            if (CheckBoxSearchWarehouseman.IsChecked.Value)
+                permissionsValue += 2;
+
+            if (CheckBoxSearchSalesman.IsChecked.Value)
+                permissionsValue += 4;
+
+            Search(permissionsValue);
+        }
+
+        /// <summary>
+        /// Simple event for further search purposes.
+        /// </summary>
+        private void CheckBoxSearchAdministrator_Click(object sender, RoutedEventArgs e)
+        {
+            SearchByPermissions();
+        }
+
+        /// <summary>
+        /// Simple event for further search purposes.
+        /// </summary>
+        private void CheckBoxSearchWarehouseman_Click(object sender, RoutedEventArgs e)
+        {
+            SearchByPermissions();
+        }
+
+        /// <summary>
+        /// Simple event for further search purposes.
+        /// </summary>
+        private void CheckBoxSearchSalesman_Click(object sender, RoutedEventArgs e)
+        {
+            SearchByPermissions();
+        }
 
         /// <summary>
         /// Real Time user list update also known as 'refresh'.
@@ -485,6 +669,9 @@ namespace Main
             ComboBoxGender.IsEnabled = enabled;
             PasswordBox1.IsEnabled = enabled;
             ComboBoxRole.IsEnabled = enabled;
+            CheckBoxAdministrator.IsEnabled = enabled;
+            CheckBoxWarehouseman.IsEnabled = enabled;
+            CheckBoxSalesman.IsEnabled = enabled;
         }
 
         /// <summary>

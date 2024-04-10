@@ -37,7 +37,15 @@
                         </Style>
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Permissions" Binding="{Binding Permissions.Name}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
+
             <DataGrid.Resources>
                 <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource {x:Type ScrollBar}}">
                     <Setter Property="Background" Value="#eee"/>
@@ -252,7 +260,7 @@
                 </TextBox>
             </StackPanel>
 
-            <Button x:Name="ButtonEnableFields" Content="Enable Fields" Click="EnableFields_Click" Margin="11,812,289,108" Height="50" Width="250" Foreground="White" FontSize="28">
+            <Button x:Name="ButtonEnableFields" Content="Enable Fields" Click="EnableFields_Click" Margin="10,890,290,30" Height="50" Width="250" Foreground="White" FontSize="28">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
@@ -269,7 +277,7 @@
                     <SolidColorBrush Color="DeepSkyBlue"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="ButtonApplyChanges" Content="Apply Changes" Click="ApplyChanges_Click" Margin="11,812,289,108" Height="50" Width="250" Visibility="Hidden" FontSize="28" Foreground="White">
+            <Button x:Name="ButtonApplyChanges" Content="Apply Changes" Click="ApplyChanges_Click" Margin="10,890,290,30" Height="50" Width="250" Visibility="hidden" FontSize="28" Foreground="White">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
@@ -286,7 +294,7 @@
                     <SolidColorBrush Color="DeepSkyBlue"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="ButtonAddUser" Content="Add User" Click="AddUser_Click" Margin="100,812,99,80" Visibility="Hidden" Foreground="White" FontSize="32">
+            <Button x:Name="ButtonAddUser" Content="Add User" Click="AddUser_Click" Margin="100,871,100,21" Visibility="Hidden" Foreground="White" FontSize="32">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
@@ -303,7 +311,7 @@
                     <SolidColorBrush Color="DeepSkyBlue"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="ButtonDeleteUser" Content="Delete User" Margin="290,812,10,108" Height="50" Width="250" Click="ButtonDeleteUser_Click" Visibility="Hidden" FontSize="28" Foreground="White">
+            <Button x:Name="ButtonDeleteUser" Content="Delete User" Margin="290,890,10,30" Height="50" Width="250" Click="ButtonDeleteUser_Click" Visibility="Hidden" FontSize="28" Foreground="White">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
@@ -321,11 +329,11 @@
                 </Button.Background>
             </Button>
 
-            <Label x:Name="LabelPassword" Content="Password :" Grid.Row="0" Margin="11,691,289,247" Height="28" FontSize="14"/>
+            <Label x:Name="LabelPassword" Content="Password :" Grid.Row="0" Margin="11,767,289,175" Height="28" FontSize="14"/>
 
-            <Label x:Name="LabelRole" Content="Role :" Grid.Row="0" Margin="290,691,10,247" Height="28" FontSize="14"/>
-            <ComboBox x:Name="ComboBoxRole" Margin="290,729,10,209" IsEnabled="False" Height="28" FontSize="14" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
-            <PasswordBox x:Name="PasswordBox1" HorizontalAlignment="Left" Margin="10,731,0,0" VerticalAlignment="Top" Width="250" Height="28">
+            <Label x:Name="LabelRole" Content="Role :" Grid.Row="0" Margin="290,681,10,261" Height="28" FontSize="14"/>
+            <ComboBox x:Name="ComboBoxRole" Margin="290,719,10,223" IsEnabled="False" Height="28" FontSize="14" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
+            <PasswordBox x:Name="PasswordBox1" HorizontalAlignment="Left" Margin="10,805,0,0" VerticalAlignment="Top" Width="250" Height="28">
                 <PasswordBox.Template>
                     <ControlTemplate TargetType="PasswordBox">
                         <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
@@ -334,8 +342,11 @@
                     </ControlTemplate>
                 </PasswordBox.Template>
             </PasswordBox>
+            <CheckBox x:Name="CheckBoxAdministrator" Content="Administrator" HorizontalAlignment="Left" Margin="26,685,0,0" VerticalAlignment="Top" FontSize="14" IsEnabled="False"/>
+            <CheckBox x:Name="CheckBoxWarehouseman" Content="Warehouseman" HorizontalAlignment="Left" Margin="26,708,0,0" VerticalAlignment="Top" FontSize="14" IsEnabled="False"/>
+            <CheckBox x:Name="CheckBoxSalesman" Content="Salesman" HorizontalAlignment="Left" Margin="26,733,0,0" VerticalAlignment="Top" FontSize="14" IsEnabled="False"/>
         </Grid>
-        <TextBox x:Name="SearchingTextBox" FontSize="14" HorizontalAlignment="Left" Margin="10,29,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" Height="28" TextChanged="SearchingTextBox_TextChanged" Padding="5,0,0,0" VerticalContentAlignment="Center">
+        <TextBox x:Name="SearchingTextBox" FontSize="14" HorizontalAlignment="Left" Margin="10,29,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Height="28" TextChanged="SearchingTextBox_TextChanged" Padding="5,0,0,0" VerticalContentAlignment="Center">
             <TextBox.Template>
                 <ControlTemplate TargetType="TextBox">
                     <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
@@ -345,7 +356,7 @@
             </TextBox.Template>
         </TextBox>
         <TextBlock HorizontalAlignment="Left" FontSize="14" Height="28" Margin="10,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"><Run Text="Search"/><Run Language="pl-pl" Text=" &amp; Filter"/></TextBlock>
-        <Button x:Name="ButtonCreateUser" Content="Create User" Click="CreateUser_Click" HorizontalAlignment="Left" Margin="382,29,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="99" Foreground="White" FontSize="18">
+        <Button x:Name="ButtonCreateUser" Content="Create User" Click="CreateUser_Click" Margin="683,25,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Foreground="White" FontSize="18" RenderTransformOrigin="0.438,0.524" HorizontalAlignment="Left">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
@@ -362,6 +373,10 @@
                 <SolidColorBrush Color="DeepSkyBlue"/>
             </Button.Background>
         </Button>
-
+        <CheckBox x:Name="CheckBoxSearchAdministrator" Content="Administrator" IsEnabled="False" HorizontalAlignment="Left" Margin="377,35,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CheckBoxSearchAdministrator_Click"/>
+        <CheckBox x:Name="CheckBoxSearchWarehouseman" Content="Warehouseman" IsEnabled="False" Margin="474,35,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Click="CheckBoxSearchWarehouseman_Click"/>
+        <CheckBox x:Name="CheckBoxSearchSalesman" Content="Salesman" IsEnabled="False" Margin="581,35,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.103,-0.243" HorizontalAlignment="Left" Click="CheckBoxSearchSalesman_Click"/>
+        <CheckBox x:Name="CheckBoxSearchAll" Content="All" IsChecked="True" HorizontalAlignment="Left" Margin="339,35,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="CheckBoxSearchAll_Click"/>
+        <GroupBox Header="Permissions" Margin="328,10, 115,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="47" Width="333"/>
     </Grid>
 </UserControl>

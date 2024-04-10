@@ -31,5 +31,8 @@ namespace Main
         public string PhoneNumber { get; set; }
         public System.Guid Id { get; set; }
         public bool IsForgotten { get; set; }
+        public int PermissionsId { get; set; }
+    
+        public virtual Permissions Permissions { get; set; }
     }
 }

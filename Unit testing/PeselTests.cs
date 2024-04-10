@@ -82,6 +82,16 @@
             Assert.False(Check(pesel, birthDate, gender));
         }
 
+        [Fact]
+        public void BadPesel7()
+        {
+            string pesel = "abcdefghijk";
+            DateTime birthDate = new(1986, 11, 30);
+            string gender = "Male";
+
+            Assert.False(Check(pesel, birthDate, gender));
+        }
+
         private static bool Check(string pesel, DateTime birthDate, string gender)
         {
             if (pesel.Length != 11 || !pesel.All(char.IsDigit))
