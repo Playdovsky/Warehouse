@@ -544,7 +544,7 @@ namespace Main
         {
             string filter = SearchingTextBox.Text.ToLower();
 
-            var filteredUsersByName = Service.Users
+            var filteredUsersByName = Service.Users.Where(u => u.IsForgotten == false)
                 .Where(x =>
                     x.FirstName.ToLower().Contains(filter) ||
                     x.LastName.ToLower().Contains(filter) ||
@@ -646,7 +646,7 @@ namespace Main
         {
             Service.LoadUsers();
             DataGridListOfUsers.ItemsSource = null;
-            DataGridListOfUsers.ItemsSource = Service.Users;
+            DataGridListOfUsers.ItemsSource = Service.Users.Where(u => u.IsForgotten == false).ToList();
         }
 
         /// <summary>
