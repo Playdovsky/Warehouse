@@ -14,27 +14,35 @@ namespace Main
     public static class Service
     {
         public static List<User> Users { get; set; }
+        public static List<Permissions> Permissions { get; set; }
 
         /// <summary>
-        /// User list initialization.
+        /// Users list and permissions initialization.
         /// </summary>
-        public static void UserListInitialization()
+        public static void DataInitialization()
         {
             Users = new List<User>();
+            Permissions = new List<Permissions>();
 
-            //Retrieves data from "User" table and binds it with users list and sets the data context.
             using (var context = new WarehouseDatabaseEntities())
             {
-                var users = from u in context.User select u;
+                var users = from u in context.User.Include("Permissions") select u;
                 foreach (var user in users)
                 {
                     Users.Add(user);
                 }
+
+                var permissions = context.Permissions.ToList();
+                foreach (var permission in permissions)
+                {
+                    Permissions.Add(permission);
+                }
             }
         }
 
+
         /// <summary>
-        /// Real Time user list update also known as 'refresh'.
+        /// Real Time user list update also known as 'refresh'. /// added user permission loading
         /// </summary>
         public static void LoadUsers()
         {
@@ -42,7 +50,7 @@ namespace Main
 
             using (var context = new WarehouseDatabaseEntities())
             {
-                var users = context.User.Where(u => u.IsForgotten == false).ToList();
+                var users = context.User.Include("Permissions").Where(u => u.IsForgotten == false).ToList();
                 foreach (var user in users)
                 {
                     Users.Add(user);
@@ -56,26 +64,50 @@ namespace Main
         /// <param name="selectedUser">Selected user in datagrid</param>
         public static void ApplyChanges(User selectedUser, User tempUser)
         {
-            using (var context = new WarehouseDatabaseEntities())
-            {
-                selectedUser.FirstName = tempUser.FirstName;
-                selectedUser.LastName = tempUser.LastName;
-                selectedUser.Login = tempUser.Login;
-                selectedUser.Email = tempUser.Email;
-                selectedUser.City = tempUser.City;
-                selectedUser.Street = tempUser.Street;
-                selectedUser.PostalCode = tempUser.PostalCode;
-                selectedUser.HouseNumber = tempUser.HouseNumber;
-                selectedUser.ApartmentNumber = tempUser.ApartmentNumber;
-                selectedUser.Pesel = tempUser.Pesel;
-                selectedUser.PhoneNumber = tempUser.PhoneNumber;
-                selectedUser.Password = tempUser.Password;
-                selectedUser.Role = tempUser.Role;
-                selectedUser.Gender = tempUser.Gender;
-                selectedUser.BirthDate = tempUser.BirthDate;
+            try {
+                using (var context = new WarehouseDatabaseEntities())
+                {
+                    var userToUpdate = context.User.Include("Permissions").SingleOrDefault(u => u.Id == selectedUser.Id);
 
-                context.Entry(selectedUser).State = EntityState.Modified;
-                context.SaveChanges();
+                    if (userToUpdate != null)
+                    {
+                        userToUpdate.FirstName = tempUser.FirstName;
+                        userToUpdate.LastName = tempUser.LastName;
+                        userToUpdate.Login = tempUser.Login;
+                        userToUpdate.Email = tempUser.Email;
+                        userToUpdate.City = tempUser.City;
+                        userToUpdate.Street = tempUser.Street;
+                        userToUpdate.PostalCode = tempUser.PostalCode;
+                        userToUpdate.HouseNumber = tempUser.HouseNumber;
+                        userToUpdate.ApartmentNumber = tempUser.ApartmentNumber;
+                        userToUpdate.Pesel = tempUser.Pesel;
+                        userToUpdate.PhoneNumber = tempUser.PhoneNumber;
+                        userToUpdate.Password = tempUser.Password;
+                        userToUpdate.Role = tempUser.Role;
+                        userToUpdate.Gender = tempUser.Gender;
+                        userToUpdate.BirthDate = tempUser.BirthDate;
+
+                        var newPermissions = context.Permissions.SingleOrDefault(p => p.Id == tempUser.PermissionsId);
+                        if (newPermissions != null)
+                        {
+                            userToUpdate.PermissionsId = tempUser.PermissionsId;
+                        }
+                        else
+                        {
+                            throw new Exception("New permissions do not exist.");
+                        }
+
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("User not found in database.");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
@@ -187,7 +219,7 @@ namespace Main
         /// <returns>True if phone number format is correct or False if it is not correct</returns>
         public static bool ValidatePhoneNumber(string phoneNumber)
         {
-            ConvertPhoneNumber(phoneNumber);
+            phoneNumber = ConvertPhoneNumber(phoneNumber);
             
             using (var context = new WarehouseDatabaseEntities())
             {

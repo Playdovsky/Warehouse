@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="WarehouseDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Administrator" Type="bit" />
+          <Property Name="Warehouseman" Type="bit" />
+          <Property Name="Salesman" Type="bit" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -26,9 +36,27 @@
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsForgotten" Type="bit" Nullable="false" />
+          <Property Name="PermissionsId" Type="int" />
         </EntityType>
+        <Association Name="FK__User__Permission__3D5E1FD2">
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="PermissionsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="WarehouseDatabaseModelStoreContainer">
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__User__Permission__3D5E1FD2" Association="Self.FK__User__Permission__3D5E1FD2">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -55,10 +83,40 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="IsForgotten" Type="Boolean" Nullable="false" />
+          <Property Name="PermissionsId" Type="Int32" />
+          <NavigationProperty Name="Permissions" Relationship="WarehouseDatabaseModel.FK__User__Permission__3D5E1FD2" FromRole="User" ToRole="Permissions" />
         </EntityType>
         <EntityContainer Name="WarehouseDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="Permissions" EntityType="WarehouseDatabaseModel.Permissions" />
+          <AssociationSet Name="FK__User__Permission__3D5E1FD2" Association="WarehouseDatabaseModel.FK__User__Permission__3D5E1FD2">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Administrator" Type="Boolean" />
+          <Property Name="Warehouseman" Type="Boolean" />
+          <Property Name="Salesman" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="WarehouseDatabaseModel.FK__User__Permission__3D5E1FD2" FromRole="Permissions" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__User__Permission__3D5E1FD2">
+          <End Type="WarehouseDatabaseModel.Permissions" Role="Permissions" Multiplicity="0..1" />
+          <End Type="WarehouseDatabaseModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="PermissionsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -68,6 +126,7 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="WarehouseDatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="PermissionsId" ColumnName="PermissionsId" />
                 <ScalarProperty Name="IsForgotten" ColumnName="IsForgotten" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -84,6 +143,17 @@
                 <ScalarProperty Name="Pesel" ColumnName="Pesel" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="WarehouseDatabaseModel.Permissions">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="Salesman" ColumnName="Salesman" />
+                <ScalarProperty Name="Warehouseman" ColumnName="Warehouseman" />
+                <ScalarProperty Name="Administrator" ColumnName="Administrator" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

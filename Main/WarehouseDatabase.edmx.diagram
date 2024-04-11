@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="885a9334e1694fe7bf71f2850b498165" Name="Diagram1">
         <EntityTypeShape EntityType="WarehouseDatabaseModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.Permissions" Width="1.5" PointX="0.75" PointY="7" />
+        <AssociationConnector Association="WarehouseDatabaseModel.FK__User__Permission__3D5E1FD2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

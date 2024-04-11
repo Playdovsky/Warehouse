@@ -26,5 +26,6 @@ namespace Main
         }
     
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Permissions> Permissions { get; set; }
     }
 }

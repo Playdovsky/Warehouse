@@ -159,6 +159,9 @@
     <Compile Include="GUI\LogInControl.xaml.cs">
       <DependentUpon>LogInControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Permissions.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
