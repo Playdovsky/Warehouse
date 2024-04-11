@@ -27,7 +27,7 @@ namespace Main
             ComboBoxRole.Items.Add("user");
             ComboBoxRole.Items.Add("admin");
 
-            DataGridListOfUsers.ItemsSource = Service.Users;
+            DataGridListOfUsers.ItemsSource = Service.Users.Where(u => u.IsForgotten == false).ToList();
         }
 
         /// <summary>
