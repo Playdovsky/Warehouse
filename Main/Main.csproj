@@ -166,6 +166,12 @@
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Logic\Service.cs" />
+    <Compile Include="UserPermissions.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserView.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="WarehouseDatabase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

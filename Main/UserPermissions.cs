@@ -12,18 +12,13 @@ namespace Main
     using System;
     using System.Collections.Generic;
     
-    public partial class Permissions
+    public partial class UserPermissions
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Permissions()
-        {
-            this.UserPermissions = new HashSet<UserPermissions>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public Nullable<System.Guid> UserId { get; set; }
+        public Nullable<int> PermissionsId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserPermissions> UserPermissions { get; set; }
+        public virtual Permissions Permissions { get; set; }
+        public virtual User User { get; set; }
     }
 }

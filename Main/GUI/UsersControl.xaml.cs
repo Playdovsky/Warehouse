@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,8 +29,9 @@ namespace Main
 
             ComboBoxRole.Items.Add("user");
             ComboBoxRole.Items.Add("admin");
+            ComboBoxRole.SelectedIndex = 0;
 
-            DataGridListOfUsers.ItemsSource = Service.Users.Where(u => u.IsForgotten == false).ToList();
+            DataGridListOfUsers.ItemsSource = Service.Users;
         }
 
         /// <summary>
@@ -38,7 +41,7 @@ namespace Main
         /// <param name="e"></param>
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            User selectedUser = (User)DataGridListOfUsers.SelectedItem;
+            UserView selectedUser = (UserView)DataGridListOfUsers.SelectedItem;
 
             if (selectedUser != null)
             {
@@ -68,31 +71,21 @@ namespace Main
                 CheckBoxWarehouseman.IsChecked = false;
                 CheckBoxAdministrator.IsChecked = false;
 
-                int userPermissions = selectedUser.PermissionsId;
-                int a = 1, b = 2, c = 4;
-
-                int remainingValue = userPermissions;
-
-                bool hasSalesman = remainingValue >= c;
-                if (hasSalesman)
+                if (selectedUser.PermissionIds.Contains('1'))
                 {
-                    remainingValue -= c;
-                    CheckBoxSalesman.IsChecked = true;
+                    CheckBoxAdministrator.IsChecked = true;
                 }
 
-                bool hasWarehouseman = remainingValue >= b;
-                if (hasWarehouseman)
+                if (selectedUser.PermissionIds.Contains('2'))
                 {
-                    remainingValue -= b;
                     CheckBoxWarehouseman.IsChecked = true;
                 }
 
-                bool hasAdministrator = remainingValue >= a;
-                if (hasAdministrator)
+                if (selectedUser.PermissionIds.Contains('3'))
                 {
-                    remainingValue -= a;
-                    CheckBoxAdministrator.IsChecked = true;
+                    CheckBoxSalesman.IsChecked = true;
                 }
+
 
                 ButtonAddUser.Visibility = Visibility.Hidden;
                 ButtonEnableFields.Visibility = Visibility.Visible;
@@ -168,7 +161,7 @@ namespace Main
         /// <param name="e"></param>
         private void ApplyChanges_Click(object sender, RoutedEventArgs e)
         {
-            User selectedUser = (User)DataGridListOfUsers.SelectedItem;
+            UserView selectedUser = (UserView)DataGridListOfUsers.SelectedItem;
             User tempUser = new User();
 
             try
@@ -200,23 +193,23 @@ namespace Main
                     }
                 }
 
-                int permissionValue = 0;
+                List<int> permissionsValue = new List<int>();
 
                 if (CheckBoxAdministrator.IsChecked.Value || CheckBoxWarehouseman.IsChecked.Value || CheckBoxSalesman.IsChecked.Value)
                 {
                     if (CheckBoxAdministrator.IsChecked.Value)
                     {
-                        permissionValue += 1;
+                        permissionsValue.Add(1);
                     }
 
                     if (CheckBoxWarehouseman.IsChecked.Value)
                     {
-                        permissionValue += 2;
+                        permissionsValue.Add(2);
                     }
 
                     if (CheckBoxSalesman.IsChecked.Value)
                     {
-                        permissionValue += 4;
+                        permissionsValue.Add(3);
                     }
                 }
                 else
@@ -240,7 +233,11 @@ namespace Main
                 tempUser.Password = PasswordBox1.Password;
                 tempUser.Role = ComboBoxRole.SelectedItem.ToString();
                 tempUser.Gender = ComboBoxGender.Text;
-                tempUser.PermissionsId = permissionValue;
+
+                foreach(int permission in permissionsValue)
+                {
+                    tempUser.UserPermissions.Add(new UserPermissions() { UserId = tempUser.Id, PermissionsId = permission });
+                }
 
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
                 {
@@ -416,34 +413,11 @@ namespace Main
                     throw new FormatException("The phone number is invalid. Enter 9 digits.");
                 }
 
-                int permissionValue = 0;
-
-                if (CheckBoxAdministrator.IsChecked.Value || CheckBoxWarehouseman.IsChecked.Value || CheckBoxSalesman.IsChecked.Value)
-                {
-                    if (CheckBoxAdministrator.IsChecked.Value)
-                    {
-                        permissionValue += 1;
-                    }
-
-                    if (CheckBoxWarehouseman.IsChecked.Value)
-                    {
-                        permissionValue += 2;
-                    }
-
-                    if (CheckBoxSalesman.IsChecked.Value)
-                    {
-                        permissionValue += 4;
-                    }
-                }
-                else
-                {
-                    throw new ArgumentNullException("Permissions are invalid, please select at least one permission for selected user.");
-                }
-
                 string phoneNumber = Service.ConvertPhoneNumber(TextBoxPhoneNumber.Text);
 
                 User newUser = new User
                 {
+                    Id = Guid.NewGuid(),
                     FirstName = TextBoxFirstName.Text,
                     LastName = TextBoxLastName.Text,
                     Login = TextBoxLogin.Text,
@@ -458,8 +432,34 @@ namespace Main
                     Gender = ComboBoxGender.Text,
                     Password = PasswordBox1.Password,
                     Role = ComboBoxRole.Text,
-                    PermissionsId = permissionValue
-                }; 
+                };
+
+                if (CheckBoxAdministrator.IsChecked.Value || CheckBoxWarehouseman.IsChecked.Value || CheckBoxSalesman.IsChecked.Value)
+                {
+                    UserPermissions userPermissions = new UserPermissions() { UserId = newUser.Id};
+
+                    if (CheckBoxAdministrator.IsChecked.Value)
+                    {
+                        userPermissions.PermissionsId = 1;
+                        newUser.UserPermissions.Add(userPermissions);
+                    }
+
+                    if (CheckBoxWarehouseman.IsChecked.Value)
+                    {
+                        userPermissions.PermissionsId = 2;
+                        newUser.UserPermissions.Add(userPermissions);
+                    }
+
+                    if (CheckBoxSalesman.IsChecked.Value)
+                    {
+                        userPermissions.PermissionsId = 3;
+                        newUser.UserPermissions.Add(userPermissions);
+                    }
+                }
+                else
+                {
+                    throw new ArgumentNullException("Permissions are invalid, please select at least one permission for selected user.");
+                }
 
                 if (DateTime.TryParseExact(TextBoxDateOfBirth.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime birthDate))
                 {
@@ -507,7 +507,7 @@ namespace Main
         /// <param name="e"></param>
         private void ButtonDeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            User selectedUser = (User)DataGridListOfUsers.SelectedItem;
+            UserView selectedUser = (UserView)DataGridListOfUsers.SelectedItem;
 
             if (selectedUser != null)
             {
@@ -540,23 +540,23 @@ namespace Main
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Search(int permissionsValue)
+        private void Search(List<string> permissionsValue)
         {
             string filter = SearchingTextBox.Text.ToLower();
 
-            var filteredUsersByName = Service.Users.Where(u => u.IsForgotten == false)
+            var filteredUsersByName = Service.Users
                 .Where(x =>
                     x.FirstName.ToLower().Contains(filter) ||
                     x.LastName.ToLower().Contains(filter) ||
                     x.Email.ToLower().Contains(filter)
                 )
                 .ToList();
-
+            //x.PermissionIds.Trim().Split(',').Select(y => y).Any(z => permissionsValue.Contains(z)
             if (!CheckBoxSearchAll.IsChecked.Value)
             {
                 var filteredUsersByPermissions = filteredUsersByName
                     .Where(x =>
-                        x.PermissionsId == permissionsValue
+                        permissionsValue.Any(tubix => x.PermissionIds.Split(',').Select(y => y.Trim()).Contains(tubix))
                     )
                     .ToList();
                 DataGridListOfUsers.ItemsSource = filteredUsersByPermissions;
@@ -569,7 +569,7 @@ namespace Main
         }
 
         /// <summary>
-        /// This function locks / unlocks other checkboxes to prevent from misconception.
+        /// This function locks / unlocks other checkboxes to prevent misconception.
         /// </summary>
         private void CheckBoxSearchAll_Click(object sender, RoutedEventArgs e)
         {
@@ -601,16 +601,16 @@ namespace Main
         /// </summary>
         private void SearchByPermissions()
         {
-            int permissionsValue = 0;
+            List<string> permissionsValue = new List<string>();
 
             if (CheckBoxSearchAdministrator.IsChecked.Value)
-                permissionsValue += 1;
+                permissionsValue.Add("1");
 
             if (CheckBoxSearchWarehouseman.IsChecked.Value)
-                permissionsValue += 2;
+                permissionsValue.Add("2");
 
             if (CheckBoxSearchSalesman.IsChecked.Value)
-                permissionsValue += 4;
+                permissionsValue.Add("3");
 
             Search(permissionsValue);
         }
@@ -646,7 +646,7 @@ namespace Main
         {
             Service.LoadUsers();
             DataGridListOfUsers.ItemsSource = null;
-            DataGridListOfUsers.ItemsSource = Service.Users.Where(u => u.IsForgotten == false).ToList();
+            DataGridListOfUsers.ItemsSource = Service.Users;
         }
 
         /// <summary>

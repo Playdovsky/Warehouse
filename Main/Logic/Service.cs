@@ -13,36 +13,21 @@ namespace Main
     /// </summary>
     public static class Service
     {
-        public static List<User> Users { get; set; }
-        public static List<Permissions> Permissions { get; set; }
+        public static List<UserView> Users { get; set; }
 
         /// <summary>
         /// Users list and permissions initialization.
         /// </summary>
         public static void DataInitialization()
         {
-            Users = new List<User>();
-            Permissions = new List<Permissions>();
-
             using (var context = new WarehouseDatabaseEntities())
             {
-                var users = from u in context.User.Include("Permissions") select u;
-                foreach (var user in users)
-                {
-                    Users.Add(user);
-                }
-
-                var permissions = context.Permissions.ToList();
-                foreach (var permission in permissions)
-                {
-                    Permissions.Add(permission);
-                }
+                Users = context.UserView.ToList();
             }
         }
 
-
         /// <summary>
-        /// Real Time user list update also known as 'refresh'. /// added user permission loading
+        /// Real Time user list update also known as 'refresh'.
         /// </summary>
         public static void LoadUsers()
         {
@@ -50,11 +35,7 @@ namespace Main
 
             using (var context = new WarehouseDatabaseEntities())
             {
-                var users = context.User.Include("Permissions").Where(u => u.IsForgotten == false).ToList();
-                foreach (var user in users)
-                {
-                    Users.Add(user);
-                }
+                Users = context.UserView.ToList();
             }
         }
 
@@ -62,12 +43,12 @@ namespace Main
         /// Method which saves changes into tabase.
         /// </summary>
         /// <param name="selectedUser">Selected user in datagrid</param>
-        public static void ApplyChanges(User selectedUser, User tempUser)
+        public static void ApplyChanges(UserView selectedUser, User tempUser)
         {
             try {
                 using (var context = new WarehouseDatabaseEntities())
                 {
-                    var userToUpdate = context.User.Include("Permissions").SingleOrDefault(u => u.Id == selectedUser.Id);
+                    var userToUpdate = context.User.SingleOrDefault(u => u.Id == selectedUser.Id);
 
                     if (userToUpdate != null)
                     {
@@ -86,16 +67,8 @@ namespace Main
                         userToUpdate.Role = tempUser.Role;
                         userToUpdate.Gender = tempUser.Gender;
                         userToUpdate.BirthDate = tempUser.BirthDate;
-
-                        var newPermissions = context.Permissions.SingleOrDefault(p => p.Id == tempUser.PermissionsId);
-                        if (newPermissions != null)
-                        {
-                            userToUpdate.PermissionsId = tempUser.PermissionsId;
-                        }
-                        else
-                        {
-                            throw new Exception("New permissions do not exist.");
-                        }
+                        userToUpdate.UserPermissions.Clear();
+                        userToUpdate.UserPermissions = tempUser.UserPermissions;
 
                         context.SaveChanges();
                     }
@@ -117,7 +90,6 @@ namespace Main
         /// <param name="newUser">New user that is being created</param>
         public static void AddUser(User newUser)
         {
-            newUser.Id = Guid.NewGuid();
             using (var context = new WarehouseDatabaseEntities())
             {
                 context.User.Add(newUser);
@@ -130,19 +102,21 @@ namespace Main
         /// </summary>
         /// <param name="selectedUser">Selected user from datagrid</param>
         /// <exception cref="ArgumentNullException">Is thrown when user has not been selected</exception>
-        public static void Removal(User selectedUser)
+        public static void Removal(UserView selectedUser)
         {
             try
             {
                 using (var context = new WarehouseDatabaseEntities())
                 {
-                    if (context.Entry(selectedUser).State == EntityState.Detached)
+                    User user = context.User.FirstOrDefault(x => x.Id == selectedUser.Id);
+
+                    if (context.Entry(user).State == EntityState.Detached)
                     {
-                        context.User.Attach(selectedUser);
+                        context.User.Attach(user);
                     }
 
-                    selectedUser.IsForgotten = true;
-                    context.Entry(selectedUser).State = EntityState.Modified;
+                    user.IsForgotten = true;
+                    context.Entry(user).State = EntityState.Modified;
                     context.SaveChanges();
                 }
 
