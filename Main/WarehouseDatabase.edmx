@@ -11,9 +11,6 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Administrator" Type="bit" />
-          <Property Name="Warehouseman" Type="bit" />
-          <Property Name="Salesman" Type="bit" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -36,32 +33,147 @@
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsForgotten" Type="bit" Nullable="false" />
-          <Property Name="PermissionsId" Type="int" />
         </EntityType>
-        <Association Name="FK__User__Permission__3D5E1FD2">
+        <EntityType Name="UserPermissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="PermissionsId" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserView">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+          <Property Name="Login" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Role" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="100" />
+          <Property Name="Street" Type="varchar" MaxLength="100" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="20" />
+          <Property Name="HouseNumber" Type="varchar" MaxLength="20" />
+          <Property Name="ApartmentNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Pesel" Type="varchar" MaxLength="20" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Permissions" Type="nvarchar(max)" />
+          <Property Name="PermissionIds" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__UserPermi__Permi__412EB0B6">
           <End Role="Permissions" Type="Self.Permissions" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Role="UserPermissions" Type="Self.UserPermissions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Permissions">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="UserPermissions">
               <PropertyRef Name="PermissionsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserPermi__UserI__403A8C7D">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserPermissions" Type="Self.UserPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPermissions">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="WarehouseDatabaseModelStoreContainer">
           <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__User__Permission__3D5E1FD2" Association="Self.FK__User__Permission__3D5E1FD2">
+          <EntitySet Name="UserPermissions" EntityType="Self.UserPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserView" EntityType="Self.UserView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserView].[Id] AS [Id], 
+    [UserView].[FirstName] AS [FirstName], 
+    [UserView].[LastName] AS [LastName], 
+    [UserView].[Email] AS [Email], 
+    [UserView].[Gender] AS [Gender], 
+    [UserView].[Login] AS [Login], 
+    [UserView].[Password] AS [Password], 
+    [UserView].[Role] AS [Role], 
+    [UserView].[City] AS [City], 
+    [UserView].[Street] AS [Street], 
+    [UserView].[PostalCode] AS [PostalCode], 
+    [UserView].[HouseNumber] AS [HouseNumber], 
+    [UserView].[ApartmentNumber] AS [ApartmentNumber], 
+    [UserView].[Pesel] AS [Pesel], 
+    [UserView].[BirthDate] AS [BirthDate], 
+    [UserView].[PhoneNumber] AS [PhoneNumber], 
+    [UserView].[Permissions] AS [Permissions], 
+    [UserView].[PermissionIds] AS [PermissionIds]
+    FROM [dbo].[UserView] AS [UserView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__UserPermi__Permi__412EB0B6" Association="Self.FK__UserPermi__Permi__412EB0B6">
             <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="UserPermissions" EntitySet="UserPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserPermi__UserI__403A8C7D" Association="Self.FK__UserPermi__UserI__403A8C7D">
             <End Role="User" EntitySet="User" />
+            <End Role="UserPermissions" EntitySet="UserPermissions" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WarehouseDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WarehouseDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserPermissions" EntityType="WarehouseDatabaseModel.UserPermissions" />
+          <EntitySet Name="Permissions" EntityType="WarehouseDatabaseModel.Permissions" />
+          <AssociationSet Name="FK__UserPermi__Permi__412EB0B6" Association="WarehouseDatabaseModel.FK__UserPermi__Permi__412EB0B6">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="UserPermissions" EntitySet="UserPermissions" />
+          </AssociationSet>
+          <EntitySet Name="User" EntityType="WarehouseDatabaseModel.User" />
+          <AssociationSet Name="FK__UserPermi__UserI__403A8C7D" Association="WarehouseDatabaseModel.FK__UserPermi__UserI__403A8C7D">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPermissions" EntitySet="UserPermissions" />
+          </AssociationSet>
+          <EntitySet Name="UserView" EntityType="WarehouseDatabaseModel.UserView" />
+        </EntityContainer>
+        <EntityType Name="UserPermissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="PermissionsId" Type="Int32" />
+          <NavigationProperty Name="Permissions" Relationship="WarehouseDatabaseModel.FK__UserPermi__Permi__412EB0B6" FromRole="UserPermissions" ToRole="Permissions" />
+          <NavigationProperty Name="User" Relationship="WarehouseDatabaseModel.FK__UserPermi__UserI__403A8C7D" FromRole="UserPermissions" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserPermissions" Relationship="WarehouseDatabaseModel.FK__UserPermi__Permi__412EB0B6" FromRole="Permissions" ToRole="UserPermissions" />
+        </EntityType>
+        <Association Name="FK__UserPermi__Permi__412EB0B6">
+          <End Type="WarehouseDatabaseModel.Permissions" Role="Permissions" Multiplicity="0..1" />
+          <End Type="WarehouseDatabaseModel.UserPermissions" Role="UserPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPermissions">
+              <PropertyRef Name="PermissionsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -83,66 +195,54 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="IsForgotten" Type="Boolean" Nullable="false" />
-          <Property Name="PermissionsId" Type="Int32" />
-          <NavigationProperty Name="Permissions" Relationship="WarehouseDatabaseModel.FK__User__Permission__3D5E1FD2" FromRole="User" ToRole="Permissions" />
+          <NavigationProperty Name="UserPermissions" Relationship="WarehouseDatabaseModel.FK__UserPermi__UserI__403A8C7D" FromRole="User" ToRole="UserPermissions" />
         </EntityType>
-        <EntityContainer Name="WarehouseDatabaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="Permissions" EntityType="WarehouseDatabaseModel.Permissions" />
-          <AssociationSet Name="FK__User__Permission__3D5E1FD2" Association="WarehouseDatabaseModel.FK__User__Permission__3D5E1FD2">
-            <End Role="Permissions" EntitySet="Permissions" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Permissions">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Administrator" Type="Boolean" />
-          <Property Name="Warehouseman" Type="Boolean" />
-          <Property Name="Salesman" Type="Boolean" />
-          <NavigationProperty Name="User" Relationship="WarehouseDatabaseModel.FK__User__Permission__3D5E1FD2" FromRole="Permissions" ToRole="User" />
-        </EntityType>
-        <Association Name="FK__User__Permission__3D5E1FD2">
-          <End Type="WarehouseDatabaseModel.Permissions" Role="Permissions" Multiplicity="0..1" />
-          <End Type="WarehouseDatabaseModel.User" Role="User" Multiplicity="*" />
+        <Association Name="FK__UserPermi__UserI__403A8C7D">
+          <End Type="WarehouseDatabaseModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="WarehouseDatabaseModel.UserPermissions" Role="UserPermissions" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Permissions">
+            <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="PermissionsId" />
+            <Dependent Role="UserPermissions">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="UserView">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HouseNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ApartmentNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Pesel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Permissions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PermissionIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WarehouseDatabaseModelStoreContainer" CdmEntityContainer="WarehouseDatabaseEntities">
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="WarehouseDatabaseModel.User">
-              <MappingFragment StoreEntitySet="User">
+          <EntitySetMapping Name="UserPermissions">
+            <EntityTypeMapping TypeName="WarehouseDatabaseModel.UserPermissions">
+              <MappingFragment StoreEntitySet="UserPermissions">
                 <ScalarProperty Name="PermissionsId" ColumnName="PermissionsId" />
-                <ScalarProperty Name="IsForgotten" ColumnName="IsForgotten" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
-                <ScalarProperty Name="ApartmentNumber" ColumnName="ApartmentNumber" />
-                <ScalarProperty Name="Pesel" ColumnName="Pesel" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -150,10 +250,54 @@
           <EntitySetMapping Name="Permissions">
             <EntityTypeMapping TypeName="WarehouseDatabaseModel.Permissions">
               <MappingFragment StoreEntitySet="Permissions">
-                <ScalarProperty Name="Salesman" ColumnName="Salesman" />
-                <ScalarProperty Name="Warehouseman" ColumnName="Warehouseman" />
-                <ScalarProperty Name="Administrator" ColumnName="Administrator" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="WarehouseDatabaseModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IsForgotten" ColumnName="IsForgotten" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Pesel" ColumnName="Pesel" />
+                <ScalarProperty Name="ApartmentNumber" ColumnName="ApartmentNumber" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserView">
+            <EntityTypeMapping TypeName="WarehouseDatabaseModel.UserView">
+              <MappingFragment StoreEntitySet="UserView">
+                <ScalarProperty Name="PermissionIds" ColumnName="PermissionIds" />
+                <ScalarProperty Name="Permissions" ColumnName="Permissions" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Pesel" ColumnName="Pesel" />
+                <ScalarProperty Name="ApartmentNumber" ColumnName="ApartmentNumber" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

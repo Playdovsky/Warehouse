@@ -25,7 +25,9 @@ namespace Main
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserPermissions> UserPermissions { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserView> UserView { get; set; }
     }
 }

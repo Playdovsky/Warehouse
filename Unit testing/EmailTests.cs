@@ -44,7 +44,6 @@ namespace Unit_testing
             Assert.False(Check(email));
         }
 
-
         private static bool Check(string email)
         {
             if (string.IsNullOrEmpty(email))
