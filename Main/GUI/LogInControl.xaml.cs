@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Main.GUI;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -91,6 +92,12 @@ namespace Main
                 mainWindow.ButtonLogout.Visibility = Visibility.Visible;
             }
         }
+        private void TextBlockForgotPassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
+            forgotPasswordWindow.ShowDialog();
+        }
+
         /// <summary>
         /// Blocks the ability to log in for 10 seconds and then re-enables the login fields.
         /// </summary>

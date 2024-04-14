@@ -337,7 +337,28 @@ namespace Main
                 return userPermissions;
             }
         }
-
-
+        /// <summary>
+        /// Retrieves the user based on their ID.
+        /// </summary>
+        /// <param name="id">The ID of the user.</param>
+        /// <returns>The user entity if found, otherwise null.</returns>
+        public static User GetUserById(Guid id)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                return context.User.FirstOrDefault(u => u.Id == id && !u.IsForgotten);
+            }
+        }
+        /// <summary>
+        /// Validates the provided email for the user with the given ID.
+        /// </summary>
+        /// <param name="id">The ID of the user.</param>
+        /// <param name="email">The email provided for recovery.</param>
+        /// <returns>True if the provided email matches the user's email, otherwise false.</returns>
+        public static bool ValidateRecoveryEmail(Guid id, string email)
+        {
+            var user = GetUserById(id);
+            return user != null && user.Email == email;
+        }
     }
 }

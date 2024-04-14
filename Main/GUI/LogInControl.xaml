@@ -83,7 +83,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <TextBlock x:Name="TextBlockForgotPassword" Text="Forgot your password? Click here" Margin="198,413,198,10" Foreground="White" FontSize="18">
+        <TextBlock x:Name="TextBlockForgotPassword" Text="Forgot your password? Click here" Margin="198,413,198,10" Foreground="White" FontSize="18" MouseLeftButtonDown="TextBlockForgotPassword_MouseLeftButtonDown">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Setter Property="TextDecorations" Value="Underline"/>
