@@ -5,11 +5,96 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Main"
              mc:Ignorable="d" 
-             d:DesignHeight="420" d:DesignWidth="660"
+             d:DesignHeight="450" d:DesignWidth="660"
              Background="LightSkyBlue"
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-    <Grid>
-        <Label x:Name="LabelLogIn" Content="Log in screen" HorizontalAlignment="Center" Margin="143,168,89,0" VerticalAlignment="Top" Foreground="White" Height="82" Width="428" FontSize="56"/>
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="450">
+        <Label Content="Log In" Foreground="White"  Margin="254,21,254,354"  Width="152" FontSize="48" FontWeight="Bold"/>
 
+        <StackPanel Margin="173,113,173,254">
+            <Label Content="Login:"  FontSize="18" Height="35" Width="315"/>
+            <TextBox x:Name="TextBoxLoginLoginForm" Width="315" Height="39" FontSize="18"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0">
+                <TextBox.Template>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </TextBox.Template>
+            </TextBox>
+        </StackPanel>
+
+        <StackPanel Margin="173,212,173,104" RenderTransformOrigin="0.5,0.5">
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.406"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.598"/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="LabelPassword" Content="Password :" FontSize="18" Width="200"/>
+                <Button x:Name="ButtonShowPassword" Content="Show password" Margin="5,0,0,0" Height="29" Width="110" Foreground="White" FontSize="14" Background="DeepSkyBlue" PreviewMouseDown="ButtonShowPassword_PreviewMouseDown" PreviewMouseUp="ButtonShowPassword_PreviewMouseUp">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <PasswordBox x:Name="PasswordBoxLoginForm"  Width="315" Height="39" FontSize="18"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0">
+                <PasswordBox.Template>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </PasswordBox.Template>
+            </PasswordBox>
+            <TextBox x:Name="TextBoxShowPassword" Width="315" Height="39" Visibility="Hidden" FontSize="18"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0">
+                <TextBox.Template>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </TextBox.Template>
+            </TextBox>
+        </StackPanel>
+        <Button x:Name="ButtonLogIn" Content="Login" Margin="207,330,207,40" Height="50" Foreground="White" FontSize="28" Background="DeepSkyBlue" Click="ButtonLogIn_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <TextBlock x:Name="TextBlockForgotPassword" Text="Forgot your password? Click here" Margin="198,413,198,10" Foreground="White" FontSize="18">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextDecorations" Value="Underline"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="DodgerBlue"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Grid>
 </UserControl>

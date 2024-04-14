@@ -153,6 +153,12 @@
     <Compile Include="GUI\UsersControl.xaml.cs">
       <DependentUpon>UsersControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\SalesControl.xaml.cs">
+      <DependentUpon>SalesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\WelcomeControl.xaml.cs">
+      <DependentUpon>WelcomeControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\WarehouseControl.xaml.cs">
       <DependentUpon>WarehouseControl.xaml</DependentUpon>
     </Compile>
@@ -206,6 +212,14 @@
     <Page Include="GUI\UsersControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\SalesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\WelcomeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="GUI\WarehouseControl.xaml">
       <SubType>Designer</SubType>

@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Main.WelcomeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="420" d:DesignWidth="660"
+             Background="LightSkyBlue"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+             >
+    <Grid x:Name="LabelWelcome">
+        <Label Content="Welcome !!!" HorizontalAlignment="Center" VerticalAlignment="Center" Height="104" Width="300" Foreground="White" FontSize="56"/>
+    </Grid>
+</UserControl>

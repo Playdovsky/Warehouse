@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace Main
 {
@@ -34,11 +35,34 @@ namespace Main
         }
 
         /// <summary>
+        /// On button click creates and opens sales control workspace.
+        /// </summary>
+        private void ButtonSales_Click(object sender, RoutedEventArgs e)
+        {
+            ContentControlWorkspace.Content = new SalesControl();
+        }
+
+        /// <summary>
         /// Initiates exit procedure.
         /// </summary>
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Service.Exit();
+        }
+
+        private void ButtonLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to log out?", "Log out confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                ButtonUsers.Visibility = Visibility.Collapsed;
+                ButtonWarehouse.Visibility = Visibility.Collapsed;
+                ButtonSales.Visibility = Visibility.Collapsed;
+                ButtonLogout.Visibility = Visibility.Collapsed;
+
+                ContentControlWorkspace.Content = new LogInControl();
+            }
         }
     }
 }

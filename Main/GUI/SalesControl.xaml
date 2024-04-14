@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Main.SalesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Main"
+             mc:Ignorable="d" 
+             d:DesignHeight="420" d:DesignWidth="660"
+             Background="LightSkyBlue"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+             >
+    <Grid x:Name="LabelTestWarehosue">
+        <Label Content="Sales window" HorizontalAlignment="Center" Margin="86,159,60,0" VerticalAlignment="Top" Height="104" Width="514" Foreground="White" FontSize="56"/>
+    </Grid>
+</UserControl>

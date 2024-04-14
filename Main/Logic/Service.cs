@@ -262,5 +262,82 @@ namespace Main
                 return;
             }
         }
+
+        /// <summary>
+        /// Checks if a user with the provided login exists in the database.
+        /// </summary>
+        /// <param name="login">The login provided by the user</param>
+        /// <returns>True if a user with the provided login exists, otherwise false</returns>
+        public static bool ValidateLogin(string login)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var user = context.User.FirstOrDefault(u => u.Login == login && u.IsForgotten == false);
+
+                return user != null;
+            }
+        }
+
+        /// <summary>
+        /// Validates the password for the user with the provided login.
+        /// </summary>
+        /// <param name="login">The login of the user</param>
+        /// <param name="password">The password provided by the user</param>
+        /// <returns>True if the password matches the user's password, otherwise false</returns>
+        public static bool ValidatePassword(string login, string password)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var user = context.User.FirstOrDefault(u => u.Login == login && u.IsForgotten == false);
+
+                if (user == null)
+                {
+                    return false;
+                }
+                return user.Password == password;
+            }
+        }
+        /// <summary>
+        /// Retrieves the ID of the user based on their login.
+        /// </summary>
+        /// <param name="login">The login of the user.</param>
+        /// <returns>The ID of the user.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the user with the specified login is not found.</exception>
+        public static Guid GetUserId(string login)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var user = context.User.FirstOrDefault(u => u.Login == login && u.IsForgotten == false);
+
+                if (user != null)
+                {
+                    return user.Id;
+                }
+                else
+                {
+                    throw new InvalidOperationException("User not found.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the permissions assigned to the user based on their user ID.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>A list of permission numbers assigned to the user.</returns>
+        public static List<int> GetUserPermissions(Guid userId)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var userPermissions = context.UserPermissions
+                    .Where(up => up.UserId == userId && up.PermissionsId != null)
+                    .Select(up => up.PermissionsId.Value)
+                    .ToList();
+
+                return userPermissions;
+            }
+        }
+
+
     }
 }
