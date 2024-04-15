@@ -572,8 +572,20 @@ namespace Main
                     x.Email.ToLower().Contains(filter)
                 )
                 .ToList();
-            //x.PermissionIds.Trim().Split(',').Select(y => y).Any(z => permissionsValue.Contains(z)
-            if (!CheckBoxSearchAll.IsChecked.Value)
+
+            if (CheckBoxExclusiveSearch.IsChecked.Value && permissionsValue.Count == 1)
+            {
+                var filteredUsersByExclusivePermissions = filteredUsersByName
+                    .Where(user =>
+                        permissionsValue.All(permission =>
+                            user.PermissionIds.Split(',').Select(y => y.Trim()).Contains(permission) &&
+                            user.PermissionIds.Split(',').All(p => permissionsValue.Contains(p.Trim()))
+                        )
+                    )
+                    .ToList();
+                DataGridListOfUsers.ItemsSource = filteredUsersByExclusivePermissions;
+            }
+            else if (!CheckBoxSearchAll.IsChecked.Value)
             {
                 var filteredUsersByPermissions = filteredUsersByName
                     .Where(x =>
@@ -586,7 +598,6 @@ namespace Main
             {
                 DataGridListOfUsers.ItemsSource = filteredUsersByName;
             }
-
         }
 
         /// <summary>
@@ -606,7 +617,7 @@ namespace Main
                 CheckBoxSearchAdministrator.IsEnabled = false;
                 CheckBoxSearchWarehouseman.IsEnabled = false;
                 CheckBoxSearchSalesman.IsEnabled = false;
-
+                
                 CheckBoxSearchAdministrator.IsChecked = false;
                 CheckBoxSearchWarehouseman.IsChecked = false;
                 CheckBoxSearchSalesman.IsChecked = false;
@@ -641,6 +652,11 @@ namespace Main
         /// </summary>
         private void CheckBoxSearchAdministrator_Click(object sender, RoutedEventArgs e)
         {
+            if (CheckBoxExclusiveSearch.IsChecked == true)
+            {
+                CheckBoxSearchWarehouseman.IsChecked = false;
+                CheckBoxSearchSalesman.IsChecked = false;
+            }
             SearchByPermissions();
         }
 
@@ -649,6 +665,11 @@ namespace Main
         /// </summary>
         private void CheckBoxSearchWarehouseman_Click(object sender, RoutedEventArgs e)
         {
+            if (CheckBoxExclusiveSearch.IsChecked == true)
+            {
+                CheckBoxSearchAdministrator.IsChecked = false;
+                CheckBoxSearchSalesman.IsChecked = false;
+            }
             SearchByPermissions();
         }
 
@@ -657,7 +678,51 @@ namespace Main
         /// </summary>
         private void CheckBoxSearchSalesman_Click(object sender, RoutedEventArgs e)
         {
+            if (CheckBoxExclusiveSearch.IsChecked == true)
+            {
+                CheckBoxSearchAdministrator.IsChecked = false;
+                CheckBoxSearchWarehouseman.IsChecked = false;
+            }
             SearchByPermissions();
+        }
+
+        /// <summary>
+        /// Checking if SearchExclusive is checked or not
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CheckBoxSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckBoxExclusiveSearch.IsChecked == true)
+            {
+                SearchExclusive();
+            }
+            else
+            {
+                SearchByPermissions();
+            }
+        }
+
+        /// <summary>
+        /// Searching for users who only have the role we choose
+        /// </summary>
+        private void SearchExclusive()
+        {
+            List<string> permissionsValue = new List<string>();
+
+            if (CheckBoxSearchAdministrator.IsChecked.Value)
+                permissionsValue.Add("1");
+
+            if (CheckBoxSearchWarehouseman.IsChecked.Value)
+                permissionsValue.Add("2");
+
+            if (CheckBoxSearchSalesman.IsChecked.Value)
+                permissionsValue.Add("3");
+
+            if (permissionsValue.Count == 1)
+            {
+                Search(permissionsValue);
+            }
         }
 
         /// <summary>

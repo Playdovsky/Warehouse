@@ -372,10 +372,11 @@
                 <SolidColorBrush Color="DeepSkyBlue"/>
             </Button.Background>
         </Button>
+        <CheckBox x:Name="CheckBoxExclusiveSearch" Content="Exclusive Search" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="339,17,0,0" Click="CheckBoxSearch_Click" Grid.RowSpan="2"/>
         <CheckBox x:Name="CheckBoxSearchAdministrator" Content="Administrator" IsEnabled="False" HorizontalAlignment="Left" Margin="377,35,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CheckBoxSearchAdministrator_Click"/>
         <CheckBox x:Name="CheckBoxSearchWarehouseman" Content="Warehouseman" IsEnabled="False" Margin="474,35,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Click="CheckBoxSearchWarehouseman_Click"/>
         <CheckBox x:Name="CheckBoxSearchSalesman" Content="Salesman" IsEnabled="False" Margin="581,35,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.103,-0.243" HorizontalAlignment="Left" Click="CheckBoxSearchSalesman_Click"/>
         <CheckBox x:Name="CheckBoxSearchAll" Content="All" IsChecked="True" HorizontalAlignment="Left" Margin="339,35,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="CheckBoxSearchAll_Click"/>
-        <GroupBox Header="Permissions" Margin="328,10,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="47" Width="333"/>
+        <GroupBox Header="Permissions" Margin="328,0,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="57" Width="333"/>
     </Grid>
 </UserControl>
