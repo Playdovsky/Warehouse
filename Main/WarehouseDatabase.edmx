@@ -33,6 +33,7 @@
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsForgotten" Type="bit" Nullable="false" />
+          <Property Name="PasswordRecoveryStatus" Type="bit" />
         </EntityType>
         <EntityType Name="UserPermissions">
           <Key>
@@ -196,6 +197,7 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="IsForgotten" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="UserPermissions" Relationship="WarehouseDatabaseModel.FK__UserPermi__UserI__403A8C7D" FromRole="User" ToRole="UserPermissions" />
+          <Property Name="PasswordRecoveryStatus" Type="Boolean" />
         </EntityType>
         <Association Name="FK__UserPermi__UserI__403A8C7D">
           <End Type="WarehouseDatabaseModel.User" Role="User" Multiplicity="0..1" />
@@ -258,6 +260,7 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="WarehouseDatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="PasswordRecoveryStatus" ColumnName="PasswordRecoveryStatus" />
                 <ScalarProperty Name="IsForgotten" ColumnName="IsForgotten" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />

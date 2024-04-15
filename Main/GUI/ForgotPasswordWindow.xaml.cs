@@ -45,7 +45,9 @@ namespace Main.GUI
                 {
                     string newPassword = PasswordGenerator.GeneratePassword();
                     user.Password = newPassword;
-                                                 
+                    user.PasswordRecoveryStatus = true;
+
+
                     using (var context = new WarehouseDatabaseEntities())
                     {
                         context.Entry(user).State = EntityState.Modified;

@@ -264,6 +264,10 @@ namespace Main
                 {
                     throw new FormatException("Please enter a password.");
                 }
+                if (!Service.ValidatePassword(PasswordBox1.Password))
+                {
+                    return;
+                }
                 if (ComboBoxRole.SelectedIndex == -1)
                 {
                     throw new FormatException("Please select a role for the new user");
@@ -482,6 +486,10 @@ namespace Main
                 if (string.IsNullOrEmpty(PasswordBox1.Password))
                 {
                     throw new FormatException("Please enter a password.");
+                }
+                if (!Service.ValidatePassword(PasswordBox1.Password))
+                {
+                    return;
                 }
                 if (ComboBoxRole.SelectedIndex == -1)
                 {

@@ -245,6 +245,48 @@ namespace Main
             // Check if email matches the pattern
             return Regex.IsMatch(email, pattern);
         }
+        /// <summary>
+        /// Validates a password against specified criteria.
+        /// </summary>
+        /// <param name="password">The password to validate.</param>
+        /// <returns>True if the password meets all validation criteria, otherwise false.</returns>
+
+        public static bool ValidatePassword(string password)
+        {
+            if (password.Length < 8 || password.Length > 15)
+            {
+                MessageBox.Show("Password length must be between 8 and 15 characters.", "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!password.Any(char.IsUpper))
+            {
+                MessageBox.Show("Password must contain at least one uppercase letter.", "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!password.Any(char.IsLower))
+            {
+                MessageBox.Show("Password must contain at least one lowercase letter.", "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!password.Any(char.IsDigit))
+            {
+                MessageBox.Show("Password must contain at least one digit.", "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            string specialCharacters = "-_!*#$&";
+            if (!password.Any(c => specialCharacters.Contains(c)))
+            {
+                MessageBox.Show("Password must contain at least one special character (-, _, !, *, #, $, &).", "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            return true;
+        }
+
 
         /// <summary>
         /// Ends application processes.
@@ -284,7 +326,7 @@ namespace Main
         /// <param name="login">The login of the user</param>
         /// <param name="password">The password provided by the user</param>
         /// <returns>True if the password matches the user's password, otherwise false</returns>
-        public static bool ValidatePassword(string login, string password)
+        public static bool ValidatePasswordLoginMatch(string login, string password)
         {
             using (var context = new WarehouseDatabaseEntities())
             {
@@ -360,5 +402,19 @@ namespace Main
             var user = GetUserById(id);
             return user != null && user.Email == email;
         }
+        /// <summary>
+        /// Checks if the password recovery status is requested for the user with the specified ID.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>True if the password recovery status is requested, otherwise false.</returns>
+        public static bool IsPasswordRecoveryRequested(Guid userId)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var user = context.User.FirstOrDefault(u => u.Id == userId && !u.IsForgotten);
+                return user.PasswordRecoveryStatus ?? false;
+            }
+        }
+
     }
 }

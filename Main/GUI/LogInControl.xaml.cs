@@ -41,7 +41,7 @@ namespace Main
                 return;
             }
 
-            if (!Service.ValidatePassword(login, password))
+            if (!Service.ValidatePasswordLoginMatch(login, password))
             {
                 loginAttempts++;
                 if (loginAttempts >= 3)
@@ -59,15 +59,40 @@ namespace Main
 
             Guid userId = Service.GetUserId(login);
 
-            List<int> userPermissions = Service.GetUserPermissions(userId);
-            if (userPermissions.Count > 0)
+            if (Service.IsPasswordRecoveryRequested(userId))
             {
-                string permissionsText = string.Join(", ", userPermissions);
-                SwitchToWelcomeControl(userPermissions);
+                NewPasswordWindow newPasswordWindow = new NewPasswordWindow(userId);
+                newPasswordWindow.ShowDialog();
+
+                if (newPasswordWindow.DialogResult.HasValue)
+                {
+                    List<int> userPermissions = Service.GetUserPermissions(userId);
+                    if (userPermissions.Count > 0)
+                    {
+                        SwitchToWelcomeControl(userPermissions);
+                    }
+                    else
+                    {
+                        MessageBox.Show("User has no permissions.", "Permissions", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                else
+                {
+                    return;
+                }
             }
             else
             {
-                MessageBox.Show("User has no permissions.", "Permissions", MessageBoxButton.OK, MessageBoxImage.Information);
+                List<int> userPermissions = Service.GetUserPermissions(userId);
+                if (userPermissions.Count > 0)
+                {
+                    string permissionsText = string.Join(", ", userPermissions);
+                    SwitchToWelcomeControl(userPermissions);
+                }
+                else
+                {
+                    MessageBox.Show("User has no permissions.", "Permissions", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
         private void SwitchToWelcomeControl(List<int> userPermissions)

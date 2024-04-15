@@ -147,6 +147,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GUI\NewPasswordWindow.xaml.cs">
+      <DependentUpon>NewPasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ForgotPasswordWindow.xaml.cs">
       <DependentUpon>ForgotPasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -169,13 +172,13 @@
       <DependentUpon>LogInControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\GeneratePassword.cs" />
+    <Compile Include="Logic\Service.cs" />
     <Compile Include="Permissions.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Service.cs" />
     <Compile Include="UserPermissions.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
@@ -197,6 +200,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WarehouseDatabase.edmx</DependentUpon>
     </Compile>
+    <Page Include="GUI\NewPasswordWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GUI\ForgotPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
