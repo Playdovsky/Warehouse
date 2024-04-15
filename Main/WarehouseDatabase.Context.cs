@@ -12,6 +12,8 @@ namespace Main
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class WarehouseDatabaseEntities : DbContext
     {
@@ -29,5 +31,32 @@ namespace Main
         public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserView> UserView { get; set; }
+        public virtual DbSet<UserPasswordHistory> UserPasswordHistory { get; set; }
+    
+        public virtual int AddUserPasswordHistory(Nullable<System.Guid> userId, string password, Nullable<System.DateTime> changeDate)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(System.Guid));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var changeDateParameter = changeDate.HasValue ?
+                new ObjectParameter("ChangeDate", changeDate) :
+                new ObjectParameter("ChangeDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddUserPasswordHistory", userIdParameter, passwordParameter, changeDateParameter);
+        }
+    
+        public virtual int DeleteOldestUserPasswordHistory(Nullable<System.Guid> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteOldestUserPasswordHistory", userIdParameter);
+        }
     }
 }

@@ -45,6 +45,12 @@ namespace Main.GUI
                 return;
             }
 
+            if (!Service.IsNewPasswordUnique(userId, newPassword))
+            {
+                MessageBox.Show("New password must be different from the last three passwords. Please come up with another password", "New Password Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             User user = Service.GetUserById(userId);
             if (user != null)
             {
@@ -56,6 +62,8 @@ namespace Main.GUI
                     context.Entry(user).State = EntityState.Modified;
                     context.SaveChanges();
                 }
+
+                Service.UpdateUserPasswordHistory(userId, newPassword);
 
                 MessageBox.Show("Password change was successful.", "New Password", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();

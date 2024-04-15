@@ -35,6 +35,18 @@
           <Property Name="IsForgotten" Type="bit" Nullable="false" />
           <Property Name="PasswordRecoveryStatus" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Warehouse.dbo.UserPasswordHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserPasswordHistory">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="ChangeDate" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ChangeDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="UserPermissions">
           <Key>
             <PropertyRef Name="Id" />
@@ -68,6 +80,18 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
           <Property Name="Permissions" Type="nvarchar(max)" />
           <Property Name="PermissionIds" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK__UserPassw__UserI__4D94879B">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPasswordHistory" Type="Self.UserPasswordHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPasswordHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__UserPermi__Permi__412EB0B6">
           <End Role="Permissions" Type="Self.Permissions" Multiplicity="0..1" />
           <End Role="UserPermissions" Type="Self.UserPermissions" Multiplicity="*" />
@@ -92,10 +116,25 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AddUserPasswordHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="ChangeDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="DeleteOldestUserPasswordHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <EntityContainer Name="WarehouseDatabaseModelStoreContainer">
           <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPermissions" EntityType="Self.UserPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPasswordHistory" EntityType="Self.UserPasswordHistory" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserPasswordHistory].[UserId] AS [UserId], 
+    [UserPasswordHistory].[Password] AS [Password], 
+    [UserPasswordHistory].[ChangeDate] AS [ChangeDate]
+    FROM [dbo].[UserPasswordHistory] AS [UserPasswordHistory]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="UserView" EntityType="Self.UserView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [UserView].[Id] AS [Id], 
@@ -118,6 +157,10 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
     [UserView].[PermissionIds] AS [PermissionIds]
     FROM [dbo].[UserView] AS [UserView]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__UserPassw__UserI__4D94879B" Association="Self.FK__UserPassw__UserI__4D94879B">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPasswordHistory" EntitySet="UserPasswordHistory" />
+          </AssociationSet>
           <AssociationSet Name="FK__UserPermi__Permi__412EB0B6" Association="Self.FK__UserPermi__Permi__412EB0B6">
             <End Role="Permissions" EntitySet="Permissions" />
             <End Role="UserPermissions" EntitySet="UserPermissions" />
@@ -144,6 +187,19 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
             <End Role="UserPermissions" EntitySet="UserPermissions" />
           </AssociationSet>
           <EntitySet Name="UserView" EntityType="WarehouseDatabaseModel.UserView" />
+          <EntitySet Name="UserPasswordHistory" EntityType="WarehouseDatabaseModel.UserPasswordHistory" />
+          <AssociationSet Name="FK__UserPassw__UserI__4D94879B" Association="WarehouseDatabaseModel.FK__UserPassw__UserI__4D94879B">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPasswordHistory" EntitySet="UserPasswordHistory" />
+          </AssociationSet>
+          <FunctionImport Name="AddUserPasswordHistory">
+            <Parameter Name="UserId" Mode="In" Type="Guid" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="ChangeDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteOldestUserPasswordHistory">
+            <Parameter Name="UserId" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="UserPermissions">
           <Key>
@@ -198,6 +254,7 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
           <Property Name="IsForgotten" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="UserPermissions" Relationship="WarehouseDatabaseModel.FK__UserPermi__UserI__403A8C7D" FromRole="User" ToRole="UserPermissions" />
           <Property Name="PasswordRecoveryStatus" Type="Boolean" />
+          <NavigationProperty Name="UserPasswordHistory" Relationship="WarehouseDatabaseModel.FK__UserPassw__UserI__4D94879B" FromRole="User" ToRole="UserPasswordHistory" />
         </EntityType>
         <Association Name="FK__UserPermi__UserI__403A8C7D">
           <End Type="WarehouseDatabaseModel.User" Role="User" Multiplicity="0..1" />
@@ -234,6 +291,29 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
           <Property Name="Permissions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PermissionIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="UserPasswordHistory">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="ChangeDate" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="WarehouseDatabaseModel.FK__UserPassw__UserI__4D94879B" FromRole="UserPasswordHistory" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__UserPassw__UserI__4D94879B">
+          <End Type="WarehouseDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="WarehouseDatabaseModel.UserPasswordHistory" Role="UserPasswordHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPasswordHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -305,6 +385,17 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserPasswordHistory">
+            <EntityTypeMapping TypeName="WarehouseDatabaseModel.UserPasswordHistory">
+              <MappingFragment StoreEntitySet="UserPasswordHistory">
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddUserPasswordHistory" FunctionName="WarehouseDatabaseModel.Store.AddUserPasswordHistory" />
+          <FunctionImportMapping FunctionImportName="DeleteOldestUserPasswordHistory" FunctionName="WarehouseDatabaseModel.Store.DeleteOldestUserPasswordHistory" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -415,6 +416,78 @@ namespace Main
                 return user.PasswordRecoveryStatus ?? false;
             }
         }
+        /// <summary>
+        /// Checks whether the new password provided by a user is unique compared to the previous passwords stored in the UserPasswordHistory table for the specified user.
+        /// </summary>
+        /// <param name="userId">The unique identifier of the user.</param>
+        /// <param name="newPassword">The new password to be checked.</param>
+        /// <returns>True if the new password is unique, otherwise false.</returns>
+        public static bool IsNewPasswordUnique(Guid userId, string newPassword)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var previousPasswords = context.UserPasswordHistory
+                    .Where(p => p.UserId == userId)
+                    .Select(p => p.Password)
+                    .ToList();
+
+                foreach (var password in previousPasswords)
+                {
+                    if (password == newPassword)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+        /// <summary>
+        /// Updates the user's password history with the new password.
+        /// </summary>
+        /// <param name="userId">The ID of the user whose password history should be updated.</param>
+        /// <param name="newPassword">The new password to be added to the user's password history.</param>
+        public static void UpdateUserPasswordHistory(Guid userId, string newPassword)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var userPasswordHistory = context.UserPasswordHistory
+                    .Where(p => p.UserId == userId)
+                    .OrderBy(p => p.ChangeDate)
+                    .ToList();
+
+                if (userPasswordHistory.Count >= 3)
+                {
+                    context.Database.ExecuteSqlCommand("DeleteOldestUserPasswordHistory @UserId",
+                    new SqlParameter("@UserId", userId));
+                }
+
+                context.Database.ExecuteSqlCommand("AddUserPasswordHistory @UserId, @Password, @ChangeDate",
+                new SqlParameter("@UserId", userId),
+                new SqlParameter("@Password", newPassword),
+                new SqlParameter("@ChangeDate", DateTime.Now));
+
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Deletes all password history records for the specified user ID.
+        /// </summary>
+        /// <param name="userId">The ID of the user whose password history should be deleted.</param>
+        public static void DeleteUserPasswordHistory(Guid userId)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var userPasswordHistoryCount = context.UserPasswordHistory.Where(p => p.UserId == userId).Count();
+
+                for (int i = 0; i < userPasswordHistoryCount; i++)
+                {
+                    context.Database.ExecuteSqlCommand("EXEC DeleteOldestUserPasswordHistory @UserId", new SqlParameter("@UserId", userId));
+                }
+            }
+        }
+
 
     }
 }

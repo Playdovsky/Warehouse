@@ -179,6 +179,9 @@
     <Compile Include="User.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserPasswordHistory.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserPermissions.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>

@@ -275,7 +275,16 @@ namespace Main
 
                 try
                 {
+                    if (!Service.IsNewPasswordUnique(selectedUser.Id, tempUser.Password))
+                    {
+                        MessageBox.Show("New password must be different from the last three passwords. Please come up with another password", "New Password Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
                     Service.ApplyChanges(selectedUser, tempUser);
+
+                    Service.UpdateUserPasswordHistory(selectedUser.Id, tempUser.Password);
+
                     ClearFields();
                     LoadUsers();
 
@@ -497,6 +506,9 @@ namespace Main
                 }
 
                 Service.AddUser(newUser);
+
+                Service.UpdateUserPasswordHistory(newUser.Id, newUser.Password);
+
                 ClearFields();
                 LoadUsers();
 
@@ -524,6 +536,7 @@ namespace Main
                 if (result == MessageBoxResult.Yes)
                 {
                     Service.Removal(selectedUser);
+                    Service.DeleteUserPasswordHistory(selectedUser.Id);
                     LoadUsers();
                     ClearFields();
                 }
