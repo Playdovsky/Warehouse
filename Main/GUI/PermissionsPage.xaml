@@ -13,33 +13,36 @@
             <!-- Details will take 2 parts of the available space -->
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="PermissionsDataGrid" Grid.Column="0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Margin="5">
+        <DataGrid x:Name="PermissionsDataGrid" Grid.Column="0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Margin="5" Background="LightCyan">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Permission ID" Binding="{Binding Id}" Width="*"/>
-                <DataGridTextColumn Header="Permission Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Permission ID" Binding="{Binding Id}" Width="*" FontSize="28"/>
+                <DataGridTextColumn Header="Permission Name" Binding="{Binding Name}" Width="*" FontSize="28"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Border Grid.Column="1" Background="#EEE" Padding="10" Margin="5">
+        <Border Grid.Column="1" Background="LightCyan" Padding="10" Margin="5" >
             <StackPanel>
-                <TextBlock Text="Role Descriptions" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                <TextBlock Text="Role Descriptions" FontWeight="Bold" FontSize="36" Margin="0,0,0,10"/>
                 <!-- Administrator details -->
-                <Label FontWeight="Bold" Content="Permission Name:"/>
-                <TextBlock Text="Administrator" Margin="5,0" />
-                <Label FontWeight="Bold" Content="Description:"/>
-                <TextBlock Text="This role has full access to all features and functionalities within the application." TextWrapping="Wrap" Margin="5,0"/>
+                <Label FontWeight="Bold" Content="Permission Name:" FontSize="22"/>
+                <TextBlock Text="Administrator" Margin="5,0" FontSize="18"/>
+                <Label FontWeight="Bold" Content="Description:" FontSize="22"/>
+                <TextBlock Text="&#x2022; Has full access to all company systems and resources.&#x0a;&#x2022; Manages user accounts, grants permissions, and controls access.&#x0a;&#x2022; Responsible for configuring and maintaining IT systems.&#x0a;&#x2022; Ensures data security and monitors network activity." TextWrapping="Wrap" Margin="5,0" FontSize="18"/>
+
 
                 <!-- Warehouseman details -->
-                <Label FontWeight="Bold" Content="Permission Name:" Margin="0,10,0,0"/>
-                <TextBlock Text="Warehouseman" Margin="5,0"/>
-                <Label FontWeight="Bold" Content="Description:"/>
-                <TextBlock Text="This role has access to manage inventory and logistics but cannot access administrative settings." TextWrapping="Wrap" Margin="5,0"/>
+                <Label FontWeight="Bold" Content="Permission Name:" Margin="0,10,0,0" FontSize="22"/>
+                <TextBlock Text="Warehouseman" Margin="5,0" FontSize="18"/>
+                <Label FontWeight="Bold" Content="Description:" FontSize="22"/>
+                <TextBlock Text="&#x2022; Has access to the warehouse and inventory management system.&#x0a;&#x2022; Responsible for receiving, issuing, and monitoring the status of goods.&#x0a;&#x2022; Monitors and maintains cleanliness and order in the warehouse.&#x0a;&#x2022; Collaborates with the logistics team to efficiently manage inventory."  TextWrapping="Wrap" Margin="5,0" FontSize="18"/>
+
 
                 <!-- Salesman details -->
-                <Label FontWeight="Bold" Content="Permission Name:" Margin="0,10,0,0"/>
-                <TextBlock Text="Salesman" Margin="5,0"/>
-                <Label FontWeight="Bold" Content="Description:"/>
-                <TextBlock Text="This role has access to sales data and client interactions but cannot manage inventory or settings." TextWrapping="Wrap" Margin="5,0"/>
+                <Label FontWeight="Bold" Content="Permission Name:" Margin="0,10,0,0" FontSize="22"/>
+                <TextBlock Text="Salesman" Margin="5,0" FontSize="18"/>
+                <Label FontWeight="Bold" Content="Description:" FontSize="22"/>
+                <TextBlock Text="&#x2022; Has access to the sales system and customer database.&#x0a;&#x2022; Engages in actively acquiring customers and selling products or services.&#x0a;&#x2022; Provides information about products, advises customers, and finalizes transactions.&#x0a;&#x2022; Tracks market trends and takes actions to increase sales." TextWrapping="Wrap" Margin="5,0" FontSize="18"/>
+
             </StackPanel>
         </Border>
     </Grid>
