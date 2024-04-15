@@ -107,6 +107,7 @@ namespace Main
                     mainWindow.ButtonUsers.Visibility = Visibility.Visible;
                     mainWindow.ButtonWarehouse.Visibility = Visibility.Visible;
                     mainWindow.ButtonSales.Visibility = Visibility.Visible;
+                    mainWindow.ButtonPermissions.Visibility = Visibility.Visible;
                 }
                 else
                 {

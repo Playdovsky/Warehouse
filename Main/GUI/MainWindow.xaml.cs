@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Security.Permissions;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Main
@@ -63,6 +64,11 @@ namespace Main
 
                 ContentControlWorkspace.Content = new LogInControl();
             }
+        }
+
+        private void ButtonPermissions_Click(object sender, RoutedEventArgs e)
+        {
+            ContentControlWorkspace.Content = new PermissionsPage();
         }
     }
 }
