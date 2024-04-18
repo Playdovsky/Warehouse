@@ -44,7 +44,7 @@ namespace Main
         /// Method which saves changes into tabase.
         /// </summary>
         /// <param name="selectedUser">Selected user in datagrid</param>
-        public static void ApplyChanges(UserView selectedUser, User tempUser)
+        public static void ApplyChanges(UserView selectedUser, User tempUser,bool includePass=false)
         {
             try {
                 using (var context = new WarehouseDatabaseEntities())
@@ -53,6 +53,10 @@ namespace Main
 
                     if (userToUpdate != null)
                     {
+                        if (includePass)
+                        {
+                            userToUpdate.Password = tempUser.Password;
+                        }
                         userToUpdate.FirstName = tempUser.FirstName;
                         userToUpdate.LastName = tempUser.LastName;
                         userToUpdate.Login = tempUser.Login;
@@ -64,7 +68,6 @@ namespace Main
                         userToUpdate.ApartmentNumber = tempUser.ApartmentNumber;
                         userToUpdate.Pesel = tempUser.Pesel;
                         userToUpdate.PhoneNumber = tempUser.PhoneNumber;
-                        userToUpdate.Password = tempUser.Password;
                         userToUpdate.Role = tempUser.Role;
                         userToUpdate.Gender = tempUser.Gender;
                         userToUpdate.BirthDate = tempUser.BirthDate;

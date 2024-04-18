@@ -41,6 +41,8 @@ namespace Main
         /// <param name="e"></param>
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            CheckBoxNewPassword.IsChecked = false;
+            CheckBoxNewPassword.Visibility = Visibility.Hidden;
             UserView selectedUser = (UserView)DataGridListOfUsers.SelectedItem;
 
             if (selectedUser != null)
@@ -152,6 +154,7 @@ namespace Main
             enabled = true;
             EnableFieldsOperation();
             ButtonApplyChanges.Visibility = Visibility.Visible;
+            CheckBoxNewPassword.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -260,11 +263,11 @@ namespace Main
                 {
                     throw new FormatException("Please provide complete address details.");
                 }
-                if (string.IsNullOrEmpty(PasswordBox1.Password))
+                if (CheckBoxNewPassword.IsChecked==true && string.IsNullOrEmpty(PasswordBox1.Password))
                 {
                     throw new FormatException("Please enter a password.");
                 }
-                if (!Service.ValidatePassword(PasswordBox1.Password))
+                if (CheckBoxNewPassword.IsChecked == true && !Service.ValidatePassword(PasswordBox1.Password))
                 {
                     return;
                 }
@@ -275,13 +278,19 @@ namespace Main
 
                 try
                 {
-                    if (!Service.IsNewPasswordUnique(selectedUser.Id, tempUser.Password))
+                    if (CheckBoxNewPassword.IsChecked == true && !Service.IsNewPasswordUnique(selectedUser.Id, tempUser.Password))
                     {
                         MessageBox.Show("New password must be different from the last three passwords. Please come up with another password", "New Password Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
-
-                    Service.ApplyChanges(selectedUser, tempUser);
+                    if (CheckBoxNewPassword.IsChecked == true)
+                    {
+                        Service.ApplyChanges(selectedUser, tempUser,true);
+                    }
+                    else
+                    {
+                        Service.ApplyChanges(selectedUser, tempUser);
+                    }
 
                     Service.UpdateUserPasswordHistory(selectedUser.Id, tempUser.Password);
 
@@ -293,6 +302,8 @@ namespace Main
 
                     ButtonApplyChanges.Visibility = Visibility.Hidden;
                     ButtonEnableFields.Visibility = Visibility.Visible;
+                    CheckBoxNewPassword.IsChecked = false;
+                    CheckBoxNewPassword.Visibility = Visibility.Hidden;
                 }
                 catch (Exception ex)
                 {
