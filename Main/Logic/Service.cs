@@ -44,7 +44,7 @@ namespace Main
         /// Method which saves changes into tabase.
         /// </summary>
         /// <param name="selectedUser">Selected user in datagrid</param>
-        public static void ApplyChanges(UserView selectedUser, User tempUser,bool includePass=false)
+        public static void ApplyChanges(UserView selectedUser, User tempUser, bool includePass = false)
         {
             try {
                 using (var context = new WarehouseDatabaseEntities())
@@ -129,6 +129,21 @@ namespace Main
             catch (ArgumentNullException anex)
             {
                 MessageBox.Show($"{anex.Message}.\nIf you want to delete user you have to select him in the first place.");
+            }
+        }
+
+        /// <summary>
+        /// Removes all permissions from selected user.
+        /// Mainly used to avoid NULL entries when modifying user permissions.
+        /// </summary>
+        /// <param name="selectedUser">Selected user from datagrid</param>
+        public static void PermissionsRemoval(UserView selectedUser)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                var userPermissions = context.UserPermissions.Where(up => up.UserId == selectedUser.Id);
+                context.UserPermissions.RemoveRange(userPermissions);
+                context.SaveChanges();
             }
         }
 

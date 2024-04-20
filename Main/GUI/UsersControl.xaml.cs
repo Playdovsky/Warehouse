@@ -237,7 +237,9 @@ namespace Main
                 tempUser.Role = ComboBoxRole.SelectedItem.ToString();
                 tempUser.Gender = ComboBoxGender.Text;
 
-                foreach(int permission in permissionsValue)
+                Service.PermissionsRemoval(selectedUser);
+
+                foreach (int permission in permissionsValue)
                 {
                     tempUser.UserPermissions.Add(new UserPermissions() { UserId = tempUser.Id, PermissionsId = permission });
                 }
@@ -359,6 +361,7 @@ namespace Main
             ButtonAddUser.Visibility = Visibility.Visible;
             ButtonEnableFields.Visibility = Visibility.Hidden;
             ButtonDeleteUser.Visibility = Visibility.Hidden;
+            CheckBoxNewPassword.Visibility = Visibility.Hidden;
 
             ButtonApplyChanges.Visibility = Visibility.Hidden;
 
