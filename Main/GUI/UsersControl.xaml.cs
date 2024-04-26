@@ -37,8 +37,6 @@ namespace Main
         /// <summary>
         /// Resizes the DataGrid and animates the display of UserInfo_Grid.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             CheckBoxNewPassword.IsChecked = false;
@@ -147,8 +145,6 @@ namespace Main
         /// <summary>
         /// Button that allows to modify the User Info.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void EnableFields_Click(object sender, RoutedEventArgs e)
         {
             enabled = true;
@@ -160,8 +156,6 @@ namespace Main
         /// <summary>
         /// Button which saves changes to the database.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ApplyChanges_Click(object sender, RoutedEventArgs e)
         {
             UserView selectedUser = (UserView)DataGridListOfUsers.SelectedItem;
@@ -351,8 +345,6 @@ namespace Main
         /// <summary>
         /// Button which opens clear GridUserInfo (contains 'Add User' button).
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void CreateUser_Click(object sender, RoutedEventArgs e)
         {
             ClearFields();
@@ -413,8 +405,6 @@ namespace Main
         /// <summary>
         /// Adds user to the database.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -537,8 +527,6 @@ namespace Main
         /// <summary>
         /// Removes user from database.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ButtonDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             UserView selectedUser = (UserView)DataGridListOfUsers.SelectedItem;
@@ -573,8 +561,6 @@ namespace Main
         /// The user can filter the list by entering first name, last name or E-mail address.
         /// User can also search by permissions which has greater priority than text.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Search(List<string> permissionsValue)
         {
             string filter = SearchingTextBox.Text.ToLower();
@@ -703,8 +689,6 @@ namespace Main
         /// <summary>
         /// Checking if SearchExclusive is checked or not
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void CheckBoxSearch_Click(object sender, RoutedEventArgs e)
         {
             if (CheckBoxExclusiveSearch.IsChecked == true)

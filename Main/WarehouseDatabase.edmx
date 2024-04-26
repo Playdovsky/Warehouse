@@ -18,7 +18,6 @@ warning 6002: The table/view 'Warehouse.dbo.SystemAttributes' does not have a pr
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="Name" />
-            <PropertyRef Name="Attribute" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
@@ -338,7 +337,6 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="Name" />
-            <PropertyRef Name="Attribute" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />

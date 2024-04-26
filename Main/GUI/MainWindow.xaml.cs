@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Main.GUI;
+using System.Windows;
 
 namespace Main
 {
@@ -62,7 +63,8 @@ namespace Main
                 ButtonWarehouse.Visibility = Visibility.Collapsed;
                 ButtonSales.Visibility = Visibility.Collapsed;
                 ButtonLogout.Visibility = Visibility.Collapsed;
-                ButtonPermissions.Visibility=Visibility.Collapsed;
+                ButtonPermissions.Visibility = Visibility.Collapsed;
+                ButtonAttributes.Visibility = Visibility.Collapsed;
 
                 ContentControlWorkspace.Content = new LogInControl();
             }
@@ -81,7 +83,7 @@ namespace Main
         /// </summary>
         private void ButtonAttributes_Click(object sender, RoutedEventArgs e)
         {
-
+            ContentControlWorkspace.Content = new AttributesControl();
         }
     }
 }

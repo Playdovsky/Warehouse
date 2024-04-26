@@ -1,6 +1,7 @@
 ﻿using Main.GUI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,19 +39,25 @@ namespace Main
                 return;
             }
 
-            if (!Service.ValidatePasswordLoginMatch(login, password))
+            using (WarehouseDatabaseEntities context = new WarehouseDatabaseEntities())
             {
-                loginAttempts++;
-                if (loginAttempts >= 3)
+                var loginAttemptsDB = context.SystemAttributes.FirstOrDefault(x => x.Name == "Login attempts");
+                int maxLoginAttempts = loginAttemptsDB.Attribute;
+
+                if (!Service.ValidatePasswordLoginMatch(login, password))
                 {
-                    await HandleLoginAttemptsExceeded();
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Invalid password. Please try again.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    PasswordBoxLoginForm.Clear();
-                    return;
+                    loginAttempts++;
+                    if (loginAttempts >= maxLoginAttempts)
+                    {
+                        await HandleLoginAttemptsExceeded();
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid password. Please try again.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        PasswordBoxLoginForm.Clear();
+                        return;
+                    }
                 }
             }
 
@@ -132,12 +139,10 @@ namespace Main
         }
 
         /// <summary>
-        /// Blocks the ability to log in for 10 seconds and then re-enables the login fields.
+        /// Blocks the ability to logging in for the time specified in database seconds and then re-enables the login fields.
         /// </summary>
         private async Task HandleLoginAttemptsExceeded()
         {
-            MessageBox.Show("You have entered an incorrect password three times. The ability to log in has been blocked for security reasons for 10 seconds. For assistance, please contact support.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
             TextBoxLoginLoginForm.IsEnabled = false;
             PasswordBoxLoginForm.IsEnabled = false;
 
@@ -147,7 +152,13 @@ namespace Main
             TextBoxLoginLoginForm.Background = Brushes.LightGray;
             PasswordBoxLoginForm.Background = Brushes.LightGray;
 
-            await Task.Delay(10000);
+            using (WarehouseDatabaseEntities context = new WarehouseDatabaseEntities())
+            {
+                var lockTimeDB = context.SystemAttributes.FirstOrDefault(x => x.Name == "Lock time");
+                int maxLockTime = lockTimeDB.Attribute;
+                MessageBox.Show($"You have entered an incorrect password too many times. The ability to log in has been blocked for security reasons for {maxLockTime} seconds. For assistance, please contact support.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                await Task.Delay(maxLockTime * 1000);
+            }
 
             TextBoxLoginLoginForm.IsEnabled = true;
             PasswordBoxLoginForm.IsEnabled = true;

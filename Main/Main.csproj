@@ -147,6 +147,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GUI\AttributesControl.xaml.cs">
+      <DependentUpon>AttributesControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\NewPasswordWindow.xaml.cs">
       <DependentUpon>NewPasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -209,6 +212,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WarehouseDatabase.edmx</DependentUpon>
     </Compile>
+    <Page Include="GUI\AttributesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\NewPasswordWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

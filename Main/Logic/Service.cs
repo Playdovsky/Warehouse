@@ -510,5 +510,24 @@ namespace Main
                 }
             }
         }
+
+        /// <summary>
+        /// Executes sql procedure to find and modify existing system attributes.
+        /// </summary>
+        /// <param name="lockTimeValue">Time value which user have to wait until login will be unlocked</param>
+        /// <param name="attemptsValue">How many times can user make mistake in password before login will be locked</param>
+        public static void SaveSqlAttributeChanges(int lockTimeValue, int attemptsValue)
+        {
+            using (WarehouseDatabaseEntities context = new WarehouseDatabaseEntities())
+            {
+                context.Database.ExecuteSqlCommand("UpdateSystemAttribute @Name, @Value",
+                    new SqlParameter("Name", "Lock time"),
+                    new SqlParameter("Value", lockTimeValue));
+
+                context.Database.ExecuteSqlCommand("UpdateSystemAttribute @Name, @Value",
+                    new SqlParameter("Name", "Login attempts"),
+                    new SqlParameter("Value", attemptsValue));
+            }
+        }
     }
 }
