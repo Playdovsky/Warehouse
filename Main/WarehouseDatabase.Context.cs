@@ -32,6 +32,7 @@ namespace Main
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserView> UserView { get; set; }
         public virtual DbSet<UserPasswordHistory> UserPasswordHistory { get; set; }
+        public virtual DbSet<SystemAttributes> SystemAttributes { get; set; }
     
         public virtual int AddUserPasswordHistory(Nullable<System.Guid> userId, string password, Nullable<System.DateTime> changeDate)
         {

@@ -12,6 +12,18 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Warehouse.dbo.SystemAttributes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SystemAttributes">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Attribute" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Attribute" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -128,6 +140,13 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
           <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPermissions" EntityType="Self.UserPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemAttributes" EntityType="Self.SystemAttributes" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SystemAttributes].[Id] AS [Id], 
+    [SystemAttributes].[Name] AS [Name], 
+    [SystemAttributes].[Attribute] AS [Attribute]
+    FROM [dbo].[SystemAttributes] AS [SystemAttributes]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="UserPasswordHistory" EntityType="Self.UserPasswordHistory" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [UserPasswordHistory].[UserId] AS [UserId], 
@@ -198,8 +217,9 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
             <Parameter Name="ChangeDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="DeleteOldestUserPasswordHistory">
-            <Parameter Name="UserId" Mode="In" Type="Guid" />
+          <Parameter Name="UserId" Mode="In" Type="Guid" />
           </FunctionImport>
+          <EntitySet Name="SystemAttributes" EntityType="WarehouseDatabaseModel.SystemAttributes" />
         </EntityContainer>
         <EntityType Name="UserPermissions">
           <Key>
@@ -314,6 +334,16 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SystemAttributes">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Attribute" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Attribute" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -396,6 +426,15 @@ warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary ke
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="AddUserPasswordHistory" FunctionName="WarehouseDatabaseModel.Store.AddUserPasswordHistory" />
           <FunctionImportMapping FunctionImportName="DeleteOldestUserPasswordHistory" FunctionName="WarehouseDatabaseModel.Store.DeleteOldestUserPasswordHistory" />
+          <EntitySetMapping Name="SystemAttributes">
+            <EntityTypeMapping TypeName="WarehouseDatabaseModel.SystemAttributes">
+              <MappingFragment StoreEntitySet="SystemAttributes">
+                <ScalarProperty Name="Attribute" ColumnName="Attribute" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

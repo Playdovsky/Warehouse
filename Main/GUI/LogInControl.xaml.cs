@@ -1,7 +1,6 @@
 ﻿using Main.GUI;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,11 +9,6 @@ using System.Windows.Media;
 
 namespace Main
 {
-    /// <summary>
-    /// Log in control workspace.
-    /// This is workspace which is available to use inside MainWindow.
-    /// It should be noted, that log in functionality shall be developed in the future.
-    /// </summary>
     public partial class LogInControl : UserControl
     {
         private int loginAttempts = 0;
@@ -23,6 +17,9 @@ namespace Main
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Main function which controls whole login operation (including validation).
+        /// </summary>
         private async void ButtonLogIn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             string login = TextBoxLoginLoginForm.Text;
@@ -95,9 +92,14 @@ namespace Main
                 }
             }
         }
+
+        /// <summary>
+        /// Controls what is visible for users with certain permissions.
+        /// </summary>
+        /// <param name="userPermissions">List of all permissions from database</param>
         private void SwitchToWelcomeControl(List<int> userPermissions)
         {
-            var mainWindow = Window.GetWindow(this) as MainWindow;
+            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
             if (mainWindow != null)
             {
                 mainWindow.ContentControlWorkspace.Content = new WelcomeControl();
@@ -108,6 +110,7 @@ namespace Main
                     mainWindow.ButtonWarehouse.Visibility = Visibility.Visible;
                     mainWindow.ButtonSales.Visibility = Visibility.Visible;
                     mainWindow.ButtonPermissions.Visibility = Visibility.Visible;
+                    mainWindow.ButtonAttributes.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -118,6 +121,10 @@ namespace Main
                 mainWindow.ButtonLogout.Visibility = Visibility.Visible;
             }
         }
+
+        /// <summary>
+        /// Entry point of recovery password procedure.
+        /// </summary>
         private void TextBlockForgotPassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
@@ -150,6 +157,10 @@ namespace Main
 
             loginAttempts = 0;
         }
+
+        /// <summary>
+        /// When mouse button is down show inserted password to the user.
+        /// </summary>
         private void ButtonShowPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (TextBoxLoginLoginForm.IsEnabled && PasswordBoxLoginForm.IsEnabled)
@@ -160,11 +171,13 @@ namespace Main
             }
         }
 
+        /// <summary>
+        /// When mouse is up hide inserted password from the user.
+        /// </summary>
         private void ButtonShowPassword_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             TextBoxShowPassword.Visibility = Visibility.Hidden;
             PasswordBoxLoginForm.Visibility = Visibility.Visible;
         }
-
     }
 }

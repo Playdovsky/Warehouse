@@ -179,6 +179,9 @@
     <Compile Include="Permissions.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="SystemAttributes.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>

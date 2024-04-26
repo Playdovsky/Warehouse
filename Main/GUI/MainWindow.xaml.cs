@@ -1,11 +1,9 @@
-﻿using System.Security.Permissions;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
 
 namespace Main
 {
     /// <summary>
-    /// Main window of all operations.
+    /// Main window and entry point of application.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -51,6 +49,9 @@ namespace Main
             Service.Exit();
         }
 
+        /// <summary>
+        /// Logs out of current user profile.
+        /// </summary>
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to log out?", "Log out confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -67,9 +68,20 @@ namespace Main
             }
         }
 
+        /// <summary>
+        /// On button click creates and opens permissions control workspace.
+        /// </summary>
         private void ButtonPermissions_Click(object sender, RoutedEventArgs e)
         {
             ContentControlWorkspace.Content = new PermissionsPage();
+        }
+
+        /// <summary>
+        /// On button click creates and opens system attributes control workspace.
+        /// </summary>
+        private void ButtonAttributes_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

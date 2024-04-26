@@ -14,39 +14,39 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <Button x:Name="ButtonUsers" Visibility="Collapsed" Content="Users" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Click="ButtonUsers_Click" Foreground="White" FontSize="18">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-            <Button.Background>
-                <SolidColorBrush Color="DeepSkyBlue"/>
-            </Button.Background>
-        </Button>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Background>
+                    <SolidColorBrush Color="DeepSkyBlue"/>
+                </Button.Background>
+            </Button>
             <Button x:Name="ButtonWarehouse" Visibility="Collapsed" Content="Warehouse" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Click="ButtonWarehouse_Click" Foreground="White" FontSize="18">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-            <Button.Background>
-                <SolidColorBrush Color="DeepSkyBlue"/>
-            </Button.Background>
-        </Button>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Background>
+                    <SolidColorBrush Color="DeepSkyBlue"/>
+                </Button.Background>
+            </Button>
             <Button x:Name="ButtonPermissions" Content="Permissions" Visibility="Collapsed" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Click="ButtonPermissions_Click" Foreground="White" FontSize="18" Background="DeepSkyBlue">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
@@ -62,22 +62,36 @@
                 </Button.Template>
             </Button>
             <Button x:Name="ButtonSales" Visibility="Collapsed" Content="Sales" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Click="ButtonSales_Click" Foreground="White" FontSize="18">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-            <Button.Background>
-                <SolidColorBrush Color="DeepSkyBlue"/>
-            </Button.Background>
-        </Button>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Background>
+                    <SolidColorBrush Color="DeepSkyBlue"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="ButtonAttributes" Content="Attributes" Visibility="Collapsed" Click="ButtonAttributes_Click" Foreground="White" FontSize="18" Background="DeepSkyBlue" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="100">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>
         <Line X1="0" Y1="0" X2="0" Y2="5000" Stroke="white" StrokeThickness="3" Margin="115,10,-105,10"/>
         <ContentControl x:Name="ContentControlWorkspace" Margin="150,20,20,20" Background="DeepSkyBlue"/>

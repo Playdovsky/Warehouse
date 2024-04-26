@@ -3,6 +3,9 @@ using System.Text;
 
 namespace Main.Logic
 {
+    /// <summary>
+    /// This class serves as random password generator.
+    /// </summary>
     public class PasswordGenerator
     {
         private const string UppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
