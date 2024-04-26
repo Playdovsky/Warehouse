@@ -1,7 +1,7 @@
 ﻿using Main.GUI;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,11 +10,6 @@ using System.Windows.Media;
 
 namespace Main
 {
-    /// <summary>
-    /// Log in control workspace.
-    /// This is workspace which is available to use inside MainWindow.
-    /// It should be noted, that log in functionality shall be developed in the future.
-    /// </summary>
     public partial class LogInControl : UserControl
     {
         private int loginAttempts = 0;
@@ -23,6 +18,9 @@ namespace Main
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Main function which controls whole login operation (including validation).
+        /// </summary>
         private async void ButtonLogIn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             string login = TextBoxLoginLoginForm.Text;
@@ -41,19 +39,25 @@ namespace Main
                 return;
             }
 
-            if (!Service.ValidatePasswordLoginMatch(login, password))
+            using (WarehouseDatabaseEntities context = new WarehouseDatabaseEntities())
             {
-                loginAttempts++;
-                if (loginAttempts >= 3)
+                var loginAttemptsDB = context.SystemAttributes.FirstOrDefault(x => x.Name == "Login attempts");
+                int maxLoginAttempts = loginAttemptsDB.Attribute;
+
+                if (!Service.ValidatePasswordLoginMatch(login, password))
                 {
-                    await HandleLoginAttemptsExceeded();
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Invalid password. Please try again.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    PasswordBoxLoginForm.Clear();
-                    return;
+                    loginAttempts++;
+                    if (loginAttempts >= maxLoginAttempts)
+                    {
+                        await HandleLoginAttemptsExceeded();
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid password. Please try again.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        PasswordBoxLoginForm.Clear();
+                        return;
+                    }
                 }
             }
 
@@ -95,9 +99,14 @@ namespace Main
                 }
             }
         }
+
+        /// <summary>
+        /// Controls what is visible for users with certain permissions.
+        /// </summary>
+        /// <param name="userPermissions">List of all permissions from database</param>
         private void SwitchToWelcomeControl(List<int> userPermissions)
         {
-            var mainWindow = Window.GetWindow(this) as MainWindow;
+            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
             if (mainWindow != null)
             {
                 mainWindow.ContentControlWorkspace.Content = new WelcomeControl();
@@ -108,6 +117,7 @@ namespace Main
                     mainWindow.ButtonWarehouse.Visibility = Visibility.Visible;
                     mainWindow.ButtonSales.Visibility = Visibility.Visible;
                     mainWindow.ButtonPermissions.Visibility = Visibility.Visible;
+                    mainWindow.ButtonAttributes.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -118,6 +128,10 @@ namespace Main
                 mainWindow.ButtonLogout.Visibility = Visibility.Visible;
             }
         }
+
+        /// <summary>
+        /// Entry point of recovery password procedure.
+        /// </summary>
         private void TextBlockForgotPassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
@@ -125,12 +139,10 @@ namespace Main
         }
 
         /// <summary>
-        /// Blocks the ability to log in for 10 seconds and then re-enables the login fields.
+        /// Blocks the ability to logging in for the time specified in database seconds and then re-enables the login fields.
         /// </summary>
         private async Task HandleLoginAttemptsExceeded()
         {
-            MessageBox.Show("You have entered an incorrect password three times. The ability to log in has been blocked for security reasons for 10 seconds. For assistance, please contact support.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
             TextBoxLoginLoginForm.IsEnabled = false;
             PasswordBoxLoginForm.IsEnabled = false;
 
@@ -140,7 +152,13 @@ namespace Main
             TextBoxLoginLoginForm.Background = Brushes.LightGray;
             PasswordBoxLoginForm.Background = Brushes.LightGray;
 
-            await Task.Delay(10000);
+            using (WarehouseDatabaseEntities context = new WarehouseDatabaseEntities())
+            {
+                var lockTimeDB = context.SystemAttributes.FirstOrDefault(x => x.Name == "Lock time");
+                int maxLockTime = lockTimeDB.Attribute;
+                MessageBox.Show($"You have entered an incorrect password too many times. The ability to log in has been blocked for security reasons for {maxLockTime} seconds. For assistance, please contact support.", "Login Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                await Task.Delay(maxLockTime * 1000);
+            }
 
             TextBoxLoginLoginForm.IsEnabled = true;
             PasswordBoxLoginForm.IsEnabled = true;
@@ -150,6 +168,10 @@ namespace Main
 
             loginAttempts = 0;
         }
+
+        /// <summary>
+        /// When mouse button is down show inserted password to the user.
+        /// </summary>
         private void ButtonShowPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (TextBoxLoginLoginForm.IsEnabled && PasswordBoxLoginForm.IsEnabled)
@@ -160,11 +182,13 @@ namespace Main
             }
         }
 
+        /// <summary>
+        /// When mouse is up hide inserted password from the user.
+        /// </summary>
         private void ButtonShowPassword_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             TextBoxShowPassword.Visibility = Visibility.Hidden;
             PasswordBoxLoginForm.Visibility = Visibility.Visible;
         }
-
     }
 }

@@ -264,12 +264,12 @@ namespace Main
             // Check if email matches the pattern
             return Regex.IsMatch(email, pattern);
         }
+
         /// <summary>
         /// Validates a password against specified criteria.
         /// </summary>
         /// <param name="password">The password to validate.</param>
         /// <returns>True if the password meets all validation criteria, otherwise false.</returns>
-
         public static bool ValidatePassword(string password)
         {
             if (password.Length < 8 || password.Length > 15)
@@ -398,6 +398,7 @@ namespace Main
                 return userPermissions;
             }
         }
+
         /// <summary>
         /// Retrieves the user based on their ID.
         /// </summary>
@@ -410,6 +411,7 @@ namespace Main
                 return context.User.FirstOrDefault(u => u.Id == id && !u.IsForgotten);
             }
         }
+
         /// <summary>
         /// Validates the provided email for the user with the given ID.
         /// </summary>
@@ -421,6 +423,7 @@ namespace Main
             var user = GetUserById(id);
             return user != null && user.Email == email;
         }
+
         /// <summary>
         /// Checks if the password recovery status is requested for the user with the specified ID.
         /// </summary>
@@ -434,6 +437,7 @@ namespace Main
                 return user.PasswordRecoveryStatus ?? false;
             }
         }
+
         /// <summary>
         /// Checks whether the new password provided by a user is unique compared to the previous passwords stored in the UserPasswordHistory table for the specified user.
         /// </summary>
@@ -460,6 +464,7 @@ namespace Main
                 return true;
             }
         }
+
         /// <summary>
         /// Updates the user's password history with the new password.
         /// </summary>
@@ -506,6 +511,23 @@ namespace Main
             }
         }
 
+        /// <summary>
+        /// Executes sql procedure to find and modify existing system attributes.
+        /// </summary>
+        /// <param name="lockTimeValue">Time value which user have to wait until login will be unlocked</param>
+        /// <param name="attemptsValue">How many times can user make mistake in password before login will be locked</param>
+        public static void SaveSqlAttributeChanges(int lockTimeValue, int attemptsValue)
+        {
+            using (WarehouseDatabaseEntities context = new WarehouseDatabaseEntities())
+            {
+                context.Database.ExecuteSqlCommand("UpdateSystemAttribute @Name, @Value",
+                    new SqlParameter("Name", "Lock time"),
+                    new SqlParameter("Value", lockTimeValue));
 
+                context.Database.ExecuteSqlCommand("UpdateSystemAttribute @Name, @Value",
+                    new SqlParameter("Name", "Login attempts"),
+                    new SqlParameter("Value", attemptsValue));
+            }
+        }
     }
 }

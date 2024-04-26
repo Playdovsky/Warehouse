@@ -1,11 +1,10 @@
-﻿using System.Security.Permissions;
+﻿using Main.GUI;
 using System.Windows;
-using System.Windows.Input;
 
 namespace Main
 {
     /// <summary>
-    /// Main window of all operations.
+    /// Main window and entry point of application.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -51,6 +50,9 @@ namespace Main
             Service.Exit();
         }
 
+        /// <summary>
+        /// Logs out of current user profile.
+        /// </summary>
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to log out?", "Log out confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -61,15 +63,27 @@ namespace Main
                 ButtonWarehouse.Visibility = Visibility.Collapsed;
                 ButtonSales.Visibility = Visibility.Collapsed;
                 ButtonLogout.Visibility = Visibility.Collapsed;
-                ButtonPermissions.Visibility=Visibility.Collapsed;
+                ButtonPermissions.Visibility = Visibility.Collapsed;
+                ButtonAttributes.Visibility = Visibility.Collapsed;
 
                 ContentControlWorkspace.Content = new LogInControl();
             }
         }
 
+        /// <summary>
+        /// On button click creates and opens permissions control workspace.
+        /// </summary>
         private void ButtonPermissions_Click(object sender, RoutedEventArgs e)
         {
             ContentControlWorkspace.Content = new PermissionsPage();
+        }
+
+        /// <summary>
+        /// On button click creates and opens system attributes control workspace.
+        /// </summary>
+        private void ButtonAttributes_Click(object sender, RoutedEventArgs e)
+        {
+            ContentControlWorkspace.Content = new AttributesControl();
         }
     }
 }

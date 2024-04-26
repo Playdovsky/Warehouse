@@ -10,9 +10,10 @@
         <AssociationConnector Association="WarehouseDatabaseModel.FK__UserPermi__Permi__412EB0B6" />
         <EntityTypeShape EntityType="WarehouseDatabaseModel.User" Width="1.5" PointX="0.75" PointY="0.875" />
         <AssociationConnector Association="WarehouseDatabaseModel.FK__UserPermi__UserI__403A8C7D" />
-        <EntityTypeShape EntityType="WarehouseDatabaseModel.UserView" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.UserView" Width="1.5" PointX="5.375" PointY="0.875" />
         <EntityTypeShape EntityType="WarehouseDatabaseModel.UserPasswordHistory" Width="1.5" PointX="3" PointY="1.375" />
         <AssociationConnector Association="WarehouseDatabaseModel.FK__UserPassw__UserI__4D94879B" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.SystemAttributes" Width="1.5" PointX="5.375" PointY="5.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
