@@ -2,6 +2,8 @@
 using System;
 using System.Windows;
 using System.Data.Entity;
+using System.Net.Mail;
+using System.Net;
 
 
 namespace Main.GUI
@@ -42,11 +44,16 @@ namespace Main.GUI
                         context.Entry(user).State = EntityState.Modified;
                         context.SaveChanges();
                     }
-
-                    MessageBox.Show("Password recovery initiated. Your new password will be sent to the provided email address.", "Recover Password", MessageBoxButton.OK, MessageBoxImage.Information);
-                    MessageBox.Show("New password : " + newPassword + ".", "Recover Password", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    Close();
+                    try
+                    {
+                        SendRecoveryEmail(email, newPassword);
+                        MessageBox.Show("Password recovery initiated. Your new password has been sent to the provided email address.", "Recover Password", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to send email. Error: " + ex.Message, "Email Send Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
                 {
@@ -56,6 +63,24 @@ namespace Main.GUI
             else
             {
                 MessageBox.Show("Invalid user ID or email.", "Recover Password Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void SendRecoveryEmail(string email, string newPassword)
+        {
+            using (SmtpClient client = new SmtpClient("smtp.office365.com", 587))
+            {
+                client.EnableSsl = true;
+                client.Credentials = new NetworkCredential("warehouse.recover@outlook.com", "Testowanie123!");
+
+                using (MailMessage message = new MailMessage())
+                {
+                    message.From = new MailAddress("warehouse.recover@outlook.com");
+                    message.To.Add(new MailAddress(email));
+                    message.Subject = "Your New Password";
+                    message.Body = $"Hello, your new password is: {newPassword}\nYou have to change it after your first login.";
+
+                    client.Send(message);
+                }
             }
         }
     }
