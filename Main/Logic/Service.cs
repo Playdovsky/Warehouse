@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Media.Media3D;
 
 namespace Main
 {
@@ -272,38 +274,46 @@ namespace Main
         /// <returns>True if the password meets all validation criteria, otherwise false.</returns>
         public static bool ValidatePassword(string password)
         {
+            string summaryMessage = "Password";
+            bool passedValidation = true;
+
             if (password.Length < 8 || password.Length > 15)
             {
-                MessageBox.Show("Password length must be between 8 and 15 characters.", "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
+                summaryMessage = summaryMessage + "\n- length must be between 8 and 15 characters. ";
+                passedValidation = false;
             }
 
             if (!password.Any(char.IsUpper))
             {
-                MessageBox.Show("Password must contain at least one uppercase letter.", "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
+                summaryMessage = summaryMessage + "\n- must contain at least one uppercase letter. ";
+                passedValidation = false;
             }
 
             if (!password.Any(char.IsLower))
             {
-                MessageBox.Show("Password must contain at least one lowercase letter.", "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
+                summaryMessage = summaryMessage + "\n- must contain at least one lowercase letter. ";
+                passedValidation = false;
             }
 
             if (!password.Any(char.IsDigit))
             {
-                MessageBox.Show("Password must contain at least one digit.", "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
+                summaryMessage = summaryMessage + "\n- must contain at least one digit. ";
+                passedValidation = false;
             }
 
             string specialCharacters = "-_!*#$&";
             if (!password.Any(c => specialCharacters.Contains(c)))
             {
-                MessageBox.Show("Password must contain at least one special character (-, _, !, *, #, $, &).", "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
+                summaryMessage = summaryMessage + "\n- must contain at least one special character (-, _, !, *, #, $, &). ";
+                passedValidation = false;
             }
 
-            return true;
+            if (!passedValidation)
+            {
+                MessageBox.Show(summaryMessage, "Password Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return passedValidation;
         }
 
 
