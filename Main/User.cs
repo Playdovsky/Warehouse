@@ -19,6 +19,7 @@ namespace Main
         {
             this.UserPermissions = new HashSet<UserPermissions>();
             this.UserPasswordHistory = new HashSet<UserPasswordHistory>();
+            this.ProductsHistory = new HashSet<ProductsHistory>();
         }
     
         public string FirstName { get; set; }
@@ -44,5 +45,7 @@ namespace Main
         public virtual ICollection<UserPermissions> UserPermissions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPasswordHistory> UserPasswordHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductsHistory> ProductsHistory { get; set; }
     }
 }

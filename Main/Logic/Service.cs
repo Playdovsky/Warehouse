@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Media.Media3D;
 
 namespace Main
 {
@@ -17,15 +15,27 @@ namespace Main
     public static class Service
     {
         public static List<UserView> Users { get; set; }
+        public static List<WarehouseView> Warehouse { get; set; }
 
         /// <summary>
         /// Users list and permissions initialization.
         /// </summary>
-        public static void DataInitialization()
+        public static void UserDataInitialization()
         {
             using (var context = new WarehouseDatabaseEntities())
             {
                 Users = context.UserView.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Warehouse stock initialization.
+        /// </summary>
+        public static void WarehouseDataInitialization()
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                Warehouse = context.WarehouseView.ToList();
             }
         }
 
@@ -39,6 +49,19 @@ namespace Main
             using (var context = new WarehouseDatabaseEntities())
             {
                 Users = context.UserView.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Real Time warehouse stock update also known as 'refresh'.
+        /// </summary>
+        public static void LoadWarehouse()
+        {
+            Warehouse.Clear();
+
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                Warehouse = context.WarehouseView.ToList();
             }
         }
 

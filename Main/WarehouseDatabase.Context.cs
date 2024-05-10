@@ -33,6 +33,12 @@ namespace Main
         public virtual DbSet<UserView> UserView { get; set; }
         public virtual DbSet<UserPasswordHistory> UserPasswordHistory { get; set; }
         public virtual DbSet<SystemAttributes> SystemAttributes { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<ProductsHistory> ProductsHistory { get; set; }
+        public virtual DbSet<ProductType> ProductType { get; set; }
+        public virtual DbSet<ProductVAT> ProductVAT { get; set; }
+        public virtual DbSet<Stock> Stock { get; set; }
+        public virtual DbSet<WarehouseView> WarehouseView { get; set; }
     
         public virtual int AddUserPasswordHistory(Nullable<System.Guid> userId, string password, Nullable<System.DateTime> changeDate)
         {
@@ -58,6 +64,19 @@ namespace Main
                 new ObjectParameter("UserId", typeof(System.Guid));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteOldestUserPasswordHistory", userIdParameter);
+        }
+    
+        public virtual int UpdateSystemAttribute(string name, Nullable<int> value)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("Value", value) :
+                new ObjectParameter("Value", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateSystemAttribute", nameParameter, valueParameter);
         }
     }
 }

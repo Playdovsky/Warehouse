@@ -11,6 +11,8 @@ namespace Main
         public WarehouseControl()
         {
             InitializeComponent();
+            Service.WarehouseDataInitialization();
+            DataGridWarehouse.ItemsSource = Service.Warehouse;
         }
     }
 }

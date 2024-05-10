@@ -10,6 +10,19 @@
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
              >
     <Grid x:Name="LabelTestWarehosue">
-        <Label Content="Warehouse window" HorizontalAlignment="Center" Margin="86,159,60,0" VerticalAlignment="Top" Height="104" Width="514" Foreground="White" FontSize="56"/>
+        <DataGrid x:Name="DataGridWarehouse" Width="650" ItemsSource="{Binding WarehouseView.View}" AutoGenerateColumns="False" Margin="0,10,0,10" Background="LightCyan" BorderThickness="5" BorderBrush="DeepSkyBlue" RowHeight="30" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Type" Binding="{Binding TypeName}" />
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                <DataGridTextColumn Header="Measure" Binding="{Binding Measure}" />
+                <DataGridTextColumn Header="Price Per Unit" Binding="{Binding PricePerUnit}" />
+                <DataGridTextColumn Header="VAT Rate" Binding="{Binding Rate}" />
+                <DataGridTextColumn Header="Total Quantity" Binding="{Binding TotalQuantity}" />
+                <DataGridTextColumn Header="Delivery Quantity" Binding="{Binding Quantity}" />
+                <DataGridTextColumn Header="Supplier" Binding="{Binding Supplier}" />
+                <DataGridTextColumn Header="Registering Person" Binding="{Binding RegisteringPerson}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
