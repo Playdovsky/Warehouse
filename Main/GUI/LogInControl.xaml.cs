@@ -13,6 +13,7 @@ namespace Main
     public partial class LogInControl : UserControl
     {
         private int loginAttempts = 0;
+        public static string CurrentLogin { get; set; }
         public LogInControl()
         {
             InitializeComponent();
@@ -61,6 +62,7 @@ namespace Main
                 }
             }
 
+            CurrentLogin = login;
             Guid userId = Service.GetUserId(login);
 
             if (Service.IsPasswordRecoveryRequested(userId))
