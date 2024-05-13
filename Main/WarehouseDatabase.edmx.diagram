@@ -25,6 +25,7 @@
         <AssociationConnector Association="WarehouseDatabaseModel.FK_IdType" />
         <AssociationConnector Association="WarehouseDatabaseModel.FK_IdVAT" />
         <AssociationConnector Association="WarehouseDatabaseModel.FK__ProductsH__IdUse__66603565" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.ProductsHistoryExtended" Width="2" PointX="3.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

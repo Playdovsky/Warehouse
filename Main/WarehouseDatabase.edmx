@@ -113,6 +113,31 @@ warning 6002: The table/view 'Warehouse.dbo.UserPasswordHistory' does not have a
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Warehouse.dbo.ProductsHistoryExtended' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductsHistoryExtended">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="IdProduct" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="ProductType" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Supplier" />
+            <PropertyRef Name="DateOfDelivery" />
+            <PropertyRef Name="DateOfRegistration" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="ProductType" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Supplier" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="DateOfDelivery" Type="date" Nullable="false" />
+          <Property Name="DateOfRegistration" Type="date" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="101" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserView">
           <Key>
@@ -291,6 +316,20 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
     [UserPasswordHistory].[ChangeDate] AS [ChangeDate]
     FROM [dbo].[UserPasswordHistory] AS [UserPasswordHistory]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ProductsHistoryExtended" EntityType="Self.ProductsHistoryExtended" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductsHistoryExtended].[Id] AS [Id], 
+    [ProductsHistoryExtended].[IdProduct] AS [IdProduct], 
+    [ProductsHistoryExtended].[ProductName] AS [ProductName], 
+    [ProductsHistoryExtended].[Description] AS [Description], 
+    [ProductsHistoryExtended].[ProductType] AS [ProductType], 
+    [ProductsHistoryExtended].[Quantity] AS [Quantity], 
+    [ProductsHistoryExtended].[Supplier] AS [Supplier], 
+    [ProductsHistoryExtended].[DateOfDelivery] AS [DateOfDelivery], 
+    [ProductsHistoryExtended].[DateOfRegistration] AS [DateOfRegistration], 
+    [ProductsHistoryExtended].[UserName] AS [UserName]
+    FROM [dbo].[ProductsHistoryExtended] AS [ProductsHistoryExtended]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="UserView" EntityType="Self.UserView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [UserView].[Id] AS [Id], 
@@ -421,6 +460,7 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
             <Parameter Name="Name" Mode="In" Type="String" />
             <Parameter Name="Value" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="ProductsHistoryExtended" EntityType="WarehouseDatabaseModel.ProductsHistoryExtended" />
         </EntityContainer>
         <EntityType Name="UserPermissions">
           <Key>
@@ -680,6 +720,29 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProductsHistoryExtended">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="Supplier" />
+            <PropertyRef Name="DateOfDelivery" />
+            <PropertyRef Name="DateOfRegistration" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="IdProduct" />
+            <PropertyRef Name="ProductType" />
+            <PropertyRef Name="Quantity" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Supplier" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfDelivery" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateOfRegistration" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="false" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProductType" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -838,6 +901,22 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="UpdateSystemAttribute" FunctionName="WarehouseDatabaseModel.Store.UpdateSystemAttribute" />
+          <EntitySetMapping Name="ProductsHistoryExtended">
+            <EntityTypeMapping TypeName="WarehouseDatabaseModel.ProductsHistoryExtended">
+              <MappingFragment StoreEntitySet="ProductsHistoryExtended">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="DateOfRegistration" ColumnName="DateOfRegistration" />
+                <ScalarProperty Name="DateOfDelivery" ColumnName="DateOfDelivery" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

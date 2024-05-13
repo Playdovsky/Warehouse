@@ -111,10 +111,12 @@ namespace Main
             MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
             if (mainWindow != null)
             {
+
                 mainWindow.ContentControlWorkspace.Content = new WelcomeControl();
 
                 if (userPermissions.Contains(1))
                 {
+                    mainWindow.ButtonProductHistory.Visibility = Visibility.Visible;
                     mainWindow.ButtonUsers.Visibility = Visibility.Visible;
                     mainWindow.ButtonWarehouse.Visibility = Visibility.Visible;
                     mainWindow.ButtonSales.Visibility = Visibility.Visible;
@@ -192,5 +194,6 @@ namespace Main
             TextBoxShowPassword.Visibility = Visibility.Hidden;
             PasswordBoxLoginForm.Visibility = Visibility.Visible;
         }
+       
     }
 }

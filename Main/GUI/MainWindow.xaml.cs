@@ -50,6 +50,7 @@ namespace Main
             Service.Exit();
         }
 
+
         /// <summary>
         /// Logs out of current user profile.
         /// </summary>
@@ -86,5 +87,10 @@ namespace Main
         {
             ContentControlWorkspace.Content = new AttributesControl();
         }
+        private void ButtonProductHistory_Click(object sender, RoutedEventArgs e)
+        {
+            ContentControlWorkspace.Content = new ProductHistory();
+        }
+
     }
 }

@@ -159,6 +159,9 @@
     <Compile Include="GUI\PermissionsPage.xaml.cs">
       <DependentUpon>PermissionsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ProductHistory.xaml.cs">
+      <DependentUpon>ProductHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
@@ -186,6 +189,9 @@
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductsHistory.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductsHistoryExtended.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductType.cs">
@@ -255,6 +261,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="GUI\PermissionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\ProductHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
