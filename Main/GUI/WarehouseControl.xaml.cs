@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -297,5 +298,11 @@ namespace Main
             DataGridWarehouse.ItemsSource = Service.Warehouse;
         }
 
+        private void TextBoxFilterProducts_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string filter = TextBoxFilterProducts.Text.ToLower();
+            var filterProducts = Service.Warehouse.Where(x => x.Name.ToLower().Contains(filter) || x.TypeName.ToLower().Contains(filter) || x.RegisteringPerson.ToLower().Contains(filter)).ToList();
+            DataGridWarehouse.ItemsSource = filterProducts;
+        }
     }
 }

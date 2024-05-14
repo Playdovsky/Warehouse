@@ -361,5 +361,6 @@
                 <SolidColorBrush Color="DeepSkyBlue"/>
             </Button.Background>
         </Button>
+        <TextBox x:Name="TextBoxFilterProducts" HorizontalAlignment="Left" Margin="73,38,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="TextBoxFilterProducts_TextChanged"/>
     </Grid>
 </UserControl>
