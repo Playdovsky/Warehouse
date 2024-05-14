@@ -14,6 +14,18 @@
         <EntityTypeShape EntityType="WarehouseDatabaseModel.UserPasswordHistory" Width="1.5" PointX="3" PointY="1.375" />
         <AssociationConnector Association="WarehouseDatabaseModel.FK__UserPassw__UserI__4D94879B" />
         <EntityTypeShape EntityType="WarehouseDatabaseModel.SystemAttributes" Width="1.5" PointX="5.375" PointY="5.875" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.Products" Width="1.5" PointX="10" PointY="2" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.ProductsHistory" Width="1.5" PointX="12.25" PointY="2" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.ProductType" Width="1.5" PointX="7.75" PointY="8.875" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.ProductVAT" Width="1.5" PointX="7.75" PointY="2.875" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.Stock" Width="1.5" PointX="12.25" PointY="6.375" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.WarehouseView" Width="1.5" PointX="0.75" PointY="8.75" />
+        <AssociationConnector Association="WarehouseDatabaseModel.FK__ProductsH__IdPro__656C112C" />
+        <AssociationConnector Association="WarehouseDatabaseModel.FK__Stock__IdProduct__693CA210" />
+        <AssociationConnector Association="WarehouseDatabaseModel.FK_IdType" />
+        <AssociationConnector Association="WarehouseDatabaseModel.FK_IdVAT" />
+        <AssociationConnector Association="WarehouseDatabaseModel.FK__ProductsH__IdUse__66603565" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.ProductsHistoryExtended" Width="2" PointX="3.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

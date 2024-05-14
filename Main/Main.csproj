@@ -159,6 +159,9 @@
     <Compile Include="GUI\PermissionsPage.xaml.cs">
       <DependentUpon>PermissionsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ProductHistory.xaml.cs">
+      <DependentUpon>ProductHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,24 @@
     <Compile Include="Logic\GeneratePassword.cs" />
     <Compile Include="Logic\Service.cs" />
     <Compile Include="Permissions.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Products.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductsHistory.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductsHistoryExtended.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductType.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductVAT.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stock.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="SystemAttributes.cs">
@@ -212,6 +233,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WarehouseDatabase.edmx</DependentUpon>
     </Compile>
+    <Compile Include="WarehouseView.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
     <Page Include="GUI\AttributesControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -237,6 +261,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="GUI\PermissionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\ProductHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

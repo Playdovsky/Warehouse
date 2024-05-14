@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Main.GUI.ProductHistory"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Main.GUI"
+             mc:Ignorable="d" d:DesignHeight="425.273">
+
+    <Grid Background="LightCyan" Width="1078">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+            <Label Content="Start Date:" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="18"/>
+            <DatePicker x:Name="StartDatePicker" VerticalAlignment="Center" FontSize="18"/>
+            <Label Content="End Date:" VerticalAlignment="Center" Margin="20,0,10,0" FontSize="18"/>
+            <DatePicker x:Name="EndDatePicker" VerticalAlignment="Center" FontSize="18" Width="155"/>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+            <Label Content="Product Type:" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="18"/>
+            <ComboBox x:Name="ProductTypeComboBox" Width="200" DisplayMemberPath="TypeName" SelectedValuePath="Id" VerticalAlignment="Center" FontSize="18"/>
+            <Label Content="Employee:" VerticalAlignment="Center" Margin="20,0,10,0" FontSize="18"/>
+            <ComboBox x:Name="EmployeeComboBox" Width="200" DisplayMemberPath="FullName" SelectedValuePath="Id" VerticalAlignment="Center" FontSize="18"/>
+            <CheckBox x:Name="DateFilterCheckBox" Content="Enable Date Filter" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="18"/>
+        </StackPanel>
+
+        <!-- New StackPanel for Checkboxes and TextBox -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="528,10,0,44" Grid.RowSpan="2">
+            <CheckBox Content="Name" x:Name="NameCheckBox" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="18" IsChecked="False"/>
+            <CheckBox Content="Product Type" x:Name="ProductTypeCheckBox" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="18"/>
+            <CheckBox Content="User Name" x:Name="UserNameCheckBox" VerticalAlignment="Center" FontSize="18"/>
+            <TextBox x:Name="FilterTextBox" Width="200" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="14" Padding="5,0,0,0" >
+                <TextBox.Template>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </TextBox.Template>
+            </TextBox>
+
+        </StackPanel>
+
+        <!-- Existing DataGrid to display history data -->
+        <DataGrid x:Name="HistoryDataGrid" Grid.Row="2" AutoGenerateColumns="False" Margin="5,20,5,5" FontSize="18" IsReadOnly="True" Background="LightCyan" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" Width="200"/>
+                <DataGridTextColumn Header="Supplier" Binding="{Binding Supplier}" Width="200"/>
+                <DataGridTextColumn Header="Date of Delivery" Binding="{Binding DateOfDelivery, StringFormat=dd-MM-yyyy}" Width="200"/>
+                <DataGridTextColumn Header="Date of Registration" Binding="{Binding DateOfRegistration, StringFormat=dd-MM-yyyy}" Width="200"/>
+                <DataGridTextColumn Header="Registering Person" Binding="{Binding UserName}" Width="210"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

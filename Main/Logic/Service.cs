@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Media.Media3D;
 
 namespace Main
 {
@@ -17,15 +16,55 @@ namespace Main
     public static class Service
     {
         public static List<UserView> Users { get; set; }
+        public static List<WarehouseView> Warehouse { get; set; }
+        public static List<Products> Products { get; set; }
+        public static List<ProductVAT> ProductVAT { get; set; }
+        public static List<ProductType> ProductType { get; set; }
+        public static List<ProductsHistory> ProductsHistory { get; set; }
 
         /// <summary>
         /// Users list and permissions initialization.
         /// </summary>
-        public static void DataInitialization()
+        public static void UserDataInitialization()
         {
             using (var context = new WarehouseDatabaseEntities())
             {
                 Users = context.UserView.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Warehouse stock initialization.
+        /// </summary>
+        public static void WarehouseDataInitialization()
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                Warehouse = context.WarehouseView.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Products list initialization.
+        /// </summary>
+        public static void ProductDataInitialization()
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                Products = context.Products.ToList();
+                ProductVAT = context.ProductVAT.ToList();
+                ProductType = context.ProductType.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Product history initialization.
+        /// </summary>
+        public static void ProductHistoryInitialization()
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                ProductsHistory = context.ProductsHistory.ToList();
             }
         }
 
@@ -39,6 +78,32 @@ namespace Main
             using (var context = new WarehouseDatabaseEntities())
             {
                 Users = context.UserView.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Real Time warehouse stock update also known as 'refresh'.
+        /// </summary>
+        public static void LoadWarehouse()
+        {
+            Warehouse.Clear();
+
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                Warehouse = context.WarehouseView.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Real Time user list update also known as 'refresh'.
+        /// </summary>
+        public static void LoadProducts()
+        {
+            Products.Clear();
+
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                Products = context.Products.ToList();
             }
         }
 
@@ -539,5 +604,99 @@ namespace Main
                     new SqlParameter("Value", attemptsValue));
             }
         }
+
+        /// <summary>
+        /// Validates the input string as a price value and displays detailed error messages for invalid formats.
+        /// </summary>
+        /// <param name="priceInput">The input string representing the price value.</param>
+        public static bool ValidatePrice(string priceInput)
+        {
+            string errorMessage = string.Empty;
+            decimal pricePerUnit;
+
+            if (string.IsNullOrWhiteSpace(priceInput))
+            {
+                errorMessage = "Enter a value for the price per unit. Price should be in the format (e.g., 10.00 or 0)";
+            }
+            else if (priceInput.Contains(","))
+            {
+                errorMessage = "Invalid number format entered. Price per unit should use '.' as the separator.";
+            }
+            else if (!decimal.TryParse(priceInput, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out pricePerUnit))
+            {
+                errorMessage = "The value entered is not a number. Price should be in the format (e.g., 10.00 or 0)";
+            }
+            else if (pricePerUnit < 0)
+            {
+                errorMessage = "Price per unit cannot be negative.";
+            }
+            else if (priceInput.Contains("."))
+            {
+                int decimalSeparatorCount = priceInput.Count(c => c == '.');
+                if (decimalSeparatorCount > 1)
+                {
+                    errorMessage = "Invalid number format entered. Price per unit should be in the format (e.g., 10.00 or 0)";
+                }
+                else if (priceInput.IndexOf(".") != priceInput.LastIndexOf("."))
+                {
+                    errorMessage = "Invalid number format entered. Price per unit should be in the format (e.g., 10.00 or 0)";
+                }
+                else
+                {
+                    int index = priceInput.IndexOf('.');
+                    if (priceInput.Length - index > 3)
+                    {
+                        errorMessage = "Price per unit should have at most 2 digits after the point.";
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                MessageBox.Show(errorMessage, "Validation error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Adds product to database (most of this function is inside of WarehouseControl.xaml
+        /// </summary>
+        /// <param name="newProduct">New product that is being created</param>
+        public static void AddProduct(Products newProduct)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                context.Products.Add(newProduct);
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Adds delivery details to database (most of this function is inside of WarehouseControl.xaml
+        /// </summary>
+        /// <param name="newDelivery">New delivery that is being created</param>
+        public static void AddProductHistory(ProductsHistory newDelivery)
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                context.ProductsHistory.Add(newDelivery);
+                context.SaveChanges();
+            }
+        }
+        
+        
+            public static string GetUserRole(Guid userId)
+            {
+                using (var context = new WarehouseDatabaseEntities())
+                {
+                    var user = context.User.FirstOrDefault(u => u.Id == userId);
+                    return user?.Role ?? string.Empty;  // Assuming 'Role' is a string
+                }
+            }
+        }
+
     }
-}

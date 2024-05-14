@@ -25,10 +25,10 @@ namespace Main
         {
             InitializeComponent();
             GridUserInfo.Visibility = Visibility.Hidden;
-            Service.DataInitialization();
+            Service.UserDataInitialization();
 
-            ComboBoxRole.Items.Add("user");
-            ComboBoxRole.Items.Add("admin");
+            ComboBoxRole.Items.Add("Employee");
+            ComboBoxRole.Items.Add("Manager");
             ComboBoxRole.SelectedIndex = 0;
 
             DataGridListOfUsers.ItemsSource = Service.Users;

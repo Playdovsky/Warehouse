@@ -5,11 +5,371 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Main"
              mc:Ignorable="d" 
-             d:DesignHeight="420" d:DesignWidth="660"
              Background="LightSkyBlue"
-             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-             >
-    <Grid x:Name="LabelTestWarehosue">
-        <Label Content="Warehouse window" HorizontalAlignment="Center" Margin="86,159,60,0" VerticalAlignment="Top" Height="104" Width="514" Foreground="White" FontSize="56"/>
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DataGrid x:Name="DataGridWarehouse" Grid.Row="1" ItemsSource="{Binding WarehouseView.View}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,70,0,20" Background="LightCyan" BorderThickness="5" BorderBrush="DeepSkyBlue" RowHeight="30" IsReadOnly="True" FontSize="14" MouseDoubleClick="DataGridWarehouse_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Product Name" Binding="{Binding Name}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Type" Binding="{Binding TypeName}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Description" Binding="{Binding Description}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Width="Auto" Header="Measure">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Measure}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Width="*" Header="Price Per Unit" Binding="{Binding PricePerUnit}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Width="Auto" Header="VAT Rate">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Rate}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Width="*" Header="Total Quantity" Binding="{Binding TotalQuantity}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Delivery Quantity" Binding="{Binding Quantity}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Supplier" Binding="{Binding Supplier}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Registering Person" Binding="{Binding RegisteringPerson}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid x:Name="GridProductInfo" Visibility="Visible" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,57,0,0" Grid.RowSpan="2" Width="550" Height="970" >
+            <GroupBox Header="Product Details" FontSize="14" Margin="0,0,2,725"></GroupBox>
+            <StackPanel Margin="10,48,290,852" Height="70">
+                <Label Content="Name:" Width="250" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductHistoryName"  IsEnabled="False" Height="28" Width="250" FontSize="14"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="290,48,10,852" Height="70">
+                <Label Content="Type:" Width="250" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductHistoryType"  IsEnabled="False" Height="28" Width="250" FontSize="14"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" HorizontalAlignment="Left">
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="10,148,290,752" Height="70">
+                <Label Content="Measure:" Width="250" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductHistoryMeasure" IsEnabled="False" Height="28" Width="250" FontSize="14"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="290,332,10,568" Height="70">
+                <Label Content="Price Per Unit:" Width="250" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductHistoryPrice"  IsEnabled="False" Height="28" Width="250" FontSize="14"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <GroupBox Header="Delivery Details" FontSize="14" Margin="0,280,2,340"></GroupBox>
+            <StackPanel Margin="10,332,290,568" Height="70">
+                <Label Content="Rate:" Width="250" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductHistoryRate" IsEnabled="False" Height="28" Width="250" FontSize="14"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="10,432,290,468" Height="70">
+                <Label Content="Total Quantity:" Width="250" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductHistoryTotalQuantity" IsEnabled="False" Height="28" Width="250" FontSize="14"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="290,432,10,468" Height="70">
+                <Label Content="Delivery Quantity:" Width="250" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductHistoryDeliveryQuantity" IsEnabled="False" Height="28" Width="250" FontSize="14"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="10,532,290,368" Height="70">
+                <Label Content="Registering Person:" Width="250" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductHistoryRegisteringPerson" IsEnabled="False" Height="28" Width="250" FontSize="14"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="290,532,10,368" Height="70">
+                <Label Content="Supplier:" Width="250" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductHistorySupplier" IsEnabled="False" Height="28" Width="250" FontSize="14"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="GridNewDelivery" Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,57,0,0" Grid.RowSpan="2" Width="550" Height="970" >
+            <GroupBox Header="New Product" FontSize="14" Margin="0,0,2,465"></GroupBox>
+            <StackPanel Margin="10,32,240,868" Height="70">
+                <Label Content="Name :" Width="299" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductName" Height="33" Width="299" FontSize="18"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="290,400,10,500" Height="70">
+                <Label Content="Type:" FontSize="14" Height="28"/>
+                <ComboBox x:Name="ComboBoxProductType" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0">
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Margin="10,120,10,670" Height="180">
+                <Label Content="Description:" FontSize="14" Height="28"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="150">
+                    <TextBox x:Name="TextBoxProductDescription" FontSize="18"  Height="135" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextWrapping="Wrap" Margin="0,10,0,0"  Padding="5"/>
+                </ScrollViewer>
+            </StackPanel>
+
+            <StackPanel Margin="10,306,290,588">
+                <Label Content="Measure:" FontSize="14" Height="28"/>
+                <ComboBox x:Name="ComboBoxProductMeasure" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <ComboBoxItem Content="Piece" Tag="pcs" />
+                    <ComboBoxItem Content="Kilograms" Tag="kg" />
+                    <ComboBoxItem Content="Liters" Tag="liter" />
+                    <ComboBoxItem Content="Pallet" Tag="pallete" />
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Margin="290,306,10,588">
+                <Label Content="VAT (%):" FontSize="14" Height="28"/>
+                <ComboBox x:Name="ComboBoxProductVat" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0">
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Margin="10,400,290,480">
+                <Label Content="Price Per Unit (USD) :" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxPricePerUnit" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+                <Label  x:Name="PricePerUnitTip" Content="Price should be in the format (e.g., 10.00 or 0)"  Foreground="blue" FontSize="10.7" Height="24" HorizontalAlignment="Center" Margin="0,-3,0,0"/>
+            </StackPanel>
+            <GroupBox Header="New Delivery" FontSize="14" Margin="0,616,2,98"></GroupBox>
+            <StackPanel Margin="12,656,288,244" Height="70">
+                <Label Content="Product:" FontSize="14" Height="28"/>
+                <ComboBox x:Name="ComboBoxProducts" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Margin="292,656,8,244" Height="70">
+                <Label Content="Quantity:" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxQuantity" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="12,756,288,144" Height="70">
+                <Label Content="Supplier company:" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxSupplierCompany" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Margin="290,754,8,128">
+                <Label Content="Delivery Date:"  FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxDeliveryDate" Text="dd.mm.yyyy" Height="33" FontSize="18"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0">
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+                <Label  x:Name="DeliveryDateTip" Content="Delivery date should be in the format (dd.MM.yyyy)"  Foreground="blue" FontSize="10.7" Height="24" HorizontalAlignment="Center" Margin="0,-3,0,0"/>
+            </StackPanel>
+
+            <TextBlock x:Name="UserLoginHolder" Visibility="Collapsed">{x:Null}</TextBlock>
+
+            <Button x:Name="ButtonRegisterDelivery" Content="Register Delivery" Margin="10,900,10,20" Height="50" Foreground="White" FontSize="28" Click="ButtonRegisterDelivery_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Background>
+                    <SolidColorBrush Color="DeepSkyBlue"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="ButtonAddNewProduct" Content="Add new Product" Margin="10,537,10,383" Height="50" Foreground="White" FontSize="28" Background="DeepSkyBlue" Click="ButtonAddNewProduct_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+        </Grid>
+        <Button x:Name="ButtonNewDelivery" Content="New Delivery" Margin="671,5,5,0" Grid.Row="1" VerticalAlignment="Top" Height="48" Foreground="White" FontSize="18" RenderTransformOrigin="0.438,0.524" HorizontalAlignment="Right" Click="ButtonNewDelivery_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}" Padding="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="DodgerBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Background>
+                <SolidColorBrush Color="DeepSkyBlue"/>
+            </Button.Background>
+        </Button>
+        <TextBlock HorizontalAlignment="Left" FontSize="14" Height="28" Margin="10,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"><Run Text="Search"/><Run Language="pl-pl" Text=" &amp; Filter"/></TextBlock>
+        <TextBox x:Name="TextBoxFilterProducts" HorizontalAlignment="Left" Margin="10,29,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" TextChanged="TextBoxFilterProducts_TextChanged" Height="28" Padding="5,0,0,0" FontSize="14" VerticalContentAlignment="Center">
+            <TextBox.Template>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                        <ScrollViewer x:Name="PART_ContentHost"/>
+                    </Border>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
     </Grid>
 </UserControl>

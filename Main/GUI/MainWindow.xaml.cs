@@ -50,6 +50,7 @@ namespace Main
             Service.Exit();
         }
 
+
         /// <summary>
         /// Logs out of current user profile.
         /// </summary>
@@ -65,6 +66,8 @@ namespace Main
                 ButtonLogout.Visibility = Visibility.Collapsed;
                 ButtonPermissions.Visibility = Visibility.Collapsed;
                 ButtonAttributes.Visibility = Visibility.Collapsed;
+                ButtonProductHistory.Visibility = Visibility.Collapsed;
+                LogInControl.CurrentLogin = string.Empty;
 
                 ContentControlWorkspace.Content = new LogInControl();
             }
@@ -85,5 +88,10 @@ namespace Main
         {
             ContentControlWorkspace.Content = new AttributesControl();
         }
+        private void ButtonProductHistory_Click(object sender, RoutedEventArgs e)
+        {
+            ContentControlWorkspace.Content = new ProductHistory();
+        }
+
     }
 }
