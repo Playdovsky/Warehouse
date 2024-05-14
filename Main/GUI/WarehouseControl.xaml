@@ -361,6 +361,15 @@
                 <SolidColorBrush Color="DeepSkyBlue"/>
             </Button.Background>
         </Button>
-        <TextBox x:Name="TextBoxFilterProducts" HorizontalAlignment="Left" Margin="73,38,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="TextBoxFilterProducts_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" FontSize="14" Height="28" Margin="10,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1"><Run Text="Search"/><Run Language="pl-pl" Text=" &amp; Filter"/></TextBlock>
+        <TextBox x:Name="TextBoxFilterProducts" HorizontalAlignment="Left" Margin="10,29,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" TextChanged="TextBoxFilterProducts_TextChanged" Height="28" Padding="5,0,0,0" FontSize="14" VerticalContentAlignment="Center">
+            <TextBox.Template>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                        <ScrollViewer x:Name="PART_ContentHost"/>
+                    </Border>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
     </Grid>
 </UserControl>

@@ -34,19 +34,27 @@
             <CheckBox Content="Name" x:Name="NameCheckBox" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="18" IsChecked="False"/>
             <CheckBox Content="Product Type" x:Name="ProductTypeCheckBox" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="18"/>
             <CheckBox Content="User Name" x:Name="UserNameCheckBox" VerticalAlignment="Center" FontSize="18"/>
-            <TextBox x:Name="FilterTextBox" Width="200" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="18"/>
+            <TextBox x:Name="FilterTextBox" Width="200" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="14" Padding="5,0,0,0" >
+                <TextBox.Template>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </TextBox.Template>
+            </TextBox>
 
         </StackPanel>
 
         <!-- Existing DataGrid to display history data -->
         <DataGrid x:Name="HistoryDataGrid" Grid.Row="2" AutoGenerateColumns="False" Margin="5,20,5,5" FontSize="18" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
-                <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" />
-                <DataGridTextColumn Header="Supplier" Binding="{Binding Supplier}" />
-                <DataGridTextColumn Header="Date of Delivery" Binding="{Binding DateOfDelivery, StringFormat=dd-MM-yyyy}" />
-                <DataGridTextColumn Header="Date of Registration" Binding="{Binding DateOfRegistration, StringFormat=dd-MM-yyyy}" />
-                <DataGridTextColumn Header="User Name" Binding="{Binding UserName}" />
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" Width="200"/>
+                <DataGridTextColumn Header="Supplier" Binding="{Binding Supplier}" Width="200"/>
+                <DataGridTextColumn Header="Date of Delivery" Binding="{Binding DateOfDelivery, StringFormat=dd-MM-yyyy}" Width="200"/>
+                <DataGridTextColumn Header="Date of Registration" Binding="{Binding DateOfRegistration, StringFormat=dd-MM-yyyy}" Width="200"/>
+                <DataGridTextColumn Header="User Name" Binding="{Binding UserName}" Width="250"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
