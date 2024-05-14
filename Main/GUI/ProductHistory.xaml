@@ -47,14 +47,14 @@
         </StackPanel>
 
         <!-- Existing DataGrid to display history data -->
-        <DataGrid x:Name="HistoryDataGrid" Grid.Row="2" AutoGenerateColumns="False" Margin="5,20,5,5" FontSize="18" IsReadOnly="True">
+        <DataGrid x:Name="HistoryDataGrid" Grid.Row="2" AutoGenerateColumns="False" Margin="5,20,5,5" FontSize="18" IsReadOnly="True" Background="LightCyan" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                 <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" Width="200"/>
                 <DataGridTextColumn Header="Supplier" Binding="{Binding Supplier}" Width="200"/>
                 <DataGridTextColumn Header="Date of Delivery" Binding="{Binding DateOfDelivery, StringFormat=dd-MM-yyyy}" Width="200"/>
                 <DataGridTextColumn Header="Date of Registration" Binding="{Binding DateOfRegistration, StringFormat=dd-MM-yyyy}" Width="200"/>
-                <DataGridTextColumn Header="User Name" Binding="{Binding UserName}" Width="250"/>
+                <DataGridTextColumn Header="Registering Person" Binding="{Binding UserName}" Width="210"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
