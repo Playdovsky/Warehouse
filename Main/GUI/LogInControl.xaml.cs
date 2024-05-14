@@ -65,6 +65,9 @@ namespace Main
             CurrentLogin = login;
             Guid userId = Service.GetUserId(login);
 
+            SetProductHistoryVisibility(userId);
+
+
             if (Service.IsPasswordRecoveryRequested(userId))
             {
                 NewPasswordWindow newPasswordWindow = new NewPasswordWindow(userId);
@@ -76,6 +79,8 @@ namespace Main
                     if (userPermissions.Count > 0)
                     {
                         SwitchToWelcomeControl(userPermissions);
+                        
+
                     }
                     else
                     {
@@ -94,6 +99,7 @@ namespace Main
                 {
                     string permissionsText = string.Join(", ", userPermissions);
                     SwitchToWelcomeControl(userPermissions);
+                    
                 }
                 else
                 {
@@ -189,11 +195,30 @@ namespace Main
         /// <summary>
         /// When mouse is up hide inserted password from the user.
         /// </summary>
+
         private void ButtonShowPassword_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             TextBoxShowPassword.Visibility = Visibility.Hidden;
             PasswordBoxLoginForm.Visibility = Visibility.Visible;
         }
-       
+        private void SetProductHistoryVisibility(Guid userId)
+        {
+            string userRole = Service.GetUserRole(userId); // Pobranie roli użytkownika
+
+            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+            if (mainWindow != null)
+            {
+                // Ustawienie widoczności przycisku na podstawie roli
+                mainWindow.ButtonProductHistory.Visibility = userRole == "Manager" ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
     }
+
+
 }
+
+
+
+
+

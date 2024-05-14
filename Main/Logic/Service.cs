@@ -687,5 +687,16 @@ namespace Main
                 context.SaveChanges();
             }
         }
+        
+        
+            public static string GetUserRole(Guid userId)
+            {
+                using (var context = new WarehouseDatabaseEntities())
+                {
+                    var user = context.User.FirstOrDefault(u => u.Id == userId);
+                    return user?.Role ?? string.Empty;  // Assuming 'Role' is a string
+                }
+            }
+        }
+
     }
-}

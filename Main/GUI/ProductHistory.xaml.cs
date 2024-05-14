@@ -25,7 +25,6 @@ namespace Main.GUI
             LoadEmployees();
             SetupFilters();
 
-            // Dodaj obsługę zdarzenia Loaded dla UserControl
             Loaded += (sender, e) => ApplyFilters();
         }
 
@@ -38,7 +37,6 @@ namespace Main.GUI
 
         private void SetupFilters()
         {
-            // Ustawienie filtrów dla każdej kontrolki
             ProductTypeComboBox.SelectionChanged += (s, e) => ApplyFilters();
             EmployeeComboBox.SelectionChanged += (s, e) => ApplyFilters();
             FilterTextBox.TextChanged += (s, e) => ApplyFilters();
@@ -48,7 +46,12 @@ namespace Main.GUI
             ProductTypeCheckBox.Unchecked += (s, e) => ApplyFilters();
             UserNameCheckBox.Checked += (s, e) => ApplyFilters();
             UserNameCheckBox.Unchecked += (s, e) => ApplyFilters();
+            StartDatePicker.SelectedDateChanged += (s, e) => ApplyFilters();
+            EndDatePicker.SelectedDateChanged += (s, e) => ApplyFilters();
+            DateFilterCheckBox.Checked += (s, e) => ApplyFilters();
+            DateFilterCheckBox.Unchecked += (s, e) => ApplyFilters();
         }
+
 
         private void LoadProductTypes()
         {
@@ -79,17 +82,19 @@ namespace Main.GUI
                 bool filterByName = NameCheckBox.IsChecked == true && !string.IsNullOrEmpty(FilterTextBox.Text);
                 bool filterByProductType = ProductTypeCheckBox.IsChecked == true && ProductTypeComboBox.SelectedValue != null;
                 bool filterByUserName = UserNameCheckBox.IsChecked == true && EmployeeComboBox.SelectedValue != null;
+                bool filterByDate = DateFilterCheckBox.IsChecked == true && StartDatePicker.SelectedDate != null && EndDatePicker.SelectedDate != null;
 
                 bool nameMatches = filterByName ? (history.ProductName != null && history.ProductName.Contains(FilterTextBox.Text)) : true;
                 bool productTypeMatches = filterByProductType ? (history.ProductType != null && history.ProductType == (ProductTypeComboBox.SelectedItem as ProductType)?.TypeName) : true;
                 bool userNameMatches = filterByUserName ? (history.UserName != null && history.UserName == (EmployeeComboBox.SelectedItem as dynamic)?.FullName) : true;
+                bool dateMatches = filterByDate ? (history.DateOfRegistration >= StartDatePicker.SelectedDate && history.DateOfRegistration <= EndDatePicker.SelectedDate) : true;
 
-                return nameMatches && productTypeMatches && userNameMatches;
+                return nameMatches && productTypeMatches && userNameMatches && dateMatches;
             };
 
-            // Odśwież widok po zastosowaniu filtrów
             _filteredProductHistoryView.Refresh();
         }
-       
+
+
     }
 }

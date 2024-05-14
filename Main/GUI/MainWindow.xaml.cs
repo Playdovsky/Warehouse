@@ -66,6 +66,7 @@ namespace Main
                 ButtonLogout.Visibility = Visibility.Collapsed;
                 ButtonPermissions.Visibility = Visibility.Collapsed;
                 ButtonAttributes.Visibility = Visibility.Collapsed;
+                ButtonProductHistory.Visibility = Visibility.Collapsed;
                 LogInControl.CurrentLogin = string.Empty;
 
                 ContentControlWorkspace.Content = new LogInControl();

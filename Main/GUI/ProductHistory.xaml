@@ -13,21 +13,20 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Existing StackPanel for Date Pickers -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
             <Label Content="Start Date:" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="18"/>
             <DatePicker x:Name="StartDatePicker" VerticalAlignment="Center" FontSize="18"/>
             <Label Content="End Date:" VerticalAlignment="Center" Margin="20,0,10,0" FontSize="18"/>
-            <DatePicker x:Name="EndDatePicker" VerticalAlignment="Center" FontSize="18"/>
+            <DatePicker x:Name="EndDatePicker" VerticalAlignment="Center" FontSize="18" Width="155"/>
         </StackPanel>
 
 
-        <!-- Existing StackPanel for Product Type ComboBox and Employee ComboBox -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
             <Label Content="Product Type:" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="18"/>
             <ComboBox x:Name="ProductTypeComboBox" Width="200" DisplayMemberPath="TypeName" SelectedValuePath="Id" VerticalAlignment="Center" FontSize="18"/>
             <Label Content="Employee:" VerticalAlignment="Center" Margin="20,0,10,0" FontSize="18"/>
             <ComboBox x:Name="EmployeeComboBox" Width="200" DisplayMemberPath="FullName" SelectedValuePath="Id" VerticalAlignment="Center" FontSize="18"/>
+            <CheckBox x:Name="DateFilterCheckBox" Content="Enable Date Filter" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="18"/>
         </StackPanel>
 
         <!-- New StackPanel for Checkboxes and TextBox -->
@@ -36,6 +35,7 @@
             <CheckBox Content="Product Type" x:Name="ProductTypeCheckBox" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="18"/>
             <CheckBox Content="User Name" x:Name="UserNameCheckBox" VerticalAlignment="Center" FontSize="18"/>
             <TextBox x:Name="FilterTextBox" Width="200" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="18"/>
+
         </StackPanel>
 
         <!-- Existing DataGrid to display history data -->
