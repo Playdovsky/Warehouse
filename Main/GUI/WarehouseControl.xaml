@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="DataGridWarehouse" Grid.Row="1" ItemsSource="{Binding WarehouseView.View}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,70,0,20" Background="LightCyan" BorderThickness="5" BorderBrush="DeepSkyBlue" RowHeight="30" IsReadOnly="True" FontSize="14" MouseDoubleClick="DataGridWarehouse_MouseDoubleClick">
+        <DataGrid x:Name="DataGridWarehouse" Grid.Row="1" ItemsSource="{Binding WarehouseView.View}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,70,0,20" Background="LightCyan" BorderThickness="5" BorderBrush="DeepSkyBlue" RowHeight="30" IsReadOnly="True" FontSize="14" MouseDoubleClick="DataGridWarehouse_MouseDoubleClick" MouseRightButtonDown="DataGridWarehouse_MouseRightButtonDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Product Name" Binding="{Binding Name}" >
                     <DataGridTextColumn.HeaderStyle>

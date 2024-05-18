@@ -201,14 +201,14 @@ namespace Main
             TextBoxShowPassword.Visibility = Visibility.Hidden;
             PasswordBoxLoginForm.Visibility = Visibility.Visible;
         }
+
         private void SetProductHistoryVisibility(Guid userId)
         {
-            string userRole = Service.GetUserRole(userId); // Pobranie roli użytkownika
+            string userRole = Service.GetUserRole(userId);
 
             MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
             if (mainWindow != null)
             {
-                // Ustawienie widoczności przycisku na podstawie roli
                 mainWindow.ButtonProductHistory.Visibility = userRole == "Manager" ? Visibility.Visible : Visibility.Collapsed;
             }
         }

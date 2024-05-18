@@ -171,6 +171,15 @@
     <Compile Include="GUI\SalesControl.xaml.cs">
       <DependentUpon>SalesControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\VATControl.xaml.cs">
+      <DependentUpon>VATControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\VATTypeControl.xaml.cs">
+      <DependentUpon>VATTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\VATWindow.xaml.cs">
+      <DependentUpon>VATWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\WelcomeControl.xaml.cs">
       <DependentUpon>WelcomeControl.xaml</DependentUpon>
     </Compile>
@@ -279,6 +288,18 @@
     <Page Include="GUI\SalesControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\VATControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\VATTypeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\VATWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\WelcomeControl.xaml">
       <Generator>MSBuild:Compile</Generator>

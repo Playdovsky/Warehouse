@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Main.GUI.VATControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Main.GUI"
+             mc:Ignorable="d" Height="250" Width="425"
+             Background="White">
+    <Grid>
+        <Label x:Name="LabelVAT" Content="VAT Information" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="ComboBoxVAT" HorizontalAlignment="Left" Margin="110,89,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.52,0.592"/>
+        <Label Content="New VAT rate" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonConfirm" Content="Confirm" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="95" Click="ButtonConfirm_Click" Height="30"/>
+    </Grid>
+</UserControl>

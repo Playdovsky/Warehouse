@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Main.GUI;
+using System;
 using System.Data;
 using System.Globalization;
 using System.Linq;
@@ -113,7 +114,6 @@ namespace Main
                 originalDataGridWidth = DataGridWarehouse.ActualWidth;
                 reducedDataGridWidth = originalDataGridWidth - (originalDataGridWidth / 3.0);
             }
-
 
             if (DataGridWarehouse.ActualWidth <= reducedDataGridWidth)
             {
@@ -304,5 +304,60 @@ namespace Main
             var filterProducts = Service.Warehouse.Where(x => x.Name.ToLower().Contains(filter) || x.TypeName.ToLower().Contains(filter) || x.RegisteringPerson.ToLower().Contains(filter)).ToList();
             DataGridWarehouse.ItemsSource = filterProducts;
         }
+
+        private void DataGridWarehouse_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            string currentUserLogin = LogInControl.CurrentLogin;
+            Guid userId = Service.GetUserId(currentUserLogin);
+            string userRole = Service.GetUserRole(userId);
+
+            if (userRole == "Manager" || Service.GetUserPermissions(userId).Contains(1))
+            {
+                WarehouseView selectedProduct = (WarehouseView)DataGridWarehouse.SelectedItem;
+                if(selectedProduct != null) 
+                {
+                    ShowContextMenu(selectedProduct);
+                }
+            }
+        }
+
+        private void ShowContextMenu(WarehouseView selectedProduct)
+        {
+            ContextMenu contextMenu = new ContextMenu();
+
+            MenuItem menuItemSingle = new MenuItem { Header = "Change VAT rate for selected Product" };
+            menuItemSingle.Click += (s, e) => MenuItemSingle_Click(s, e, selectedProduct);
+            contextMenu.Items.Add(menuItemSingle);
+
+            MenuItem menuItemAll = new MenuItem { Header = "Change VAT rate for every product of this type" };
+            menuItemAll.Click += (s, e) => MenuItemAll_Click(s, e, selectedProduct);
+            contextMenu.Items.Add(menuItemAll);
+
+            DataGridWarehouse.ContextMenu = contextMenu;
+            contextMenu.IsOpen = true;
+        }
+
+        private void MenuItemSingle_Click(object sender, RoutedEventArgs e, WarehouseView selectedProduct)
+        {
+            bool singleVAT = true;
+            if (selectedProduct != null)
+            {
+                VATWindow vatWindow = new VATWindow(singleVAT, selectedProduct);
+                vatWindow.ShowDialog();
+                LoadWarehouse();
+            }
+        }
+
+        private void MenuItemAll_Click(object sender, RoutedEventArgs e, WarehouseView selectedProduct)
+        {
+            bool singleVAT = false;
+            if (selectedProduct != null)
+            {
+                VATWindow vatWindow = new VATWindow(singleVAT, selectedProduct);
+                vatWindow.ShowDialog();
+                LoadWarehouse();
+            }
+        }
+
     }
 }
