@@ -40,6 +40,7 @@ namespace Main
         public virtual DbSet<Stock> Stock { get; set; }
         public virtual DbSet<WarehouseView> WarehouseView { get; set; }
         public virtual DbSet<ProductsHistoryExtended> ProductsHistoryExtended { get; set; }
+        public virtual DbSet<ProductVATChange> ProductVATChange { get; set; }
     
         public virtual int AddUserPasswordHistory(Nullable<System.Guid> userId, string password, Nullable<System.DateTime> changeDate)
         {
