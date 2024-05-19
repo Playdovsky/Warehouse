@@ -42,6 +42,7 @@ namespace Main
         {
             GridProductInfo.Visibility = Visibility.Hidden;
             GridNewDelivery.Visibility = Visibility.Hidden;
+            GridNewProduct.Visibility = Visibility.Hidden;
         }
         private void DataGridWarehouse_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -154,6 +155,54 @@ namespace Main
             }
         }
 
+        private void ButtonNewProduct_Click(object sender, RoutedEventArgs e)
+        {
+            HideAllGrids();
+            if (!dataGridReduced)
+            {
+                originalDataGridWidth = DataGridWarehouse.ActualWidth;
+                reducedDataGridWidth = originalDataGridWidth - (originalDataGridWidth / 3.0);
+            }
+
+            if (DataGridWarehouse.ActualWidth <= reducedDataGridWidth)
+            {
+                DoubleAnimation slideInAnimation = new DoubleAnimation
+                {
+                    From = 0,
+                    To = 550,
+                    Duration = TimeSpan.FromSeconds(0.5)
+                };
+
+                GridNewProduct.BeginAnimation(WidthProperty, slideInAnimation);
+                GridNewProduct.Visibility = Visibility.Visible;
+            }
+            else if (!dataGridReduced && DataGridWarehouse.ActualWidth > reducedDataGridWidth)
+            {
+                DoubleAnimation reduceWidthAnimation = new DoubleAnimation
+                {
+                    From = DataGridWarehouse.ActualWidth,
+                    To = reducedDataGridWidth,
+                    Duration = TimeSpan.FromSeconds(0.5)
+                };
+
+                reduceWidthAnimation.Completed += (s, args) =>
+                {
+                    DoubleAnimation slideInAnimation = new DoubleAnimation
+                    {
+                        From = 0,
+                        To = 550,
+                        Duration = TimeSpan.FromSeconds(0.5)
+                    };
+                    GridNewProduct.Visibility = Visibility.Visible;
+
+                    GridNewProduct.BeginAnimation(WidthProperty, slideInAnimation);
+                };
+
+                DataGridWarehouse.BeginAnimation(WidthProperty, reduceWidthAnimation);
+                dataGridReduced = true;
+            }
+        }
+
         private void ButtonAddNewProduct_Click(object sender, RoutedEventArgs e)
         {
 
@@ -231,7 +280,7 @@ namespace Main
             ComboBoxProducts.SelectedIndex = -1;
             TextBoxQuantity.Text = string.Empty;
             TextBoxSupplierCompany.Text = string.Empty;
-            TextBoxDeliveryDate.Text = string.Empty;
+            DatePickerDeliveryDate.SelectedDate = null;
         }
 
 
@@ -256,25 +305,31 @@ namespace Main
                     throw new FormatException("Please enter the supplier's company name.");
                 }
 
+                var selectedProduct = ComboBoxProducts.SelectedItem as Products;
+                if (selectedProduct == null)
+                {
+                    throw new Exception("Selected product could not be found.");
+                }
+
                 string currentUserLogin = LogInControl.CurrentLogin;
                 Guid userId = Service.GetUserId(currentUserLogin);
 
                 ProductsHistory newDelivery = new ProductsHistory
                 {
-                    IdProduct = ComboBoxProducts.SelectedIndex + 1,
-                    Quantity= quantity,
+                    IdProduct = selectedProduct.Id,
+                    Quantity = quantity,
                     Supplier= TextBoxSupplierCompany.Text,
                     DateOfRegistration= DateTime.Today,
                     IdUser = userId,
                 };
 
-                if (DateTime.TryParseExact(TextBoxDeliveryDate.Text, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime deliveryDate))
+                if (DatePickerDeliveryDate.SelectedDate.HasValue)
                 {
-                    newDelivery.DateOfDelivery = deliveryDate;
+                    newDelivery.DateOfDelivery = DatePickerDeliveryDate.SelectedDate.Value;
                 }
                 else
                 {
-                    MessageBox.Show("The entered date is not in the correct format (dd.MM.yyyy). Please make sure to enter your birth date in the format day.month.year (e.g., 15.03.1990).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Please select a delivery date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -358,6 +413,5 @@ namespace Main
                 LoadWarehouse();
             }
         }
-
     }
 }
