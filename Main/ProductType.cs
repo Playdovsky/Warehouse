@@ -18,6 +18,7 @@ namespace Main
         public ProductType()
         {
             this.Products = new HashSet<Products>();
+            this.ProductTypeVATChange = new HashSet<ProductTypeVATChange>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,7 @@ namespace Main
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products> Products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductTypeVATChange> ProductTypeVATChange { get; set; }
     }
 }

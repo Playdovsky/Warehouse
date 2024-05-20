@@ -17,6 +17,8 @@ namespace Main.GUI
             InitializeContent(selectedProduct);
             _selectedProduct = selectedProduct;
 
+            Service.ApplyScheduledVatChanges();
+
             CheckBoxImmediateChange.Checked += CheckBoxImmediateChange_CheckedChanged;
             CheckBoxImmediateChange.Unchecked += CheckBoxImmediateChange_CheckedChanged;
         }
@@ -30,7 +32,7 @@ namespace Main.GUI
 
         private void CheckBoxImmediateChange_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (CheckBoxImmediateChange != null) 
+            if (CheckBoxImmediateChange != null)
             {
                 DatePickerEffectiveDate.IsEnabled = !(CheckBoxImmediateChange.IsChecked ?? false);
             }
@@ -56,17 +58,14 @@ namespace Main.GUI
 
             using (var context = new WarehouseDatabaseEntities())
             {
-               
                 if (!applyImmediately)
                 {
-                    
                     if (effectiveDate <= DateTime.Now.Date)
                     {
                         MessageBox.Show("Effective date for VAT change cannot be in the past.");
-                        return; 
+                        return;
                     }
 
-                    
                     var vatChange = new ProductVATChange
                     {
                         ProductId = productToUpdate.Id,
@@ -78,7 +77,6 @@ namespace Main.GUI
                 }
                 else
                 {
-                    
                     productToUpdate.IdVAT = IdVAT;
                     context.Products.Attach(productToUpdate);
                     context.Entry(productToUpdate).State = EntityState.Modified;
@@ -92,6 +90,6 @@ namespace Main.GUI
             parentWindow.Close();
         }
 
-
+        
     }
 }

@@ -206,6 +206,9 @@
     <Compile Include="ProductType.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductTypeVATChange.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProductVAT.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>

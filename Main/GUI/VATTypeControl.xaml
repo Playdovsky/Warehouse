@@ -8,8 +8,11 @@
              Background="White">
     <Grid>
         <Label x:Name="LabelVAT" Content="VAT Information" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="ComboBoxVAT" HorizontalAlignment="Left" Margin="110,89,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.52,0.592"/>
+        <ComboBox x:Name="ComboBoxVAT" HorizontalAlignment="Left" Margin="110,89,0,0" VerticalAlignment="Top" Width="200" RenderTransformOrigin="0.52,0.592"/>
         <Label Content="New VAT rate" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top"/>
         <Button x:Name="ButtonConfirm" Content="Confirm" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="95" Click="ButtonConfirm_Click" Height="30"/>
+        <CheckBox x:Name="CheckBoxImmediateChange" Content="Apply Immediately" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Checked="CheckBoxImmediateChange_CheckedChanged" Unchecked="CheckBoxImmediateChange_CheckedChanged"/>
+        <Label Content="Effective Date" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="DatePickerEffectiveDate" HorizontalAlignment="Left" Margin="110,150,0,0" VerticalAlignment="Top" Width="200"/>
     </Grid>
 </UserControl>

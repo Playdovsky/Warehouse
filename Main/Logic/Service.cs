@@ -696,6 +696,68 @@ namespace Main
                 return user?.Role ?? string.Empty;
             }
         }
+        
+        public static void ApplyScheduledVatChanges()
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                DateTime today = DateTime.Today;
+
+                var vatChanges = context.ProductVATChange
+                    .Where(c => c.EffectiveDate <= today)
+                    .ToList();
+
+                foreach (var vatChange in vatChanges)
+                {
+                    var product = context.Products.FirstOrDefault(p => p.Id == vatChange.ProductId);
+                    if (product != null)
+                    {
+                        product.IdVAT = vatChange.VatId;
+                        context.Products.Attach(product);
+                        context.Entry(product).State = EntityState.Modified;
+                    }
+
+                    context.ProductVATChange.Remove(vatChange);
+                }
+
+                context.SaveChanges();
+            }
+        }
+        public static void ApplyScheduledTypeVatChanges()
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                DateTime today = DateTime.Today;
+
+                var vatChanges = context.ProductTypeVATChange
+                    .Where(v => v.EffectiveDate <= today)
+                    .ToList();
+
+                foreach (var vatChange in vatChanges)
+                {
+                    // Pobierz wszystkie produkty o danym typie
+                    var productsToUpdate = context.Products
+                        .Where(p => p.IdType == vatChange.ProductTypeId)
+                        .ToList();
+
+                    // Aktualizuj stawkę VAT dla każdego produktu
+                    foreach (var product in productsToUpdate)
+                        if (product != null)
+                        {
+                        product.IdVAT = vatChange.VatId;
+                        context.Products.Attach(product);
+                        context.Entry(product).State = EntityState.Modified;
+                    }
+
+                    // Usuń przetworzoną zmianę VAT
+                    context.ProductTypeVATChange.Remove(vatChange);
+                }
+
+                // Zapisz zmiany w bazie danych
+                context.SaveChanges();
+            }
+        }
+
     }
 
 }

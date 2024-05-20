@@ -43,6 +43,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TypeName" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProductTypeVATChange">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductTypeId" Type="int" />
+          <Property Name="VatId" Type="int" />
+          <Property Name="EffectiveDate" Type="date" />
+        </EntityType>
         <EntityType Name="ProductVAT">
           <Key>
             <PropertyRef Name="Id" />
@@ -218,6 +227,30 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ProductTy__Produ__1332DBDC">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="0..1" />
+          <End Role="ProductTypeVATChange" Type="Self.ProductTypeVATChange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductTypeVATChange">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductTy__VatId__14270015">
+          <End Role="ProductVAT" Type="Self.ProductVAT" Multiplicity="0..1" />
+          <End Role="ProductTypeVATChange" Type="Self.ProductTypeVATChange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVAT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductTypeVATChange">
+              <PropertyRef Name="VatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ProductVA__Produ__02FC7413">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
           <End Role="ProductVATChange" Type="Self.ProductVATChange" Multiplicity="*" />
@@ -331,6 +364,7 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsHistory" EntityType="Self.ProductsHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTypeVATChange" EntityType="Self.ProductTypeVATChange" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductVAT" EntityType="Self.ProductVAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductVATChange" EntityType="Self.ProductVATChange" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
@@ -407,6 +441,14 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
           <AssociationSet Name="FK__ProductsH__IdUse__66603565" Association="Self.FK__ProductsH__IdUse__66603565">
             <End Role="User" EntitySet="User" />
             <End Role="ProductsHistory" EntitySet="ProductsHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductTy__Produ__1332DBDC" Association="Self.FK__ProductTy__Produ__1332DBDC">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="ProductTypeVATChange" EntitySet="ProductTypeVATChange" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductTy__VatId__14270015" Association="Self.FK__ProductTy__VatId__14270015">
+            <End Role="ProductVAT" EntitySet="ProductVAT" />
+            <End Role="ProductTypeVATChange" EntitySet="ProductTypeVATChange" />
           </AssociationSet>
           <AssociationSet Name="FK__ProductVA__Produ__02FC7413" Association="Self.FK__ProductVA__Produ__02FC7413">
             <End Role="Products" EntitySet="Products" />
@@ -511,6 +553,15 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
           <AssociationSet Name="FK__ProductVA__VatId__03F0984C" Association="WarehouseDatabaseModel.FK__ProductVA__VatId__03F0984C">
             <End Role="ProductVAT" EntitySet="ProductVAT" />
             <End Role="ProductVATChange" EntitySet="ProductVATChange" />
+          </AssociationSet>
+          <EntitySet Name="ProductTypeVATChange" EntityType="WarehouseDatabaseModel.ProductTypeVATChange" />
+          <AssociationSet Name="FK__ProductTy__Produ__1332DBDC" Association="WarehouseDatabaseModel.FK__ProductTy__Produ__1332DBDC">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="ProductTypeVATChange" EntitySet="ProductTypeVATChange" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductTy__VatId__14270015" Association="WarehouseDatabaseModel.FK__ProductTy__VatId__14270015">
+            <End Role="ProductVAT" EntitySet="ProductVAT" />
+            <End Role="ProductTypeVATChange" EntitySet="ProductTypeVATChange" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserPermissions">
@@ -674,6 +725,7 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Products" Relationship="WarehouseDatabaseModel.FK_IdType" FromRole="ProductType" ToRole="Products" />
+          <NavigationProperty Name="ProductTypeVATChange" Relationship="WarehouseDatabaseModel.FK__ProductTy__Produ__1332DBDC" FromRole="ProductType" ToRole="ProductTypeVATChange" />
         </EntityType>
         <EntityType Name="ProductVAT">
           <Key>
@@ -683,6 +735,7 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
           <Property Name="Rate" Type="Int32" />
           <NavigationProperty Name="Products" Relationship="WarehouseDatabaseModel.FK_IdVAT" FromRole="ProductVAT" ToRole="Products" />
           <NavigationProperty Name="ProductVATChange" Relationship="WarehouseDatabaseModel.FK__ProductVA__VatId__03F0984C" FromRole="ProductVAT" ToRole="ProductVATChange" />
+          <NavigationProperty Name="ProductTypeVATChange" Relationship="WarehouseDatabaseModel.FK__ProductTy__VatId__14270015" FromRole="ProductVAT" ToRole="ProductTypeVATChange" />
         </EntityType>
         <EntityType Name="Stock">
           <Key>
@@ -827,6 +880,41 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProductVATChange">
+              <PropertyRef Name="VatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductTypeVATChange">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductTypeId" Type="Int32" />
+          <Property Name="VatId" Type="Int32" />
+          <Property Name="EffectiveDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ProductType" Relationship="WarehouseDatabaseModel.FK__ProductTy__Produ__1332DBDC" FromRole="ProductTypeVATChange" ToRole="ProductType" />
+          <NavigationProperty Name="ProductVAT" Relationship="WarehouseDatabaseModel.FK__ProductTy__VatId__14270015" FromRole="ProductTypeVATChange" ToRole="ProductVAT" />
+        </EntityType>
+        <Association Name="FK__ProductTy__Produ__1332DBDC">
+          <End Type="WarehouseDatabaseModel.ProductType" Role="ProductType" Multiplicity="0..1" />
+          <End Type="WarehouseDatabaseModel.ProductTypeVATChange" Role="ProductTypeVATChange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductTypeVATChange">
+              <PropertyRef Name="ProductTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductTy__VatId__14270015">
+          <End Type="WarehouseDatabaseModel.ProductVAT" Role="ProductVAT" Multiplicity="0..1" />
+          <End Type="WarehouseDatabaseModel.ProductTypeVATChange" Role="ProductTypeVATChange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductVAT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductTypeVATChange">
               <PropertyRef Name="VatId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1011,6 +1099,16 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
                 <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
                 <ScalarProperty Name="VatId" ColumnName="VatId" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypeVATChange">
+            <EntityTypeMapping TypeName="WarehouseDatabaseModel.ProductTypeVATChange">
+              <MappingFragment StoreEntitySet="ProductTypeVATChange">
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="VatId" ColumnName="VatId" />
+                <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

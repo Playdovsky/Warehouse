@@ -16,6 +16,8 @@ namespace Main
         {
             InitializeComponent();
             ContentControlWorkspace.Content = new LogInControl();
+            Service.ApplyScheduledVatChanges();
+            Service.ApplyScheduledTypeVatChanges();
         }
 
         /// <summary>
