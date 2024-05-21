@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Main.GUI"
         mc:Ignorable="d"
+        Background="LightSkyBlue"
         Title="VAT rate" Height="250" Width="425">
     <Grid>
         <ContentControl x:Name="ContentControlVAT" Content="" HorizontalAlignment="Center" Height="220" VerticalAlignment="Center" Width="425"/>
