@@ -224,6 +224,11 @@ namespace Main
                 {
                     throw new FormatException("Please select VAT rate.");
                 }
+                var selectedVatId = ComboBoxProductVat.SelectedItem as ProductVAT;
+                if (selectedVatId == null)
+                {
+                    throw new Exception("Selected VAT rate could not be found.");
+                }
 
                 string priceInput = TextBoxPricePerUnit.Text;
                 bool isPriceValid=Service.ValidatePrice(priceInput);
@@ -238,14 +243,19 @@ namespace Main
                         {
                             throw new FormatException("Please select product type.");
                         }
+                        var selectedTypeId = ComboBoxProductType.SelectedItem as ProductType;
+                        if (selectedTypeId == null)
+                        {
+                            throw new Exception("Selected product type could not be found.");
+                        }
 
                         Products newProduct = new Products
                         {
-                            IdType = ComboBoxProductType.SelectedIndex + 1,
+                            IdType = selectedTypeId.Id,
                             Measure = measureTag,
                             Name = TextBoxProductName.Text,
                             PricePerUnit = roundedPrice,
-                            IdVAT = ComboBoxProductVat.SelectedIndex + 1,
+                            IdVAT = selectedVatId.Id,
                             Description = TextBoxProductDescription.Text,
                         };
                         Service.AddProduct(newProduct);
