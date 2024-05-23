@@ -42,11 +42,15 @@ namespace Main.GUI
             bool applyImmediately = CheckBoxImmediateChange.IsChecked ?? false;
             DateTime effectiveDate = applyImmediately ? DateTime.Now.Date : (DatePickerEffectiveDate.SelectedDate ?? DateTime.Now.Date);
 
-            string message; 
+            string message;
+            if (ComboBoxVAT.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a VAT rate.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return; 
+            }
 
             using (var context = new WarehouseDatabaseEntities())
             {
-                
                 var productsToUpdate = context.Products.Include(p => p.ProductType)
                                             .Where(p => p.ProductType.TypeName == _selectedProduct.TypeName).ToList();
 
@@ -67,17 +71,14 @@ namespace Main.GUI
                         return;
                     }
 
-                    
-                    foreach (var product in productsToUpdate)
+                    var typeVatChange = new ProductTypeVATChange
                     {
-                        var vatChange = new ProductVATChange
-                        {
-                            ProductId = product.Id,
-                            VatId = IdVAT,
-                            EffectiveDate = effectiveDate
-                        };
-                        context.ProductVATChange.AddOrUpdate(vatChange);
-                    }
+                        ProductTypeId = productsToUpdate.First().IdType,
+                        VatId = IdVAT,
+                        EffectiveDate = effectiveDate
+                    };
+                    context.ProductTypeVATChange.AddOrUpdate(typeVatChange);
+
                     message += $" effective from {effectiveDate.ToShortDateString()}";
                 }
                 else
@@ -98,6 +99,5 @@ namespace Main.GUI
             parentWindow.Close();
         }
 
-        
     }
 }
