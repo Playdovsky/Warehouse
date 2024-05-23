@@ -45,6 +45,11 @@ namespace Main.GUI
             DateTime effectiveDate = applyImmediately ? DateTime.Now.Date : (DatePickerEffectiveDate.SelectedDate ?? DateTime.Now.Date);
 
             var productToUpdate = Service.Products.FirstOrDefault(p => p.Name == _selectedProduct.Name && p.Description == _selectedProduct.Description);
+            if (ComboBoxVAT.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a VAT rate.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             string message;
             if (IdVAT != 5)

@@ -735,12 +735,12 @@ namespace Main
 
                 foreach (var vatChange in vatChanges)
                 {
-                    // Pobierz wszystkie produkty o danym typie
+
                     var productsToUpdate = context.Products
                         .Where(p => p.IdType == vatChange.ProductTypeId)
                         .ToList();
 
-                    // Aktualizuj stawkę VAT dla każdego produktu
+
                     foreach (var product in productsToUpdate)
                         if (product != null)
                         {
@@ -749,11 +749,11 @@ namespace Main
                         context.Entry(product).State = EntityState.Modified;
                     }
 
-                    // Usuń przetworzoną zmianę VAT
+
                     context.ProductTypeVATChange.Remove(vatChange);
                 }
 
-                // Zapisz zmiany w bazie danych
+
                 context.SaveChanges();
             }
         }
