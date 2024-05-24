@@ -1,5 +1,6 @@
 ﻿using Main.GUI;
 using System;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
 using System.Linq;
@@ -31,12 +32,16 @@ namespace Main
             ComboBoxProductType.ItemsSource = Service.ProductType;
             ComboBoxProductType.DisplayMemberPath = "TypeName";
 
-            ComboBoxProductVat.ItemsSource = Service.ProductVAT;
-            ComboBoxProductVat.DisplayMemberPath = "Rate";
+            LoadProductVAT();
 
             DataGridWarehouse.ItemsSource = Service.Warehouse;
         }
 
+        private void LoadProductVAT()
+        {
+            var productVATs = new ObservableCollection<ProductVAT>(Service.ProductVAT);
+            ComboBoxProductVat.ItemsSource = productVATs;
+        }
 
         private void HideAllGrids()
         {
@@ -205,7 +210,6 @@ namespace Main
 
         private void ButtonAddNewProduct_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
                 if (string.IsNullOrEmpty(TextBoxProductName.Text))
@@ -271,6 +275,7 @@ namespace Main
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void LoadProducts()
         {
             Service.LoadProducts();
@@ -422,6 +427,12 @@ namespace Main
                 vatWindow.ShowDialog();
                 LoadWarehouse();
             }
+        }
+
+        private void DatePickerDeliveryDate_Loaded(object sender, RoutedEventArgs e)
+        {
+            DateTime today = DateTime.Today;
+            DatePickerDeliveryDate.BlackoutDates.Add(new CalendarDateRange(today.AddDays(1), DateTime.MaxValue));
         }
     }
 }

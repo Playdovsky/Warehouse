@@ -90,10 +90,10 @@ namespace Main
         {
             ContentControlWorkspace.Content = new AttributesControl();
         }
+
         private void ButtonProductHistory_Click(object sender, RoutedEventArgs e)
         {
             ContentControlWorkspace.Content = new ProductHistory();
         }
-
     }
 }

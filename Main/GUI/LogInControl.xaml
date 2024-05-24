@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="660"
              Background="LightSkyBlue"
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="450">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="450" KeyDown="Grid_KeyDown">
         <Label Content="Log In" Foreground="White"  Margin="254,21,254,354"  Width="152" FontSize="48" FontWeight="Bold"/>
 
         <StackPanel Margin="173,113,173,254">

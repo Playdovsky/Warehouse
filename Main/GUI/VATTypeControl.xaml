@@ -8,7 +8,24 @@
              Background="LightSkyBlue">
     <Grid>
         <Label x:Name="LabelVAT" Content="VAT Information" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="ComboBoxVAT" HorizontalAlignment="Left" Margin="110,89,0,0" VerticalAlignment="Top" Width="200" RenderTransformOrigin="0.52,0.592"/>
+        <ComboBox x:Name="ComboBoxVAT" HorizontalAlignment="Left" Margin="110,89,0,0" VerticalAlignment="Top" Width="200" RenderTransformOrigin="0.52,0.592">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="{Binding Rate}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Rate}" Value="{x:Null}">
+                                        <Setter Property="Text" Value="exempt" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Label Content="New VAT rate" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top"/>
         <Button x:Name="ButtonConfirm" Content="Confirm" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="95" Click="ButtonConfirm_Click" Height="30">
             <Button.Template>

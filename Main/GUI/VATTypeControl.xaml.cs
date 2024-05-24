@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Collections.ObjectModel;
 
 
 namespace Main.GUI
@@ -21,6 +22,7 @@ namespace Main.GUI
             CheckBoxImmediateChange.Checked += CheckBoxImmediateChange_CheckedChanged;
             CheckBoxImmediateChange.Unchecked += CheckBoxImmediateChange_CheckedChanged;
         }
+
         private void CheckBoxImmediateChange_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (CheckBoxImmediateChange != null)
@@ -28,12 +30,12 @@ namespace Main.GUI
                 DatePickerEffectiveDate.IsEnabled = !(CheckBoxImmediateChange.IsChecked ?? false);
             }
         }
+
         private void InitializeContent(WarehouseView selectedProduct)
         {
             LabelVAT.Content = $"Product {selectedProduct.Name} of type {selectedProduct.TypeName} has VAT rate of {selectedProduct.Rate}%\nYou can change VAT rate for every product of {selectedProduct.TypeName} type below";
-            ComboBoxVAT.ItemsSource = Service.ProductVAT;
-            ComboBoxVAT.DisplayMemberPath = "Rate";
-
+            var productVATs = new ObservableCollection<ProductVAT>(Service.ProductVAT);
+            ComboBoxVAT.ItemsSource = productVATs;
         }
 
         private void ButtonConfirm_Click(object sender, RoutedEventArgs e)
@@ -42,12 +44,16 @@ namespace Main.GUI
             bool applyImmediately = CheckBoxImmediateChange.IsChecked ?? false;
             DateTime effectiveDate = applyImmediately ? DateTime.Now.Date : (DatePickerEffectiveDate.SelectedDate ?? DateTime.Now.Date);
 
+            ProductVAT selectedProductVAT = ComboBoxVAT.SelectedItem as ProductVAT;
+
             string message;
             if (ComboBoxVAT.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a VAT rate.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return; 
             }
+
+            string vatRate = selectedProductVAT != null && selectedProductVAT.Rate != null ? selectedProductVAT.Rate.ToString() : "exempt";
 
             using (var context = new WarehouseDatabaseEntities())
             {
@@ -56,7 +62,7 @@ namespace Main.GUI
 
                 if (IdVAT != 5)
                 {
-                    message = $"VAT rate for all products of type {_selectedProduct.TypeName} has been updated to {ComboBoxVAT.Text}%";
+                    message = $"VAT rate for all products of type {_selectedProduct.TypeName} has been updated to {vatRate}%";
                 }
                 else
                 {

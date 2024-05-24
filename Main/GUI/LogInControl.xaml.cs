@@ -19,6 +19,8 @@ namespace Main
             InitializeComponent();
         }
 
+
+
         /// <summary>
         /// Main function which controls whole login operation (including validation).
         /// </summary>
@@ -213,6 +215,13 @@ namespace Main
             }
         }
 
+        private void Grid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ButtonLogIn_Click(sender, e);
+            }
+        }
     }
 
 

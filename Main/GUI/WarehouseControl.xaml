@@ -52,7 +52,19 @@
                 <DataGridTemplateColumn Width="Auto" Header="VAT Rate">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Rate}"/>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <!-- Jeśli wartość Rate jest null, wyświetl "exempt", w przeciwnym razie wyświetl rzeczywistą wartość Rate -->
+                                        <Setter Property="Text" Value="{Binding Rate}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Rate}" Value="{x:Null}">
+                                                <Setter Property="Text" Value="exempt"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -247,6 +259,22 @@
             <StackPanel Margin="290,306,10,588">
                 <Label Content="VAT (%):" FontSize="14" Height="28"/>
                 <ComboBox x:Name="ComboBoxProductVat" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="{Binding Rate}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Rate}" Value="{x:Null}">
+                                                <Setter Property="Text" Value="exempt" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
 
@@ -314,7 +342,7 @@
 
             <StackPanel Margin="290,138,8,744">
                 <Label Content="Delivery Date:"  FontSize="14" Height="28"/>
-                <DatePicker x:Name="DatePickerDeliveryDate" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
+                <DatePicker x:Name="DatePickerDeliveryDate" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" Loaded="DatePickerDeliveryDate_Loaded"/>
             </StackPanel>
 
             <TextBlock x:Name="UserLoginHolder" Visibility="Collapsed">{x:Null}</TextBlock>
