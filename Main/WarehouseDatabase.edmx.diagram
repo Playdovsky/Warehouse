@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="885a9334e1694fe7bf71f2850b498165" Name="Diagram1" ZoomLevel="152">
+      <Diagram DiagramId="885a9334e1694fe7bf71f2850b498165" Name="Diagram1" ZoomLevel="114">
         <EntityTypeShape EntityType="WarehouseDatabaseModel.UserPermissions" Width="1.5" PointX="3" PointY="4.125" />
         <EntityTypeShape EntityType="WarehouseDatabaseModel.Permissions" Width="1.5" PointX="0.75" PointY="6.375" />
         <AssociationConnector Association="WarehouseDatabaseModel.FK__UserPermi__Permi__412EB0B6" />
@@ -32,6 +32,7 @@
         <EntityTypeShape EntityType="WarehouseDatabaseModel.ProductTypeVATChange" Width="1.5" PointX="10" PointY="6.625" />
         <AssociationConnector Association="WarehouseDatabaseModel.FK__ProductTy__Produ__1332DBDC" />
         <AssociationConnector Association="WarehouseDatabaseModel.FK__ProductTy__VatId__14270015" />
+        <EntityTypeShape EntityType="WarehouseDatabaseModel.ProductStock" Width="1.5" PointX="10.375" PointY="9.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

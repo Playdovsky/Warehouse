@@ -203,6 +203,9 @@
     <Compile Include="ProductsHistoryExtended.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductStock.cs">
+      <DependentUpon>WarehouseDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProductType.cs">
       <DependentUpon>WarehouseDatabase.tt</DependentUpon>
     </Compile>

@@ -21,6 +21,7 @@ namespace Main
         public static List<ProductVAT> ProductVAT { get; set; }
         public static List<ProductType> ProductType { get; set; }
         public static List<ProductsHistory> ProductsHistory { get; set; }
+        public static List<ProductStock> ProductStock { get; set; }
 
         /// <summary>
         /// Users list and permissions initialization.
@@ -69,6 +70,17 @@ namespace Main
         }
 
         /// <summary>
+        /// Product stock initialization.
+        /// </summary>
+        public static void ProductStockInitialization()
+        {
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                ProductStock = context.ProductStock.ToList();
+            }
+        }
+
+        /// <summary>
         /// Real Time user list update also known as 'refresh'.
         /// </summary>
         public static void LoadUsers()
@@ -104,6 +116,19 @@ namespace Main
             using (var context = new WarehouseDatabaseEntities())
             {
                 Products = context.Products.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Real Time product stock update also known as 'refresh'.
+        /// </summary>
+        public static void LoadProductStock()
+        {
+            ProductStock.Clear();
+
+            using (var context = new WarehouseDatabaseEntities())
+            {
+                ProductStock = context.ProductStock.ToList();
             }
         }
 

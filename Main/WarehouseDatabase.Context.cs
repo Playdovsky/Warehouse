@@ -42,6 +42,7 @@ namespace Main
         public virtual DbSet<ProductsHistoryExtended> ProductsHistoryExtended { get; set; }
         public virtual DbSet<ProductVATChange> ProductVATChange { get; set; }
         public virtual DbSet<ProductTypeVATChange> ProductTypeVATChange { get; set; }
+        public virtual DbSet<ProductStock> ProductStock { get; set; }
     
         public virtual int AddUserPasswordHistory(Nullable<System.Guid> userId, string password, Nullable<System.DateTime> changeDate)
         {

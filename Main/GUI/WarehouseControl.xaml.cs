@@ -27,6 +27,7 @@ namespace Main
             Service.WarehouseDataInitialization();
             Service.ProductDataInitialization();
             Service.ProductHistoryInitialization();
+            Service.ProductStockInitialization();
             LoadProducts();
 
             ComboBoxProductType.ItemsSource = Service.ProductType;
@@ -35,6 +36,7 @@ namespace Main
             LoadProductVAT();
 
             DataGridWarehouse.ItemsSource = Service.Warehouse;
+            DataGridProductStock.ItemsSource = Service.ProductStock;
         }
 
         private void LoadProductVAT()
@@ -70,6 +72,7 @@ namespace Main
                 {
                     originalDataGridWidth = DataGridWarehouse.ActualWidth;
                     reducedDataGridWidth = originalDataGridWidth - (originalDataGridWidth / 3.0);
+                    DataGridProductStock.Visibility = Visibility.Hidden;
                 }
 
                 if (DataGridWarehouse.ActualWidth <= reducedDataGridWidth)
@@ -82,6 +85,7 @@ namespace Main
                     };
 
                     GridProductInfo.BeginAnimation(WidthProperty, slideInAnimation);
+
                     GridProductInfo.Visibility = Visibility.Visible;
                 }
                 else if (!dataGridReduced && DataGridWarehouse.ActualWidth > reducedDataGridWidth)
@@ -102,8 +106,10 @@ namespace Main
                             Duration = TimeSpan.FromSeconds(0.5)
                         };
                         GridProductInfo.Visibility = Visibility.Visible;
+                        DataGridProductStock.Visibility= Visibility.Visible;
 
                         GridProductInfo.BeginAnimation(WidthProperty, slideInAnimation);
+                        DataGridProductStock.BeginAnimation(WidthProperty, slideInAnimation);
                     };
 
                     DataGridWarehouse.BeginAnimation(WidthProperty, reduceWidthAnimation);
@@ -119,6 +125,7 @@ namespace Main
             {
                 originalDataGridWidth = DataGridWarehouse.ActualWidth;
                 reducedDataGridWidth = originalDataGridWidth - (originalDataGridWidth / 3.0);
+                DataGridProductStock.Visibility = Visibility.Hidden;
             }
 
             if (DataGridWarehouse.ActualWidth <= reducedDataGridWidth)
@@ -131,6 +138,7 @@ namespace Main
                 };
 
                 GridNewDelivery.BeginAnimation(WidthProperty, slideInAnimation);
+
                 GridNewDelivery.Visibility = Visibility.Visible;
             }
             else if (!dataGridReduced && DataGridWarehouse.ActualWidth > reducedDataGridWidth)
@@ -167,6 +175,7 @@ namespace Main
             {
                 originalDataGridWidth = DataGridWarehouse.ActualWidth;
                 reducedDataGridWidth = originalDataGridWidth - (originalDataGridWidth / 3.0);
+                DataGridProductStock.Visibility = Visibility.Hidden;
             }
 
             if (DataGridWarehouse.ActualWidth <= reducedDataGridWidth)
@@ -179,6 +188,7 @@ namespace Main
                 };
 
                 GridNewProduct.BeginAnimation(WidthProperty, slideInAnimation);
+
                 GridNewProduct.Visibility = Visibility.Visible;
             }
             else if (!dataGridReduced && DataGridWarehouse.ActualWidth > reducedDataGridWidth)
@@ -199,8 +209,10 @@ namespace Main
                         Duration = TimeSpan.FromSeconds(0.5)
                     };
                     GridNewProduct.Visibility = Visibility.Visible;
+                    DataGridProductStock.Visibility = Visibility.Visible;
 
                     GridNewProduct.BeginAnimation(WidthProperty, slideInAnimation);
+                    DataGridProductStock.BeginAnimation(WidthProperty, slideInAnimation);
                 };
 
                 DataGridWarehouse.BeginAnimation(WidthProperty, reduceWidthAnimation);
@@ -279,9 +291,13 @@ namespace Main
         private void LoadProducts()
         {
             Service.LoadProducts();
+            var sortedProducts = Service.Products.OrderBy(p => p.Name).ToList();
             ComboBoxProducts.ItemsSource = null;
-            ComboBoxProducts.ItemsSource = Service.Products;
+            ComboBoxProducts.ItemsSource = sortedProducts;
             ComboBoxProducts.DisplayMemberPath = "Name";
+            Service.LoadProductStock();
+            DataGridProductStock.ItemsSource = null;
+            DataGridProductStock.ItemsSource = Service.ProductStock;
         }
 
         private void ClearFields()
@@ -366,6 +382,9 @@ namespace Main
             Service.LoadWarehouse();
             DataGridWarehouse.ItemsSource = null;
             DataGridWarehouse.ItemsSource = Service.Warehouse;
+            Service.LoadProductStock();
+            DataGridProductStock.ItemsSource = null;
+            DataGridProductStock.ItemsSource = Service.ProductStock;
         }
 
         private void TextBoxFilterProducts_TextChanged(object sender, TextChangedEventArgs e)

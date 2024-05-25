@@ -156,6 +156,16 @@ warning 6002: The table/view 'Warehouse.dbo.ProductsHistoryExtended' does not ha
           <Property Name="UserName" Type="varchar" MaxLength="101" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Warehouse.dbo.ProductStock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductStock">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeName" Type="varchar" MaxLength="30" />
+          <Property Name="TotalQuantity" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Warehouse.dbo.UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserView">
           <Key>
@@ -398,6 +408,13 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
     [ProductsHistoryExtended].[UserName] AS [UserName]
     FROM [dbo].[ProductsHistoryExtended] AS [ProductsHistoryExtended]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ProductStock" EntityType="Self.ProductStock" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductStock].[Name] AS [Name], 
+    [ProductStock].[TypeName] AS [TypeName], 
+    [ProductStock].[TotalQuantity] AS [TotalQuantity]
+    FROM [dbo].[ProductStock] AS [ProductStock]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="UserView" EntityType="Self.UserView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [UserView].[Id] AS [Id], 
@@ -563,6 +580,7 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
             <End Role="ProductVAT" EntitySet="ProductVAT" />
             <End Role="ProductTypeVATChange" EntitySet="ProductTypeVATChange" />
           </AssociationSet>
+          <EntitySet Name="ProductStock" EntityType="WarehouseDatabaseModel.ProductStock" />
         </EntityContainer>
         <EntityType Name="UserPermissions">
           <Key>
@@ -919,6 +937,14 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProductStock">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalQuantity" Type="Int32" />
+          <Property Name="TypeName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1109,6 +1135,15 @@ warning 6002: The table/view 'Warehouse.dbo.WarehouseView' does not have a prima
                 <ScalarProperty Name="VatId" ColumnName="VatId" />
                 <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStock">
+            <EntityTypeMapping TypeName="WarehouseDatabaseModel.ProductStock">
+              <MappingFragment StoreEntitySet="ProductStock">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

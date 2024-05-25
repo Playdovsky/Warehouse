@@ -52,19 +52,7 @@
                 <DataGridTemplateColumn Width="Auto" Header="VAT Rate">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock>
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <!-- Jeśli wartość Rate jest null, wyświetl "exempt", w przeciwnym razie wyświetl rzeczywistą wartość Rate -->
-                                        <Setter Property="Text" Value="{Binding Rate}"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Rate}" Value="{x:Null}">
-                                                <Setter Property="Text" Value="exempt"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <TextBlock Text="{Binding Rate}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -218,11 +206,11 @@
                 </TextBox>
             </StackPanel>
         </Grid>
-        <Grid x:Name="GridNewProduct" Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,57,0,0" Grid.RowSpan="2" Width="550" Height="970" >
-            <GroupBox Header="New Product" FontSize="14" Margin="0,0,2,465"></GroupBox>
-            <StackPanel Margin="10,32,240,868" Height="70">
-                <Label Content="Name :" Width="299" FontSize="14" Height="28"/>
-                <TextBox x:Name="TextBoxProductName" Height="33" Width="299" FontSize="18"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
+        <Grid x:Name="GridNewProduct" Visibility="Visible" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,57,0,0" Grid.RowSpan="2" Width="550" Height="633" >
+            <GroupBox Header="New Product" FontSize="14" Margin="0,0,2,95"></GroupBox>
+            <StackPanel Margin="10,38,290,525" Height="70">
+                <Label Content="Name :" FontSize="14" Height="28"/>
+                <TextBox x:Name="TextBoxProductName" Height="33" FontSize="18"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
                     <TextBox.Template>
                         <ControlTemplate TargetType="TextBox">
                             <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
@@ -233,20 +221,20 @@
                 </TextBox>
             </StackPanel>
 
-            <StackPanel Margin="290,400,10,500" Height="70">
+            <StackPanel Margin="289,422,11,141" Height="70">
                 <Label Content="Type:" FontSize="14" Height="28"/>
                 <ComboBox x:Name="ComboBoxProductType" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0">
                 </ComboBox>
             </StackPanel>
 
-            <StackPanel Margin="10,120,10,670" Height="180">
+            <StackPanel Margin="10,130,10,0" Height="180" VerticalAlignment="Top">
                 <Label Content="Description:" FontSize="14" Height="28"/>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Height="150">
                     <TextBox x:Name="TextBoxProductDescription" FontSize="18"  Height="135" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextWrapping="Wrap" Margin="0,10,0,0"  Padding="5"/>
                 </ScrollViewer>
             </StackPanel>
 
-            <StackPanel Margin="10,306,290,588">
+            <StackPanel Margin="10,326,290,227" Height="80">
                 <Label Content="Measure:" FontSize="14" Height="28"/>
                 <ComboBox x:Name="ComboBoxProductMeasure" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
                     <ComboBoxItem Content="Piece" Tag="pcs" />
@@ -256,29 +244,13 @@
                 </ComboBox>
             </StackPanel>
 
-            <StackPanel Margin="290,306,10,588">
+            <StackPanel Margin="289,326,11,227" Height="80">
                 <Label Content="VAT (%):" FontSize="14" Height="28"/>
                 <ComboBox x:Name="ComboBoxProductVat" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock>
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Text" Value="{Binding Rate}" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Rate}" Value="{x:Null}">
-                                                <Setter Property="Text" Value="exempt" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
 
-            <StackPanel Margin="10,400,290,480">
+            <StackPanel Margin="9,422,291,121" Height="90">
                 <Label Content="Price Per Unit (USD) :" FontSize="14" Height="28"/>
                 <TextBox x:Name="TextBoxPricePerUnit" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
                     <TextBox.Template>
@@ -292,7 +264,7 @@
                 <Label  x:Name="PricePerUnitTip" Content="Price should be in the format (e.g., 10.00 or 0)"  Foreground="blue" FontSize="12" Height="24" HorizontalAlignment="Center" Margin="0,-3,0,0"/>
             </StackPanel>
 
-            <Button x:Name="ButtonAddNewProduct" Content="Add new Product" Margin="10,537,10,383" Height="50" Foreground="White" FontSize="28" Background="DeepSkyBlue" Click="ButtonAddNewProduct_Click">
+            <Button x:Name="ButtonAddNewProduct" Content="Add new Product" Margin="9,560,11,23" Height="50" Foreground="White" FontSize="28" Background="DeepSkyBlue" Click="ButtonAddNewProduct_Click">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
@@ -307,14 +279,14 @@
                 </Button.Template>
             </Button>
         </Grid>
-        <Grid x:Name="GridNewDelivery" Visibility="Visible" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,57,0,0" Grid.RowSpan="2" Width="550" Height="970" >
-            <GroupBox Header="New Delivery" FontSize="14" Margin="0,0,2,714"></GroupBox>
-            <StackPanel Margin="12,40,288,860" Height="70">
+        <Grid x:Name="GridNewDelivery" Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,57,0,0" Grid.RowSpan="2" Width="550" Height="375" >
+            <GroupBox Header="New Delivery" FontSize="14" Margin="0,0,2,117"></GroupBox>
+            <StackPanel Margin="8,42,292,263" Height="70">
                 <Label Content="Product:" FontSize="14" Height="28"/>
                 <ComboBox x:Name="ComboBoxProducts" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
             </StackPanel>
 
-            <StackPanel Margin="292,40,8,860" Height="70">
+            <StackPanel Margin="288,42,12,263" Height="70">
                 <Label Content="Quantity:" FontSize="14" Height="28"/>
                 <TextBox x:Name="TextBoxQuantity" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
                     <TextBox.Template>
@@ -327,7 +299,7 @@
                 </TextBox>
             </StackPanel>
 
-            <StackPanel Margin="12,140,288,760" Height="70">
+            <StackPanel Margin="8,142,292,163" Height="70">
                 <Label Content="Supplier company:" FontSize="14" Height="28"/>
                 <TextBox x:Name="TextBoxSupplierCompany" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
                     <TextBox.Template>
@@ -340,14 +312,14 @@
                 </TextBox>
             </StackPanel>
 
-            <StackPanel Margin="290,138,8,744">
+            <StackPanel Margin="288,142,10,153" Height="80">
                 <Label Content="Delivery Date:"  FontSize="14" Height="28"/>
-                <DatePicker x:Name="DatePickerDeliveryDate" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" Loaded="DatePickerDeliveryDate_Loaded"/>
+                <DatePicker x:Name="DatePickerDeliveryDate" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0"/>
             </StackPanel>
 
             <TextBlock x:Name="UserLoginHolder" Visibility="Collapsed">{x:Null}</TextBlock>
 
-            <Button x:Name="ButtonRegisterDelivery" Content="Register Delivery" Margin="10,284,10,636" Height="50" Foreground="White" FontSize="28" Click="ButtonRegisterDelivery_Click">
+            <Button x:Name="ButtonRegisterDelivery" Content="Register Delivery" Margin="10,284,10,36" Height="50" Foreground="White" FontSize="28" Click="ButtonRegisterDelivery_Click">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
@@ -409,5 +381,30 @@
                 </ControlTemplate>
             </TextBox.Template>
         </TextBox>
+        <DataGrid x:Name="DataGridProductStock" Visibility="Hidden" Grid.Row="1" ItemsSource="{Binding ProductStock.View}" AutoGenerateColumns="False" HorizontalAlignment="Right" Margin="251,710,5,20" Width="545" Background="LightCyan" BorderThickness="5" BorderBrush="DeepSkyBlue" RowHeight="30" IsReadOnly="True" FontSize="14">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Product Name" Binding="{Binding Name}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Type Name" Binding="{Binding TypeName}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Total Quantity" Binding="{Binding TotalQuantity}" >
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
