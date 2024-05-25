@@ -62,7 +62,15 @@ namespace Main
                 TextBoxProductHistoryMeasure.Text = selectedRow.Measure;
                 TextBoxProductHistoryPrice.Text = selectedRow.PricePerUnit.ToString() + " USD";
                 TextBoxProductHistoryRate.Text = selectedRow.Rate.ToString() + " %";
-                TextBoxProductHistoryTotalQuantity.Text = selectedRow.TotalQuantity.ToString();
+                ProductStock selectedProduct = Service.ProductStock.FirstOrDefault(p => p.Name == selectedRow.Name);
+                if (selectedProduct != null)
+                {
+                    TextBoxProductHistoryTotalQuantity.Text = selectedProduct.TotalQuantity.ToString();
+                }
+                else
+                {
+                    TextBoxProductHistoryTotalQuantity.Text = "0";
+                }
                 TextBoxProductHistoryDeliveryQuantity.Text = selectedRow.Quantity.ToString();
                 TextBoxProductHistoryRegisteringPerson.Text = selectedRow.RegisteringPerson;
                 TextBoxProductHistorySupplier.Text = selectedRow.Supplier;

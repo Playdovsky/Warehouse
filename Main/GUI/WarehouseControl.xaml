@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="DataGridWarehouse" Grid.Row="1" ItemsSource="{Binding WarehouseView.View}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,70,0,20" Background="LightCyan" BorderThickness="5" BorderBrush="DeepSkyBlue" RowHeight="30" IsReadOnly="True" FontSize="14" MouseDoubleClick="DataGridWarehouse_MouseDoubleClick" MouseRightButtonDown="DataGridWarehouse_MouseRightButtonDown">
+        <DataGrid x:Name="DataGridWarehouse" Grid.Row="1" ItemsSource="{Binding WarehouseView.View}" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="0,70,0,20" Background="LightCyan" BorderThickness="5" BorderBrush="DeepSkyBlue" RowHeight="30" IsReadOnly="True" FontSize="18" MouseDoubleClick="DataGridWarehouse_MouseDoubleClick" MouseRightButtonDown="DataGridWarehouse_MouseRightButtonDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Product Name" Binding="{Binding Name}" >
                     <DataGridTextColumn.HeaderStyle>
@@ -28,13 +28,6 @@
                         </Style>
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="Description" Binding="{Binding Description}" >
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
                 <DataGridTemplateColumn Width="Auto" Header="Measure">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -42,7 +35,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Width="*" Header="Price Per Unit" Binding="{Binding PricePerUnit}" >
+                <DataGridTextColumn Width="*" Header="Netto Price Per Unit (USD)" Binding="{Binding PricePerUnit}" >
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -56,21 +49,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Width="*" Header="Total Quantity" Binding="{Binding TotalQuantity}" >
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Delivery Quantity" Binding="{Binding Quantity}" >
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="Supplier" Binding="{Binding Supplier}" >
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -128,7 +107,7 @@
             </StackPanel>
 
             <StackPanel Margin="290,332,10,568" Height="70">
-                <Label Content="Price Per Unit:" Width="250" FontSize="14" Height="28"/>
+                <Label Content="Netto Price Per Unit:" Width="250" FontSize="14" Height="28"/>
                 <TextBox x:Name="TextBoxProductHistoryPrice"  IsEnabled="False" Height="28" Width="250" FontSize="14"  Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
                     <TextBox.Template>
                         <ControlTemplate TargetType="TextBox">
@@ -267,7 +246,7 @@
             </StackPanel>
 
             <StackPanel Margin="9,422,291,121" Height="90">
-                <Label Content="Price Per Unit (USD) :" FontSize="14" Height="28"/>
+                <Label Content="Netto Price Per Unit (USD) :" FontSize="14" Height="28"/>
                 <TextBox x:Name="TextBoxPricePerUnit" Height="33" FontSize="18" Margin="0,10,0,0" VerticalContentAlignment="Center" Padding="5,0,0,0" >
                     <TextBox.Template>
                         <ControlTemplate TargetType="TextBox">
