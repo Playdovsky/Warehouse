@@ -686,7 +686,15 @@ namespace Main
                 return true;
             }
         }
-
+        /// <summary>
+        /// Checks if a product with the specified name already exists.
+        /// </summary>
+        /// <param name="name">The name of the product to check.</param>
+        /// <returns>True if the product exists, otherwise false.</returns>
+        public static bool IsProductExists(string name)
+        {
+            return Products.Any(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
         /// <summary>
         /// Adds product to database (most of this function is inside of WarehouseControl.xaml
         /// </summary>

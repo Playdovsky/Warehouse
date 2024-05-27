@@ -236,6 +236,10 @@ namespace Main
                 {
                     throw new FormatException("Please enter product name.");
                 }
+                if (Service.IsProductExists(TextBoxProductName.Text))
+                {
+                    throw new FormatException("A product with this name already exists. Please enter a different name.");
+                }
                 if (ComboBoxProductMeasure.SelectedIndex == -1)
                 {
                     throw new FormatException("Please select product measure.");
