@@ -24,5 +24,20 @@ namespace Main
         public int Quantity { get; set; }
         public string RegisteringPerson { get; set; }
         public string Supplier { get; set; }
+        public decimal BruttoPrice
+        {
+            get
+            {
+                if (Rate.HasValue && Rate.Value != 0)
+                {
+                    decimal bruttoPrice = PricePerUnit * (1 + (decimal)Rate.Value / 100M);
+                    return Math.Round(bruttoPrice, 2);
+                }
+                else
+                {
+                    return Math.Round(PricePerUnit, 2);
+                }
+            }
+        }
     }
 }

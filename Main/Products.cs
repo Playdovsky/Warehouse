@@ -36,5 +36,20 @@ namespace Main
         public virtual ProductVAT ProductVAT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductVATChange> ProductVATChange { get; set; }
+        public decimal PriceBrutto
+        {
+            get
+            {
+                if (ProductVAT != null && ProductVAT.Rate != null)
+                {
+                    return PricePerUnit * (1 + (ProductVAT.Rate ?? 0) / 100);
+                }
+                else
+                {
+                    return PricePerUnit;
+                }
+            }
+        }
+
     }
 }
