@@ -343,6 +343,10 @@ namespace Main
                 {
                     throw new FormatException("Incorrect format for the quantity of the ordered product. Quantity must be an integer");
                 }
+                if (quantity <= 0)
+                {
+                    throw new FormatException("Quantity must be a positive integer.");
+                }
                 if (string.IsNullOrEmpty(TextBoxSupplierCompany.Text))
                 {
                     throw new FormatException("Please enter the supplier's company name.");
