@@ -460,7 +460,7 @@ namespace Main
             }
         }
 
-        private void DatePickerDeliveryDate_Loaded(object sender, RoutedEventArgs e)
+        private void DatePickerDeliveryDate_Loaded_1(object sender, RoutedEventArgs e)
         {
             DateTime today = DateTime.Today;
             DatePickerDeliveryDate.BlackoutDates.Add(new CalendarDateRange(today.AddDays(1), DateTime.MaxValue));
