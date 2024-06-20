@@ -4,12 +4,12 @@
 **Agile methodology**<br>
 
 ## Roles:<br>
-* **Analyst** - Wiktor Peczka (Peczaa)
-* **Developer** - Mateusz Pałka (Playdovsky)
-* **Developer** - Maryia Shyliankova (CodeRookie0)
-* **Developer** - Dawid Kunicki (DawKun)
-* **Developer** - Piotr Smyczek (PioSm)
-* **Tester** - Karol Fontański (WilliamRacing)
+* **Analyst** - @Peczaa
+* **Developer** - @Playdovsky
+* **Developer** - @CodeRookie0
+* **Developer** - @DawKun
+* **Developer** - @PioSm
+* **Tester** - @WilliamRacing
 
 ## Additional info:<br>
 Main goal of the "Warehouse Project" is to expand knowledge in the field of software engineering and testing.<br>
